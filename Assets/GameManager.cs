@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour {
 	bool swatterReady = false;
 	int swatter = 0;
 	int character = 0;
-	Bug bug;
-	Hand hand;
+	GameObject bug;
+	GameObject hand;
 	enum StateType{
 		MainMenu,
 		SelectingCharacter,
@@ -82,8 +82,8 @@ public class GameManager : MonoBehaviour {
 				}
 			break;
 			case StateType.GameOver:
-				if(Input.anyKey && !Input.GetKey(KeyCode.Escape)){
-					Destroy(bug);
+				if(Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape)){
+					Destroy (bug);
 					Destroy (hand);
 					StartGame();
 				}
@@ -120,8 +120,8 @@ public class GameManager : MonoBehaviour {
 	}
 	void StartGame(){
 		state = StateType.InGame;
-		bug = Instantiate(characters[character]) as Bug;
-		hand = Instantiate(swatters[swatter]) as Hand;
+		bug = Instantiate(characters[character]) as GameObject;
+		hand = Instantiate(swatters[swatter]) as GameObject;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 	}

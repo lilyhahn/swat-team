@@ -79,6 +79,11 @@ public class Bug : MonoBehaviour {
 		GetComponent<Animator>().SetTrigger("dead");
 		GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Human);
 	}
+	public void Reset(){
+		dead = false;
+		GetComponent<Animator> ().SetTrigger ("Reset");
+
+	}
 	virtual protected void Special(){
 		
 	}

@@ -1,0 +1,49 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class Hand : MonoBehaviour {
+	public AudioClip squish;
+	public AudioClip miss;
+	public float stuckTime = 4f;
+	protected Animator anim;
+	protected bool stuck = false;
+	protected void Start(){
+		Screen.showCursor = false;
+		anim = GetComponent<Animator>();
+	}
+	
+	// Update is called once per frame
+	protected virtual void Update () {
+		anim.SetBool("stuck", stuck);
+		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
+			anim.SetFloat("swatTime", anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+		}
+		Vector3 mousePosition = Input.mousePosition;
+		mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+		if(!anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && !stuck)
+			transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
+		if(Input.GetButtonDown("Fire1")){
+			Swat ();
+		}
+	}
+	protected void OnTriggerStay2D(Collider2D c){
+		if(c.gameObject.tag == "bug" && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
+			GetComponent<AudioSource>().clip = squish;
+			c.GetComponent<Bug>().Kill();
+		}
+		if(Input.GetButtonDown("Fire1")){
+			if(c.gameObject.tag == "web"){
+				Debug.Log(c);
+				StartCoroutine(GetStuck());
+			}
+		}
+	}
+	protected IEnumerator GetStuck(){
+		stuck = true;
+		yield return new WaitForSeconds(stuckTime);
+		stuck = false;
+	}
+	protected virtual void Swat(){
+		anim.SetTrigger("swat");
+	}
+}

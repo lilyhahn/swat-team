@@ -3,17 +3,32 @@ using System.Collections;
 
 public class Gnat : MonoBehaviour {
 	Vector3 target;
-	SpriteRenderer screen;
+	public float moveBounds;
+	public float moveForce;
+	public Sprite deadSprite;
+	bool dead = false;
 	void Start(){
-		screen = GameObject.Find("level1").transform.Find ("screen").GetComponent<SpriteRenderer>();
-		target = Random.insideUnitCircle * screen.bounds.extents.x;
+		Move ();
 	}
 	void Update () {
-		Vector3 dir = target - transform.position;
-		float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
-		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-		if(Vector3.Distance(transform.position, target) > .5f){
-			rigidbody2D.velocity = transform.forward * 5f;
+		if(!dead){
+			Vector3 dir = target - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+			rigidbody2D.AddForce((target - transform.position) * moveForce);
+			if(Vector3.Distance(transform.position, target) < .5f){
+				rigidbody2D.velocity = new Vector2(0, 0);
+				Move();
+			}
 		}
+	}
+	void Move(){
+		target = Random.insideUnitCircle * moveBounds;
+	}
+	public void Kill(){
+		GetComponent<SpriteRenderer>().sprite = deadSprite;
+		dead = true;
+		rigidbody2D.velocity = new Vector2(0, 0);
+		tag = "dead";
 	}
 }

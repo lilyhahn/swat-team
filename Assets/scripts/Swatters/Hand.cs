@@ -23,13 +23,27 @@ public class Hand : MonoBehaviour {
 		if(!anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && !stuck)
 			transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
 		if(Input.GetButtonDown("Fire1")){
+			audio.clip = miss;
+			audio.Play();
 			Swat ();
 		}
 	}
+	protected void OnTriggerEnter2D(Collider2D c){
+		if(c.gameObject.tag == "web"){
+			StartCoroutine(GetStuck());
+		}
+	}
 	protected void OnTriggerStay2D(Collider2D c){
-		if(c.gameObject.tag == "bug" && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
-			GetComponent<AudioSource>().clip = squish;
-			c.GetComponent<Bug>().Kill();
+		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
+			if(c.gameObject.tag == "bug"){
+				GetComponent<AudioSource>().clip = squish;
+				c.GetComponent<Bug>().Kill();
+			}
+			if(c.gameObject.tag == "gnat"){
+				GetComponent<AudioSource>().clip = squish;
+				c.GetComponent<Gnat>().Kill();
+			}
+			audio.Play();
 		}
 		if(Input.GetButtonDown("Fire1")){
 			if(c.gameObject.tag == "web"){

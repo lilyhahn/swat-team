@@ -4,12 +4,14 @@ using System.Collections;
 public class Ladybug : Bug {
 	public float rollSpeedMultiplier = 3f;
 	protected override void Special(){
+		base.Special();
+		GetComponent<Animator>().SetTrigger("special");
 		StartCoroutine(Roll ());
 	}
 	IEnumerator Roll(){
 		float maxSpeedOld = maxSpeed;
 		maxSpeed = Mathf.Infinity;
-		rigidbody2D.AddForce(transform.up * moveSpeed * rollSpeedMultiplier);
+		rigidbody2D.AddForce(transform.up * moveSpeed * rollSpeedMultiplier * GetComponent<Animator>().GetInteger("direction"));
 		yield return new WaitForSeconds(0.25f);
 		maxSpeed = maxSpeedOld;
 		/*Vector3 target = transform.up * rollDistance + transform.position;

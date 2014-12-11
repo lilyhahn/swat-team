@@ -7,6 +7,8 @@ public enum WinnerType{
 }
 
 public class GameManager : MonoBehaviour {
+	public float preMenuTime = 3f;
+	public GameObject preMenuText;
 	public Vector3 characterSelectCamera;
 	public float characterSelectCameraZoom;
 	public GameObject characterSelectText;
@@ -15,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject stageSelectText;
 	public Vector3 inGameCamera;
 	public float inGameCameraZoom;
+	public AudioClip inGameMusic;
+	public GameObject gameOverText;
 	public GameObject[] characters;
 	public GameObject[] characterProfiles;
 	public Sprite[] finalCharacterProfiles;
@@ -23,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	public Sprite[] finalSwatterProfiles;
 	public AudioClip humanWinJingle;
 	public AudioClip bugWinJingle;
+	public GameObject gnatSpawner;
 	bool bugReady = false;
 	bool swatterReady = false;
 	int swatter = 0;
@@ -30,6 +35,7 @@ public class GameManager : MonoBehaviour {
 	GameObject bug;
 	GameObject hand;
 	enum StateType{
+		PreMenu,
 		MainMenu,
 		SelectingCharacter,
 		SelectingStage,
@@ -37,7 +43,10 @@ public class GameManager : MonoBehaviour {
 		GameOver,
 		Credits
 	}
-	StateType state = StateType.MainMenu;
+	StateType state = StateType.PreMenu;
+	void Start(){
+		StartCoroutine(PreMenuTransistion());
+	}
 	void Update(){
 		switch(state){
 			case StateType.SelectingCharacter:
@@ -83,9 +92,15 @@ public class GameManager : MonoBehaviour {
 			break;
 			case StateType.GameOver:
 				if(Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape)){
+					gameOverText.SetActive(false);
 					Destroy (bug);
 					Destroy (hand);
+					gameOverText.transform.Find("human").gameObject.SetActive(false);
+					gameOverText.transform.Find("bug").gameObject.SetActive(false);
 					StartGame();
+				}
+				if(Input.GetKeyDown (KeyCode.Escape)){
+					Application.LoadLevel(0);
 				}
 			break;
 		}
@@ -119,20 +134,32 @@ public class GameManager : MonoBehaviour {
 		Camera.main.orthographicSize = val;
 	}
 	void StartGame(){
+		audio.clip = inGameMusic;
+		audio.Play();
 		state = StateType.InGame;
+		gnatSpawner.SetActive(true);
 		bug = Instantiate(characters[character]) as GameObject;
 		hand = Instantiate(swatters[swatter]) as GameObject;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 	}
 	public void EndGame(WinnerType winner){
+		gameOverText.SetActive(true);
 		state = StateType.GameOver;
 		if(winner == WinnerType.Human){
+			gameOverText.transform.Find("human").gameObject.SetActive(true);
 			audio.clip = humanWinJingle;
 		}
 		else if(winner == WinnerType.Bug){
+			gameOverText.transform.Find("bug").gameObject.SetActive(true);
 			audio.clip = bugWinJingle;
 		}
 		audio.Play ();
+	}
+	IEnumerator PreMenuTransistion(){
+		yield return new WaitForSeconds(preMenuTime);
+		Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
+		preMenuText.SetActive(false);
+		state = StateType.MainMenu;
 	}
 }

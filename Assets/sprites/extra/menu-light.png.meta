@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: 8b697795716b9b544b8df3f3912edbd6
+guid: e70f0dd9194fe4e9dabff3c7da0d516b
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: menu-light_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -31,17 +32,27 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 230, y: 233, z: 14, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: menu-light_0
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 235
+        width: 12
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

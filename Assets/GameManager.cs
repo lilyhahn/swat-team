@@ -76,11 +76,11 @@ public class GameManager : MonoBehaviour {
 					swatter = swatters.Length - 1;
 				swatterProfiles[swatter].SetActive(true);
 				if(Input.GetKeyDown(KeyCode.Space)){
-					characterProfiles[character].GetComponent<SpriteRenderer>().sprite = finalCharacterProfiles[character];
+					characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = finalCharacterProfiles[character];
 					bugReady = true;
 				}
 				if(Input.GetButtonDown("Fire1")){
-					swatterProfiles[swatter].GetComponent<SpriteRenderer>().sprite = finalSwatterProfiles[swatter];
+					swatterProfiles[swatter].transform.Find ("box").GetComponent<SpriteRenderer>().sprite = finalSwatterProfiles[swatter];
 					swatterReady = true;
 				}
 				if(swatterReady && bugReady){

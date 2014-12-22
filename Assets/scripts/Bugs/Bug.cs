@@ -13,10 +13,12 @@ public class Bug : MonoBehaviour {
 	int score = 0;
 	public int winningScore = 15;
 	public float cooldown = 1f;
+	public float finalCooldown = 0.5f;
 	public float nextFire = 0.0f;
 	
 	// Update is called once per frame
 	virtual protected void Update () {
+		cooldown = Mathf.Lerp(cooldown, finalCooldown, score / winningScore);
 		if(score >= winningScore && inGame){
 			inGame = false;
 			GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Bug);

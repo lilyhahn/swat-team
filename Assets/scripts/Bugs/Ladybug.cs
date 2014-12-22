@@ -3,10 +3,12 @@ using System.Collections;
 
 public class Ladybug : Bug {
 	public float rollSpeedMultiplier = 3f;
-	protected override void Special(){
-		base.Special();
+	protected override bool Special(){
+		if (!base.Special ())
+			return true;
 		GetComponent<Animator>().SetTrigger("special");
 		StartCoroutine(Roll ());
+		return true;
 	}
 	IEnumerator Roll(){
 		float maxSpeedOld = maxSpeed;

@@ -12,6 +12,8 @@ public class Bug : MonoBehaviour {
 	bool inGame = true;
 	int score = 0;
 	public int winningScore = 15;
+	public float cooldown = 1f;
+	public float nextFire = 0.0f;
 	
 	// Update is called once per frame
 	virtual protected void Update () {
@@ -100,9 +102,14 @@ public class Bug : MonoBehaviour {
 		GetComponent<Animator> ().SetTrigger ("Reset");
 
 	}
-	virtual protected void Special(){
+	virtual protected bool Special(){
+		if (Time.time < nextFire) {
+			return false;
+		}
+		nextFire = Time.time + cooldown;
 		audio.clip = specialSound;
 		audio.Play();
+		return true;
 	}
 	void OnTriggerEnter2D(Collider2D c){
 		if(c.tag == "gnat" && !dead){

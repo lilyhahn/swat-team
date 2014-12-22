@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour {
 	public AudioClip humanWinJingle;
 	public AudioClip bugWinJingle;
 	public GameObject gnatSpawner;
+	public float restartDelay = 0.5f;
+	float endTime;
 	bool bugReady = false;
 	bool swatterReady = false;
 	int swatter = 0;
@@ -91,10 +93,14 @@ public class GameManager : MonoBehaviour {
 				}
 			break;
 			case StateType.GameOver:
-				if(Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape)){
+				if(Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape) && Time.time > endTime + restartDelay){
 					gameOverText.SetActive(false);
 					Destroy (bug);
 					Destroy (hand);
+					Destroy(GameObject.FindGameObjectWithTag("web"));
+					foreach(GameObject dead in GameObject.FindGameObjectsWithTag("dead")){
+						Destroy(dead);
+					}
 					gameOverText.transform.Find("human").gameObject.SetActive(false);
 					gameOverText.transform.Find("bug").gameObject.SetActive(false);
 					StartGame();
@@ -144,6 +150,7 @@ public class GameManager : MonoBehaviour {
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 	}
 	public void EndGame(WinnerType winner){
+		endTime = Time.time;
 		gameOverText.SetActive(true);
 		state = StateType.GameOver;
 		if(winner == WinnerType.Human){

@@ -7,6 +7,7 @@ public class Hand : MonoBehaviour {
 	public float stuckTime = 4f;
 	protected Animator anim;
 	protected bool stuck = false;
+	Vector3 lastStuckPosition = Vector3.zero;
 	protected void Start(){
 		Screen.showCursor = false;
 		anim = GetComponent<Animator>();
@@ -14,6 +15,11 @@ public class Hand : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
+		if(stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition){
+			Debug.Log("lastStuckPosition: " + lastStuckPosition);
+			Debug.Log("web position: " + GameObject.FindGameObjectWithTag("web").transform.position);
+			stuck = false;
+		}
 		anim.SetBool("stuck", stuck);
 		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			anim.SetFloat("swatTime", anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
@@ -30,6 +36,7 @@ public class Hand : MonoBehaviour {
 	}
 	protected void OnTriggerEnter2D(Collider2D c){
 		if(c.gameObject.tag == "web"){
+			lastStuckPosition = c.transform.position;
 			StartCoroutine(GetStuck());
 		}
 	}
@@ -47,7 +54,7 @@ public class Hand : MonoBehaviour {
 		}
 		if(Input.GetButtonDown("Fire1")){
 			if(c.gameObject.tag == "web"){
-				Debug.Log(c);
+				lastStuckPosition = c.transform.position;
 				StartCoroutine(GetStuck());
 			}
 		}

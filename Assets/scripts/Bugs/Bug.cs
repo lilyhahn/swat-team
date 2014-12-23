@@ -10,20 +10,26 @@ public class Bug : MonoBehaviour {
 	public AudioClip specialSound;
 	bool dead;
 	bool inGame = true;
-	int score = 0;
-	public int winningScore = 15;
+	float score = 0f;
+	public float winningScore = 15;
 	public float cooldown = 1f;
 	public float finalCooldown = 0.5f;
 	public float nextFire = 0.0f;
 	
+	float origMaxSpeed;
+	float origMoveSpeed;
+	
+	void Start(){
+		origMaxSpeed = maxSpeed;
+		origMoveSpeed = moveSpeed;
+	}
+	
 	// Update is called once per frame
 	virtual protected void Update () {
-		cooldown = Mathf.Lerp(cooldown, finalCooldown, score / winningScore);
 		if(score >= winningScore && inGame){
 			inGame = false;
 			GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Bug);
 		}
-		transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 2f), Time.deltaTime * score / winningScore);
 		if(!dead){
 			if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0){
 				if(Mathf.Abs(rigidbody2D.velocity.x) < maxSpeed)
@@ -113,12 +119,28 @@ public class Bug : MonoBehaviour {
 		audio.Play();
 		return true;
 	}
-	void OnTriggerEnter2D(Collider2D c){
+	protected virtual void OnTriggerEnter2D(Collider2D c){
 		if(c.tag == "gnat" && !dead){
 			audio.clip = gnatEatSound;
 			audio.Play();
 			score++;
+			cooldown = Mathf.Lerp(cooldown, finalCooldown, score / winningScore);
+			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 2f), score / winningScore);
 			Destroy(c.gameObject);
+		}
+	}
+	protected virtual void OnCollisionEnter2D(Collision2D c){
+		if(c.gameObject.tag == "web"){
+			/*Debug.Log("collision");
+			moveSpeed = moveSpeed / 2;
+			maxSpeed = maxSpeed / 2;*/
+			Physics2D.IgnoreCollision(c.gameObject.collider2D, collider2D);
+		}
+	}
+	void OnCollisionExit2D(Collision2D c){
+		if(c.gameObject.tag == "web"){
+			moveSpeed = origMoveSpeed;
+			maxSpeed = origMaxSpeed;
 		}
 	}
 }

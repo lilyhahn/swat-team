@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour {
 	}
 	StateType state = StateType.PreMenu;
 	void Start(){
+		Screen.showCursor = false;
 		StartCoroutine(PreMenuTransistion());
 	}
 	void Update(){

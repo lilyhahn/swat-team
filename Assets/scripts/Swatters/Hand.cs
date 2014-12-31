@@ -8,8 +8,7 @@ public class Hand : MonoBehaviour {
 	protected Animator anim;
 	protected bool stuck = false;
 	Vector3 lastStuckPosition = Vector3.zero;
-	protected void Start(){
-		Screen.showCursor = false;
+	protected virtual void Start(){
 		anim = GetComponent<Animator>();
 	}
 	

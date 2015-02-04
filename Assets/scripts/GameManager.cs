@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 	public Vector3 inGameCamera;
 	public float inGameCameraZoom;
 	public AudioClip inGameMusic;
+	float inGameMusicTime = 0;
 	public GameObject gameOverText;
 	public GameObject[] characters;
 	public GameObject[] characterProfiles;
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour {
 	}
 	void StartGame(){
 		audio.clip = inGameMusic;
+		audio.time = inGameMusicTime;
 		audio.Play();
 		state = StateType.InGame;
 		gnatSpawner.SetActive(true);
@@ -151,6 +153,7 @@ public class GameManager : MonoBehaviour {
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 	}
 	public void EndGame(WinnerType winner){
+		inGameMusicTime = audio.time;
 		endTime = Time.time;
 		gameOverText.SetActive(true);
 		state = StateType.GameOver;

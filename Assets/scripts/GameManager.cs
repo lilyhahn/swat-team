@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour {
 	int character = 0;
 	GameObject bug;
 	GameObject hand;
+	int stage = 1;
+	public GameObject stageWinText;
+	int bugScore = 0;
+	int swatterScore = 0;
 	enum StateType{
 		PreMenu,
 		MainMenu,
@@ -52,6 +56,9 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(PreMenuTransistion());
 	}
 	void Update(){
+		Debug.Log("Bug score: " + bugScore);
+		Debug.Log("Swatter Score: " + swatterScore);
+		Debug.Log("Stage: " + swatterScore);
 		switch(state){
 			case StateType.SelectingCharacter:
 				characterProfiles[character].SetActive(false);
@@ -142,6 +149,12 @@ public class GameManager : MonoBehaviour {
 		Camera.main.orthographicSize = val;
 	}
 	void StartGame(){
+		foreach(Transform l in GameObject.Find("levels").transform){
+			l.gameObject.SetActive(false);
+			if(l.name == ("level" + stage))
+				l.gameObject.SetActive(true);
+		}
+		stageWinText.SetActive(false);
 		audio.clip = inGameMusic;
 		audio.time = inGameMusicTime;
 		audio.Play();
@@ -153,17 +166,35 @@ public class GameManager : MonoBehaviour {
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 	}
 	public void EndGame(WinnerType winner){
+		if(state == StateType.GameOver)
+			return; 
+		if(stage < 3 && bugScore < 2 && swatterScore < 2){
+			stage++;
+		}
 		inGameMusicTime = audio.time;
 		endTime = Time.time;
+		if(bugScore < 2 && swatterScore < 2){
+			stageWinText.SetActive(true);
+			stageWinText.GetComponent<TextMesh>().text = winner.ToString() + " wins stage " + (stage-1).ToString();
+		}
 		gameOverText.SetActive(true);
 		state = StateType.GameOver;
 		if(winner == WinnerType.Human){
-			gameOverText.transform.Find("human").gameObject.SetActive(true);
-			audio.clip = humanWinJingle;
+			swatterScore++;
 		}
 		else if(winner == WinnerType.Bug){
-			gameOverText.transform.Find("bug").gameObject.SetActive(true);
-			audio.clip = bugWinJingle;
+			bugScore++;
+		}
+		if(bugScore == 2 || swatterScore == 2){
+			stageWinText.SetActive(false);
+			if(winner == WinnerType.Human){
+				gameOverText.transform.Find("human").gameObject.SetActive(true);
+				audio.clip = humanWinJingle;
+			}
+			else if(winner == WinnerType.Bug){
+				gameOverText.transform.Find("bug").gameObject.SetActive(true);
+				audio.clip = bugWinJingle;
+			}
 		}
 		audio.Play ();
 	}

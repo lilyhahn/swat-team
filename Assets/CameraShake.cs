@@ -7,10 +7,10 @@ public class CameraShake : MonoBehaviour {
 	public float magnitude = 0.1f;
 	
 	void Update() {
-		//Press F on the keyboard to simulate the effect
+		/*//Press F on the keyboard to simulate the effect
 		if(Input.GetKeyDown(KeyCode.F)) {
 			PlayShake();
-		}
+		}*/
 	}
 	
 	//This function is used outside (or inside) the script

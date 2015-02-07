@@ -41,6 +41,7 @@ public class Hand : MonoBehaviour {
 	}
 	protected void OnTriggerStay2D(Collider2D c){
 		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
+			Camera.main.GetComponent<CameraShake>().PlayShake();
 			if(c.gameObject.tag == "bug"){
 				GetComponent<AudioSource>().clip = squish;
 				c.GetComponent<Bug>().Kill();

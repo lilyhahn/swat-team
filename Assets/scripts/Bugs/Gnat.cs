@@ -3,32 +3,40 @@ using System.Collections;
 
 public class Gnat : MonoBehaviour {
 	Vector3 target;
-	public float moveBounds;
+	public Vector2 moveBounds;
 	public float moveForce;
 	public Sprite deadSprite;
+	public float minMoveDistance = 1;
 	bool dead = false;
 	void Start(){
 		Move ();
 	}
 	void Update () {
-		if(!dead){
+		if(!dead && target != Vector3.zero){
 			Vector3 dir = target - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
-			rigidbody2D.AddForce((target - transform.position) * moveForce);
+			GetComponent<Rigidbody2D>().AddForce((target - transform.position) * moveForce);
 			if(Vector3.Distance(transform.position, target) < .5f){
-				rigidbody2D.velocity = new Vector2(0, 0);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 				Move();
 			}
 		}
 	}
-	void Move(){
-		target = Random.insideUnitCircle * moveBounds;
+	public void Move(){
+		StartCoroutine (MoveRoutine ());
+	}
+	IEnumerator MoveRoutine(){
+		target = new Vector3 (Random.Range (-moveBounds.x, moveBounds.x), Random.Range (-moveBounds.y, moveBounds.y));
+		while ((Vector3.Distance (target, transform.position) < minMoveDistance)) {
+			target = new Vector3 (Random.Range (-moveBounds.x, moveBounds.x), Random.Range (-moveBounds.y, moveBounds.y));
+			yield return null;
+		}
 	}
 	public void Kill(){
 		GetComponent<SpriteRenderer>().sprite = deadSprite;
 		dead = true;
-		rigidbody2D.velocity = new Vector2(0, 0);
+		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 		tag = "dead";
 	}
 }

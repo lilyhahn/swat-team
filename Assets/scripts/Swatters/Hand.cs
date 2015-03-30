@@ -5,6 +5,7 @@ public class Hand : MonoBehaviour {
 	public AudioClip squish;
 	public AudioClip miss;
 	public float stuckTime = 4f;
+	public float gnatScatterRadius;
 	protected Animator anim;
 	protected bool stuck = false;
 	Vector3 lastStuckPosition = Vector3.zero;
@@ -14,6 +15,13 @@ public class Hand : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
+		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") && anim.GetCurrentAnimatorStateInfo (0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo (0).normalizedTime <= 1) {
+			foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
+				if(Vector3.Distance(transform.position, gnat.transform.position) <= gnatScatterRadius){
+					(gnat.GetComponent<Gnat>() as Gnat).Move(); // wtf
+				}
+			}
+		}
 		if(stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition){
 			Debug.Log("lastStuckPosition: " + lastStuckPosition);
 			Debug.Log("web position: " + GameObject.FindGameObjectWithTag("web").transform.position);
@@ -28,8 +36,8 @@ public class Hand : MonoBehaviour {
 		if(!anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && !stuck)
 			transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
 		if(Input.GetButtonDown("Fire1")){
-			audio.clip = miss;
-			audio.Play();
+			GetComponent<AudioSource>().clip = miss;
+			GetComponent<AudioSource>().Play();
 			Swat ();
 		}
 	}
@@ -50,7 +58,7 @@ public class Hand : MonoBehaviour {
 				GetComponent<AudioSource>().clip = squish;
 				c.GetComponent<Gnat>().Kill();
 			}
-			audio.Play();
+			GetComponent<AudioSource>().Play();
 		}
 		if(Input.GetButtonDown("Fire1")){
 			if(c.gameObject.tag == "web"){

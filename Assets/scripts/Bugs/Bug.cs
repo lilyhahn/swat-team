@@ -32,22 +32,22 @@ public class Bug : MonoBehaviour {
 		}
 		if(!dead){
 			if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0){
-				if(Mathf.Abs(rigidbody2D.velocity.x) < maxSpeed)
-					rigidbody2D.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * moveSpeed);
+				if(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) < maxSpeed)
+					GetComponent<Rigidbody2D>().AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * moveSpeed);
 				else
-					rigidbody2D.velocity = new Vector2(maxSpeed * Mathf.Sign(rigidbody2D.velocity.x), rigidbody2D.velocity.y);
+					GetComponent<Rigidbody2D>().velocity = new Vector2(maxSpeed * Mathf.Sign(GetComponent<Rigidbody2D>().velocity.x), GetComponent<Rigidbody2D>().velocity.y);
 			}
 			else{
-				rigidbody2D.velocity = new Vector2(0f, rigidbody2D.velocity.y);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(0f, GetComponent<Rigidbody2D>().velocity.y);
 			}
 			if(Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0){
-				if(Mathf.Abs(rigidbody2D.velocity.y) < maxSpeed)
-					rigidbody2D.AddForce(Vector2.up * Input.GetAxisRaw("Vertical") * moveSpeed);
+				if(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) < maxSpeed)
+					GetComponent<Rigidbody2D>().AddForce(Vector2.up * Input.GetAxisRaw("Vertical") * moveSpeed);
 				else
-					rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, maxSpeed * Mathf.Sign(rigidbody2D.velocity.y));
+					GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, maxSpeed * Mathf.Sign(GetComponent<Rigidbody2D>().velocity.y));
 			}
 			else{
-				rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0f);
 			}
 			if(Input.GetAxis("Vertical") != 0){
 				GetComponent<Animator>().SetInteger("direction", (int)Mathf.Sign (Input.GetAxis("Vertical")));
@@ -100,8 +100,8 @@ public class Bug : MonoBehaviour {
 	}
 	public void Kill(){
 		dead = true;
-		audio.clip = deathScream;
-		audio.Play();
+		GetComponent<AudioSource>().clip = deathScream;
+		GetComponent<AudioSource>().Play();
 		GetComponent<Animator>().SetTrigger("dead");
 		GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Human);
 	}
@@ -115,14 +115,15 @@ public class Bug : MonoBehaviour {
 			return false;
 		}
 		nextFire = Time.time + cooldown;
-		audio.clip = specialSound;
-		audio.Play();
+		GetComponent<AudioSource>().clip = specialSound;
+		GetComponent<AudioSource>().Play();
+		Camera.main.GetComponent<CameraShake>().PlayShake();
 		return true;
 	}
 	protected virtual void OnTriggerEnter2D(Collider2D c){
 		if(c.tag == "gnat" && !dead){
-			audio.clip = gnatEatSound;
-			audio.Play();
+			GetComponent<AudioSource>().clip = gnatEatSound;
+			GetComponent<AudioSource>().Play();
 			score++;
 			cooldown = Mathf.Lerp(cooldown, finalCooldown, score / winningScore);
 			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 2f), score / winningScore);
@@ -134,7 +135,7 @@ public class Bug : MonoBehaviour {
 			/*Debug.Log("collision");
 			moveSpeed = moveSpeed / 2;
 			maxSpeed = maxSpeed / 2;*/
-			Physics2D.IgnoreCollision(c.gameObject.collider2D, collider2D);
+			Physics2D.IgnoreCollision(c.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		}
 	}
 	void OnCollisionExit2D(Collision2D c){

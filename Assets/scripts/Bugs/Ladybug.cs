@@ -13,7 +13,7 @@ public class Ladybug : Bug {
 	IEnumerator Roll(){
 		float maxSpeedOld = maxSpeed;
 		maxSpeed = Mathf.Infinity;
-		rigidbody2D.AddForce(transform.up * moveSpeed * rollSpeedMultiplier * GetComponent<Animator>().GetInteger("direction"));
+		GetComponent<Rigidbody2D>().AddForce(transform.up * moveSpeed * rollSpeedMultiplier * GetComponent<Animator>().GetInteger("direction"));
 		yield return new WaitForSeconds(0.25f);
 		maxSpeed = maxSpeedOld;
 		/*Vector3 target = transform.up * rollDistance + transform.position;

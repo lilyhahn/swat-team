@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour {
     }
     StateType state = StateType.PreMenu;
     void Start() {
-        Screen.showCursor = false;
+        Cursor.visible = false;
         StartCoroutine(PreMenuTransistion());
     }
     void Update() {
@@ -146,9 +146,9 @@ public class GameManager : MonoBehaviour {
             l.gameObject.SetActive(false);
         }
         GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
-		audio.clip = inGameMusic;
-		audio.time = inGameMusicTime;
-		audio.Play();
+		GetComponent<AudioSource>().clip = inGameMusic;
+		GetComponent<AudioSource>().time = inGameMusicTime;
+		GetComponent<AudioSource>().Play();
 		state = StateType.InGame;
 		gnatSpawner.SetActive(true);
 		bug = Instantiate(characters[character]) as GameObject;
@@ -157,19 +157,19 @@ public class GameManager : MonoBehaviour {
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 	}
     public void EndGame(WinnerType winner) {
-        inGameMusicTime = audio.time;
+        inGameMusicTime = GetComponent<AudioSource>().time;
         endTime = Time.time;
         gameOverText.SetActive(true);
         state = StateType.GameOver;
         if (winner == WinnerType.Human) {
             gameOverText.transform.Find("human").gameObject.SetActive(true);
-            audio.clip = humanWinJingle;
+            GetComponent<AudioSource>().clip = humanWinJingle;
         }
         else if (winner == WinnerType.Bug) {
             gameOverText.transform.Find("bug").gameObject.SetActive(true);
-            audio.clip = bugWinJingle;
+            GetComponent<AudioSource>().clip = bugWinJingle;
         }
-        audio.Play();
+        GetComponent<AudioSource>().Play();
     }
     IEnumerator PreMenuTransistion() {
         yield return new WaitForSeconds(preMenuTime);

@@ -49,6 +49,10 @@ public class GameManager : MonoBehaviour {
     StateType state = StateType.PreMenu;
     void Start() {
         Cursor.visible = false;
+        foreach (Transform l in GameObject.Find("levels").transform) {
+            l.gameObject.SetActive(false);
+        }
+        GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
         StartCoroutine(PreMenuTransistion());
     }
     void Update() {
@@ -142,10 +146,6 @@ public class GameManager : MonoBehaviour {
         Camera.main.orthographicSize = val;
     }
     void StartGame(){
-        foreach (Transform l in GameObject.Find("levels").transform) {
-            l.gameObject.SetActive(false);
-        }
-        GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
 		GetComponent<AudioSource>().clip = inGameMusic;
 		GetComponent<AudioSource>().time = inGameMusicTime;
 		GetComponent<AudioSource>().Play();

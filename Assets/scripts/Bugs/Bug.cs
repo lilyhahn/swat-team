@@ -117,7 +117,7 @@ public class Bug : MonoBehaviour {
 		nextFire = Time.time + cooldown;
 		GetComponent<AudioSource>().clip = specialSound;
 		GetComponent<AudioSource>().Play();
-		Camera.main.GetComponent<CameraShake>().PlayShake();
+        Camera.main.GetComponent<CameraShake>().PlayShake(0.5f, 0.5f, 0.05f);
 		return true;
 	}
 	protected virtual void OnTriggerEnter2D(Collider2D c){

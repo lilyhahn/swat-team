@@ -35,7 +35,7 @@ public class Hand : MonoBehaviour {
 		mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 		if(!anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && !stuck)
 			transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
-		if(Input.GetButtonDown("Fire1")){
+		if(Input.GetButtonDown("Swat")){
 			GetComponent<AudioSource>().clip = miss;
 			GetComponent<AudioSource>().Play();
 			Swat ();
@@ -60,7 +60,7 @@ public class Hand : MonoBehaviour {
 			}
 			GetComponent<AudioSource>().Play();
 		}
-		if(Input.GetButtonDown("Fire1")){
+		if(Input.GetButtonDown("Swat")){
 			if(c.gameObject.tag == "web"){
 				lastStuckPosition = c.transform.position;
 				StartCoroutine(GetStuck());

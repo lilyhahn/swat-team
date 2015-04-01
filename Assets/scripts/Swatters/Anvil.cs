@@ -15,7 +15,7 @@ public class Anvil : Hand {
 	
 	protected override void Update(){
 		base.Update();
-		if(Input.GetButton("Fire1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
+		if(Input.GetButton("Swat") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			charge_circle.speed = chargeRate;
 		}
         else if (charge_circle.GetCurrentAnimatorStateInfo(0).normalizedTime > 0) {
@@ -31,7 +31,7 @@ public class Anvil : Hand {
 			charge_circle.GetComponent<SpriteRenderer>().enabled = false;
 		}
 		//GetComponent<SpriteRenderer>().color = Color.Lerp(GetComponent<SpriteRenderer>().color, new Color(255, 255, 255, 1), Time.deltaTime * charge / 100);
-		if(Input.GetButtonUp("Fire1")){
+		if(Input.GetButtonUp("Swat")){
 			Swat ();
 		}
 		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2){

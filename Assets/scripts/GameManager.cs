@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
                     characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = finalCharacterProfiles[character];
                     bugReady = true;
                 }
-                if (Input.GetButtonDown("Fire1")) {
+                if (Input.GetButtonDown("Swat")) {
                     swatterProfiles[swatter].transform.Find("box").GetComponent<SpriteRenderer>().sprite = finalSwatterProfiles[swatter];
                     swatterReady = true;
                 }

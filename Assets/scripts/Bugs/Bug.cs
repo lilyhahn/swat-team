@@ -93,7 +93,7 @@ public class Bug : MonoBehaviour {
 				transform.eulerAngles = new Vector3(0, 0, -45);
 			}
 			
-			if(Input.GetButtonDown("Jump")){
+			if(Input.GetButtonDown("Bug Special")){
 				Special();
 			}
 		}

@@ -141,6 +141,16 @@ public class GameManager : MonoBehaviour {
                     break;
             }
         }
+		if(Input.GetButtonDown ("Cancel")){
+			switch(state){
+			case StateType.PreMenu:
+				Application.Quit();
+				break;
+			case StateType.MainMenu:
+				Application.Quit();
+				break;
+			}
+		}
     }
     void UpdateZoom(float val) {
         Camera.main.orthographicSize = val;

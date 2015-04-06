@@ -30,6 +30,7 @@ public class TileScale : MonoBehaviour {
 				child = Instantiate(childPrefab) as GameObject;
 				child.transform.position = transform.position - (new Vector3(spriteSize.x * j, spriteSize.y * i, 0));
 				child.transform.parent = transform;
+				child.GetComponent<SpriteRenderer>().material = sprite.material;
 			}
 		}
 		

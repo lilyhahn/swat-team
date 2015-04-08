@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6100000}
   - 50: {fileID: 5000000}
   - 114: {fileID: 11400000}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: gnat
   m_TagString: gnat
   m_Icon: {fileID: 0}
@@ -74,6 +74,7 @@ MonoBehaviour:
   moveForce: 2
   deadSprite: {fileID: 21300000, guid: 8c61c788801dd0840af05d16b9dc278c, type: 3}
   minMoveDistance: 3
+  stuck: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

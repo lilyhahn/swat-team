@@ -41,12 +41,12 @@ public class Hand : MonoBehaviour {
 			Swat ();
 		}
 	}
-	protected void OnTriggerEnter2D(Collider2D c){
+	/*protected void OnTriggerEnter2D(Collider2D c){
 		if(c.gameObject.tag == "web"){
 			lastStuckPosition = c.transform.position;
 			StartCoroutine(GetStuck());
 		}
-	}
+	}*/
 	protected void OnTriggerStay2D(Collider2D c){
 		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
 			Camera.main.GetComponent<CameraShake>().PlayShake();

@@ -8,11 +8,13 @@ public class Gnat : MonoBehaviour {
 	public Sprite deadSprite;
 	public float minMoveDistance = 1;
 	bool dead = false;
+	public bool stuck = false;
+
 	void Start(){
 		Move ();
 	}
 	void Update () {
-		if(!dead && target != Vector3.zero){
+		if(!dead && !stuck && target != Vector3.zero){
 			Vector3 dir = target - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
@@ -38,5 +40,12 @@ public class Gnat : MonoBehaviour {
 		dead = true;
 		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 		tag = "dead";
+	}
+	void OnTriggerStay2D(Collider2D c){
+		if (c.tag == "web") {
+			Debug.Log("gnat stuck");
+			stuck = true;
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+		}
 	}
 }

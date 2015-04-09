@@ -10,7 +10,7 @@ public class Bug : MonoBehaviour {
 	public AudioClip specialSound;
 	bool dead;
 	bool inGame = true;
-	float score = 0f;
+	GameManager gameManager;
 	public float winningScore = 15;
 	public float cooldown = 1f;
 	public float finalCooldown = 0.5f;
@@ -20,16 +20,17 @@ public class Bug : MonoBehaviour {
 	float origMoveSpeed;
 	
 	void Start(){
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		origMaxSpeed = maxSpeed;
 		origMoveSpeed = moveSpeed;
 	}
 	
 	// Update is called once per frame
 	virtual protected void Update () {
-		if(score >= winningScore && inGame){
+		/*if(score >= winningScore && inGame){
 			inGame = false;
 			GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Bug);
-		}
+		}*/
 		if(!dead){
 			if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0){
 				if(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) < maxSpeed)
@@ -124,9 +125,9 @@ public class Bug : MonoBehaviour {
 		if(c.tag == "gnat" && !dead){
 			GetComponent<AudioSource>().clip = gnatEatSound;
 			GetComponent<AudioSource>().Play();
-			score++;
-			cooldown = Mathf.Lerp(cooldown, finalCooldown, score / winningScore);
-			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 2f), score / winningScore);
+			gameManager.ScoreBug(1);
+			cooldown = Mathf.Lerp(cooldown, finalCooldown, gameManager.bugScore / winningScore);
+			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 2f), gameManager.bugScore / winningScore);
 			Destroy(c.gameObject);
 		}
 	}

@@ -9,6 +9,12 @@ public enum WinnerType {
 public class GameManager : MonoBehaviour {
     public float preMenuTime = 3f;
     public GameObject preMenuText;
+	public Vector3 modeSelectCamera;
+	public float modeSelectZoom;
+	public GameObject modeSelectText;
+	public GameObject[] modeNames;
+	public int[] winningScores; // in order of mode number
+	public int bugScore {get; private set;} // for bug
     public Vector3 characterSelectCamera;
     public float characterSelectCameraZoom;
     public GameObject characterSelectText;
@@ -35,11 +41,13 @@ public class GameManager : MonoBehaviour {
     bool swatterReady = false;
     int swatter = 0;
     int character = 0;
+	int mode = 0;
     GameObject bug;
     GameObject hand;
     enum StateType {
         PreMenu,
         MainMenu,
+		SelectingMode,
         SelectingCharacter,
         SelectingStage,
         InGame,
@@ -57,6 +65,19 @@ public class GameManager : MonoBehaviour {
     }
     void Update() {
         switch (state) {
+			case StateType.SelectingMode:
+				if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0){
+					modeNames[mode].GetComponent<TextMesh>().color = Color.white;
+					mode += (int)Input.GetAxisRaw("Horizontal");
+					if(mode > 1){
+						mode = 1;
+					}
+					if(mode < 0){
+						mode = 0;
+					}
+					modeNames[mode].GetComponent<TextMesh>().color = Color.blue;
+				}
+			break;
             case StateType.SelectingCharacter:
                 characterProfiles[character].SetActive(false);
                 if (Input.GetKeyDown(KeyCode.W) && !bugReady) {
@@ -119,11 +140,21 @@ public class GameManager : MonoBehaviour {
         if (Input.GetButtonDown("Submit")) {
             switch (state) {
                 case StateType.MainMenu:
-                    state = StateType.SelectingCharacter;
+					state = StateType.SelectingMode;
+					LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
+					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
+					modeSelectText.SetActive(true);
+                  	/*state = StateType.SelectingCharacter;
                     LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
                     LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
-                    characterSelectText.SetActive(true);
+                    characterSelectText.SetActive(true);*/
                     break;
+                 case StateType.SelectingMode:
+					state = StateType.SelectingCharacter;
+					LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
+					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
+					characterSelectText.SetActive(true);
+				break;
                 /*case StateType.SelectingCharacter:
                     state = StateType.SelectingStage;
                     characterSelectText.SetActive(false);
@@ -160,11 +191,18 @@ public class GameManager : MonoBehaviour {
 		GetComponent<AudioSource>().time = inGameMusicTime;
 		GetComponent<AudioSource>().Play();
 		state = StateType.InGame;
-		gnatSpawner.SetActive(true);
 		bug = Instantiate(characters[character]) as GameObject;
 		hand = Instantiate(swatters[swatter]) as GameObject;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
+		switch(mode){
+			case 0: //classic gnat-eating
+				gnatSpawner.SetActive(true);
+			break;
+			case 1:
+				//fruit shit goes here
+			break;
+		}
 	}
     public void EndGame(WinnerType winner) {
         inGameMusicTime = GetComponent<AudioSource>().time;
@@ -180,6 +218,12 @@ public class GameManager : MonoBehaviour {
             GetComponent<AudioSource>().clip = bugWinJingle;
         }
         GetComponent<AudioSource>().Play();
+    }
+    public void ScoreBug(int amount){
+    	bugScore += amount;
+    	if(bugScore == winningScores[mode]){
+    		EndGame(WinnerType.Bug);
+    	}
     }
     IEnumerator PreMenuTransistion() {
         yield return new WaitForSeconds(preMenuTime);

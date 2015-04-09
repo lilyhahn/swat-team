@@ -39,5 +39,6 @@ public class TileScale : MonoBehaviour {
 		
 		// Disable the currently existing sprite component since its now a repeated image
 		sprite.enabled = false;
+		Destroy(childPrefab);
 	}
 }

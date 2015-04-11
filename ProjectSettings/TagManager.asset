@@ -9,6 +9,9 @@ TagManager:
   - gnat
   - dead
   - level
+  - berry
+  - house
+  - berry tree
   layers:
   - Default
   - TransparentFX
@@ -54,6 +57,9 @@ TagManager:
     locked: 0
   - name: bug
     uniqueID: 937868513
+    locked: 0
+  - name: fruit
+    uniqueID: 3168102153
     locked: 0
   - name: hand
     uniqueID: 4119176719

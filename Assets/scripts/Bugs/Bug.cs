@@ -9,12 +9,16 @@ public class Bug : MonoBehaviour {
 	public AudioClip deathScream;
 	public AudioClip specialSound;
 	bool dead;
-	bool inGame = true;
+    bool dying = false;
+    bool holdingBerry = false;
+    GameObject berry = null;
 	GameManager gameManager;
 	public float winningScore = 15;
 	public float cooldown = 1f;
 	public float finalCooldown = 0.5f;
 	public float nextFire = 0.0f;
+
+    public Sprite[] squishedBerries;
 	
 	float origMaxSpeed;
 	float origMoveSpeed;
@@ -100,12 +104,26 @@ public class Bug : MonoBehaviour {
 		}
 	}
 	public void Kill(){
-		dead = true;
-		GetComponent<AudioSource>().clip = deathScream;
-		GetComponent<AudioSource>().Play();
-		GetComponent<Animator>().SetTrigger("dead");
-		GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Human);
+        if(!dying)
+        StartCoroutine(KillSelf());
 	}
+    IEnumerator KillSelf() {
+        dying = true;
+        if (holdingBerry) {
+                berry.GetComponent<SpriteRenderer>().sprite = squishedBerries[Random.Range(0, squishedBerries.Length-1)];
+                berry.transform.parent = null;
+                holdingBerry = false;
+        }
+        else {
+            dead = true;
+            GetComponent<AudioSource>().clip = deathScream;
+            GetComponent<AudioSource>().Play();
+            GetComponent<Animator>().SetTrigger("dead");
+            GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Human);
+        }
+        yield return new WaitForSeconds(0.1f);
+        dying = false;
+    }
 	public void Reset(){
 		dead = false;
 		GetComponent<Animator> ().SetTrigger ("Reset");
@@ -130,6 +148,13 @@ public class Bug : MonoBehaviour {
 			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 2f), gameManager.bugScore / winningScore);
 			Destroy(c.gameObject);
 		}
+        if (c.tag == "berry" && !dead && !holdingBerry) {
+            berry = GameObject.Instantiate(c.gameObject, transform.position, Quaternion.identity) as GameObject;
+            berry.GetComponent<Collider2D>().enabled = false;
+            berry.transform.parent = transform;
+            holdingBerry = true;
+            c.gameObject.SetActive(false);
+        }
 	}
 	protected virtual void OnCollisionEnter2D(Collision2D c){
 		if(c.gameObject.tag == "web"){
@@ -138,6 +163,11 @@ public class Bug : MonoBehaviour {
 			maxSpeed = maxSpeed / 2;*/
 			Physics2D.IgnoreCollision(c.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		}
+        if (c.gameObject.tag == "house" && holdingBerry) {
+            berry.transform.parent = c.transform;
+            holdingBerry = false;
+            gameManager.ScoreBug(1);
+        }
 	}
 	void OnCollisionExit2D(Collision2D c){
 		if(c.gameObject.tag == "web"){

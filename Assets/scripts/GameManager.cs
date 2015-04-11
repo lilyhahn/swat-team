@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour {
     public AudioClip humanWinJingle;
     public AudioClip bugWinJingle;
     public GameObject gnatSpawner;
+    public GameObject berryMode;
     public float restartDelay = 0.5f;
     float endTime;
     bool bugReady = false;
@@ -121,12 +122,24 @@ public class GameManager : MonoBehaviour {
                 break;
             case StateType.GameOver:
                 if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape) && Time.time > endTime + restartDelay) {
+                    bugScore = 0;
                     gameOverText.SetActive(false);
                     Destroy(bug);
                     Destroy(hand);
                     Destroy(GameObject.FindGameObjectWithTag("web"));
                     foreach (GameObject dead in GameObject.FindGameObjectsWithTag("dead")) {
                         Destroy(dead);
+                    }
+                    foreach (GameObject berry in GameObject.FindGameObjectsWithTag("berry")) {
+                        if(berry.transform.parent.tag != "berry tree")
+                            Destroy(berry);
+                    }
+                    foreach (Transform berryTree in berryMode.transform.Find("berryTrees")) {
+                        foreach (Transform berry in berryTree) {
+                            if (berry.tag == "berry") {
+                                berry.gameObject.SetActive(true);
+                            }
+                        }
                     }
                     gameOverText.transform.Find("human").gameObject.SetActive(false);
                     gameOverText.transform.Find("bug").gameObject.SetActive(false);
@@ -200,7 +213,7 @@ public class GameManager : MonoBehaviour {
 				gnatSpawner.SetActive(true);
 			break;
 			case 1:
-				//fruit shit goes here
+                berryMode.SetActive(true);
 			break;
 		}
 	}

@@ -167,6 +167,9 @@ MonoBehaviour:
   cooldown: 3
   finalCooldown: 3
   nextFire: 0
+  squishedBerries:
+  - {fileID: 21300000, guid: e6c1ab96cd560472994fe4eabb97fc22, type: 3}
+  - {fileID: 21300000, guid: 2bc1bb68d863249c6995a2fb69c5bdef, type: 3}
   rollSpeedMultiplier: 50
 --- !u!212 &21200000
 SpriteRenderer:

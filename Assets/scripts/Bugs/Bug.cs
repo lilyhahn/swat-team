@@ -64,37 +64,38 @@ public class Bug : MonoBehaviour {
 			}
 			float v = Input.GetAxisRaw("Vertical");
 			float h = Input.GetAxisRaw("Horizontal");
+            Debug.Log(h);
 			if(h == 0 && v == 0){
 				transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - (transform.eulerAngles.z % 45));
 			}
-			if(h == 1 && v == 0){
-				if(GetComponent<Animator>().GetInteger("direction") == 1)
+			if(h > 0 && v == 0){
+				if(GetComponent<Animator>().GetInteger("direction") > 0)
 					transform.eulerAngles = new Vector3(0, 0, -90 * Mathf.Sign (Input.GetAxis("Horizontal")));
-				else if(GetComponent<Animator>().GetInteger("direction") == -1)
+				else if(GetComponent<Animator>().GetInteger("direction") < 0)
 					transform.eulerAngles = new Vector3(0, 0, 90 * Mathf.Sign (Input.GetAxis("Horizontal")));
 			}
-			else if(h == -1 && v == 0){
-				if(GetComponent<Animator>().GetInteger("direction") == 1)
+			else if(h < 0 && v == 0){
+				if(GetComponent<Animator>().GetInteger("direction") > 0)
 					transform.eulerAngles = new Vector3(0, 0, -90 * Mathf.Sign (Input.GetAxis("Horizontal")));
-				else if(GetComponent<Animator>().GetInteger("direction") == -1)
+				else if(GetComponent<Animator>().GetInteger("direction") < 0)
 					transform.eulerAngles = new Vector3(0, 0, 90 * Mathf.Sign (Input.GetAxis("Horizontal")));
 			}
-			if(h == 0 && v == 1){
+			if(h == 0 && v > 0){
 				transform.rotation = Quaternion.identity;
 			}
-			else if(h == 0 && v == -1){
+			else if(h == 0 && v < 0){
 				transform.rotation = Quaternion.identity;
 			}
-			else if(h == 1 && v == 1){
+			else if(h > 0 && v > 0){
 				transform.eulerAngles = new Vector3(0, 0, -45);
 			}
-			else if(h == 1 && v == -1){
+			else if(h > 0 && v < 0){
 				transform.eulerAngles = new Vector3(0, 0, 45);
 			}
-			else if(h == -1 && v == 1){
+			else if(h < 0 && v > 0){
 				transform.eulerAngles = new Vector3(0, 0, 45);
 			}
-			else if(h == -1 && v == -1){
+			else if(h < 0 && v < 0){
 				transform.eulerAngles = new Vector3(0, 0, -45);
 			}
 			

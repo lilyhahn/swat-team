@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour {
 	int mode = 0;
     GameObject bug;
     GameObject hand;
+    bool swatterScrolling = false;
     enum StateType {
         PreMenu,
         MainMenu,
@@ -67,9 +68,9 @@ public class GameManager : MonoBehaviour {
     void Update() {
         switch (state) {
 			case StateType.SelectingMode:
-				if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0){
+				if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Menu)")) > 0){
 					modeNames[mode].GetComponent<TextMesh>().color = Color.white;
-					mode += (int)Input.GetAxisRaw("Horizontal");
+					mode += (int)Input.GetAxisRaw("Horizontal (Menu)");
 					if(mode > 1){
 						mode = 1;
 					}
@@ -81,35 +82,43 @@ public class GameManager : MonoBehaviour {
 			break;
             case StateType.SelectingCharacter:
                 characterProfiles[character].SetActive(false);
-                if (Input.GetKeyDown(KeyCode.W) && !bugReady) {
+                if (Input.GetAxisRaw("Vertical (Bug Menu)") > 0 && !bugReady) {
                     character++;
                 }
-                if (Input.GetKeyDown(KeyCode.S) && !bugReady) {
+                if (Input.GetAxisRaw("Vertical (Bug Menu)") < 0 && !bugReady) {
                     character--;
                 }
                 if (character >= characters.Length)
-                    character = 0;
+                    character = characters.Length-1;
                 if (character < 0)
-                    character = characters.Length - 1;
+                    character = 0;
                 characterProfiles[character].SetActive(true);
 
                 swatterProfiles[swatter].SetActive(false);
-                if (Input.GetKeyDown(KeyCode.UpArrow) && !swatterReady) {
-                    swatter++;
+                if (Input.GetAxisRaw("Vertical (Swatter Menu)") > 0 && !swatterReady) {
+                    if (!swatterScrolling) {
+                        swatter++;
+                        swatterScrolling = true;
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.DownArrow) && !swatterReady) {
-                    swatter--;
+                if (Input.GetAxisRaw("Vertical (Swatter Menu)") < 0 && !swatterReady) {
+                    if (!swatterScrolling) {
+                        swatter--;
+                        swatterScrolling = true;
+                    }
                 }
+                if(Input.GetAxisRaw("Vertical (Swatter Menu)") == 0)
+                        swatterScrolling = false;
                 if (swatter >= swatters.Length)
-                    swatter = 0;
-                if (swatter < 0)
                     swatter = swatters.Length - 1;
+                if (swatter < 0)
+                    swatter = 0;
                 swatterProfiles[swatter].SetActive(true);
-                if (Input.GetKeyDown(KeyCode.Space)) {
+                if (Input.GetButtonDown("Submit (Bug)")) {
                     characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = finalCharacterProfiles[character];
                     bugReady = true;
                 }
-                if (Input.GetButtonDown("Swat")) {
+                if (Input.GetButtonDown("Submit (Swatter)")) {
                     swatterProfiles[swatter].transform.Find("box").GetComponent<SpriteRenderer>().sprite = finalSwatterProfiles[swatter];
                     swatterReady = true;
                 }
@@ -121,7 +130,7 @@ public class GameManager : MonoBehaviour {
                 }
                 break;
             case StateType.GameOver:
-                if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape) && Time.time > endTime + restartDelay) {
+                if (Input.anyKeyDown && !Input.GetButtonDown("Cancel") && Time.time > endTime + restartDelay) {
                     bugScore = 0;
                     gameOverText.SetActive(false);
                     Destroy(bug);
@@ -145,7 +154,7 @@ public class GameManager : MonoBehaviour {
                     gameOverText.transform.Find("bug").gameObject.SetActive(false);
                     StartGame();
                 }
-                if (Input.GetKeyDown(KeyCode.Escape)) {
+                if (Input.GetButtonDown("Cancel")) {
                     Application.LoadLevel(0);
                 }
                 break;

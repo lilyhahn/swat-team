@@ -31,10 +31,15 @@ public class Hand : MonoBehaviour {
 		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			anim.SetFloat("swatTime", anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
 		}
-		Vector3 mousePosition = Input.mousePosition;
-		mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-		if(!anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && !stuck)
-			transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
+        if (Input.GetJoystickNames().Length < 2) {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && !stuck)
+                transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
+        }
+        else {
+            transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
+        }
 		if(Input.GetButtonDown("Swat")){
 			GetComponent<AudioSource>().clip = miss;
 			GetComponent<AudioSource>().Play();

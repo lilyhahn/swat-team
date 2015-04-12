@@ -9,6 +9,8 @@ public enum WinnerType {
 public class GameManager : MonoBehaviour {
     public float preMenuTime = 3f;
     public GameObject preMenuText;
+    public Vector3 mainMenuCamera;
+    public float mainMenuZoom;
 	public Vector3 modeSelectCamera;
 	public float modeSelectZoom;
 	public GameObject modeSelectText;
@@ -28,9 +30,11 @@ public class GameManager : MonoBehaviour {
     public GameObject gameOverText;
     public GameObject[] characters;
     public GameObject[] characterProfiles;
+    public Sprite[] originalCharacterProfiles;
     public Sprite[] finalCharacterProfiles;
     public GameObject[] swatters;
     public GameObject[] swatterProfiles;
+    public Sprite[] originalSwatterProfiles;
     public Sprite[] finalSwatterProfiles;
     public AudioClip humanWinJingle;
     public AudioClip bugWinJingle;
@@ -128,6 +132,14 @@ public class GameManager : MonoBehaviour {
                     //stageSelectText.SetActive(true);
                     StartGame();
                 }
+                if (Input.GetButtonDown("Cancel (Bug)") && bugReady) {
+                    characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = originalCharacterProfiles[character];
+                    bugReady = false;
+                }
+                if (Input.GetButtonDown("Cancel (Swatter)") && swatterReady) {
+                    swatterProfiles[swatter].transform.Find("box").GetComponent<SpriteRenderer>().sprite = originalSwatterProfiles[swatter];
+                    swatterReady = false;
+                }
                 break;
             case StateType.GameOver:
                 if (Input.anyKeyDown && !Input.GetButtonDown("Cancel") && Time.time > endTime + restartDelay) {
@@ -196,12 +208,22 @@ public class GameManager : MonoBehaviour {
         }
 		if(Input.GetButtonDown ("Cancel")){
 			switch(state){
-			case StateType.PreMenu:
-				Application.Quit();
-				break;
-			case StateType.MainMenu:
-				Application.Quit();
-				break;
+                case StateType.SelectingCharacter:
+                    LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
+					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
+                    state = StateType.SelectingMode;
+                    break;
+                case StateType.SelectingMode:
+                    LeanTween.move(Camera.main.gameObject, mainMenuCamera, 0.5f);
+					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, mainMenuZoom, 0.5f);
+                    state = StateType.MainMenu;
+                    break;
+			    case StateType.PreMenu:
+				    Application.Quit();
+				    break;
+			    case StateType.MainMenu:
+				    Application.Quit();
+				    break;
 			}
 		}
     }

@@ -5717,6 +5717,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preMenuTime: 1.5
   preMenuText: {fileID: 1737650283}
+  mainMenuCamera: {x: 0, y: -52.5, z: -10}
+  mainMenuZoom: 31.8599606
   modeSelectCamera: {x: -1.5, y: -21.7999992, z: -10}
   modeSelectZoom: 17.0499992
   modeSelectText: {fileID: 1830245183}
@@ -5740,6 +5742,9 @@ MonoBehaviour:
   characterProfiles:
   - {fileID: 1302163218}
   - {fileID: 693514575}
+  originalCharacterProfiles:
+  - {fileID: 21300000, guid: 39ec986e260241c47afe2117f7179e2c, type: 3}
+  - {fileID: 21300000, guid: 171e2ea1c9baf4dc2a197b822bdbdc59, type: 3}
   finalCharacterProfiles:
   - {fileID: 21300000, guid: 5619fa1419e764e40a7f29238857cde8, type: 3}
   - {fileID: 21300000, guid: 9a140702b8cfb4431b8379a7fbc3a5a1, type: 3}
@@ -5751,6 +5756,10 @@ MonoBehaviour:
   - {fileID: 1385570442}
   - {fileID: 1558554250}
   - {fileID: 1035259847}
+  originalSwatterProfiles:
+  - {fileID: 21300000, guid: 0f5266c66d2814206b6b613f0de30193, type: 3}
+  - {fileID: 21300000, guid: 207fb394a82b4b044b66c0292f32d327, type: 3}
+  - {fileID: 21300000, guid: 899b9a0eeeaf5be498af73eb0cf5deb3, type: 3}
   finalSwatterProfiles:
   - {fileID: 21300000, guid: 7c3173d12e1c149af9002855aed5379b, type: 3}
   - {fileID: 21300000, guid: d6ef4b7a8a9a67f4ea0cf67110692a81, type: 3}

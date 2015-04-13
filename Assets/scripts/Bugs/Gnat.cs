@@ -43,7 +43,6 @@ public class Gnat : MonoBehaviour {
 	}
 	void OnTriggerStay2D(Collider2D c){
 		if (c.tag == "web") {
-			Debug.Log("gnat stuck");
 			stuck = true;
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 		}

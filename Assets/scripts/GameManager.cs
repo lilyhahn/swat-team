@@ -152,8 +152,10 @@ public class GameManager : MonoBehaviour {
                         Destroy(dead);
                     }
                     foreach (GameObject berry in GameObject.FindGameObjectsWithTag("berry")) {
-                        if(berry.transform.parent.tag != "berry tree")
+                        if(berry.transform.parent != null && berry.transform.parent.tag != "berry tree")
                             Destroy(berry);
+                        if(berry.transform.parent == null)
+                        	Destroy(berry);
                     }
                     foreach (Transform berryTree in berryMode.transform.Find("berryTrees")) {
                         foreach (Transform berry in berryTree) {

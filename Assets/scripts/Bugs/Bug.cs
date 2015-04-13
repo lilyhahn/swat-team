@@ -64,7 +64,6 @@ public class Bug : MonoBehaviour {
 			}
 			float v = Input.GetAxisRaw("Vertical");
 			float h = Input.GetAxisRaw("Horizontal");
-            Debug.Log(h);
 			if(h == 0 && v == 0){
 				transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - (transform.eulerAngles.z % 45));
 			}

@@ -164,13 +164,13 @@ MonoBehaviour:
   deathScream: {fileID: 8300000, guid: 59001aa6445a4e34db9e6508434a95e4, type: 3}
   specialSound: {fileID: 8300000, guid: 991c151af4ee3984f9b3da234a9ebe52, type: 3}
   winningScore: 25
-  cooldown: 3
-  finalCooldown: 3
+  cooldown: 1
+  finalCooldown: 1
   nextFire: 0
   squishedBerries:
   - {fileID: 21300000, guid: e6c1ab96cd560472994fe4eabb97fc22, type: 3}
   - {fileID: 21300000, guid: 2bc1bb68d863249c6995a2fb69c5bdef, type: 3}
-  rollSpeedMultiplier: 50
+  rollSpeedMultiplier: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -151,6 +151,9 @@ public class GameManager : MonoBehaviour {
                     foreach (GameObject dead in GameObject.FindGameObjectsWithTag("dead")) {
                         Destroy(dead);
                     }
+                    foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
+                    	Destroy(gnat);
+                    }
                     foreach (GameObject berry in GameObject.FindGameObjectsWithTag("berry")) {
                         if(berry.transform.parent != null && berry.transform.parent.tag != "berry tree")
                             Destroy(berry);

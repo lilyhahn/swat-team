@@ -3,17 +3,25 @@ using System.Collections;
 
 public class Gnat : MonoBehaviour {
 	Vector3 target;
-	public Vector2 moveBounds;
 	public float moveForce;
 	public Sprite deadSprite;
-	public float minMoveDistance = 1;
 	bool dead = false;
 	public bool stuck = false;
+	public float bugRunDistance = 1f;
+	GnatController controller;
+	Transform bug;
 
 	void Start(){
-		Move ();
+		controller = GameObject.Find ("GnatController").GetComponent<GnatController>();
+		bug = GameObject.FindGameObjectWithTag("bug").transform;
+		//Move ();
 	}
 	void Update () {
+		target = controller.target;
+		if(Vector3.Distance(transform.position, bug.position) < bugRunDistance){
+			Debug.Log ("running");
+			Move();
+		}
 		if(!dead && !stuck && target != Vector3.zero){
 			Vector3 dir = target - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
@@ -26,14 +34,8 @@ public class Gnat : MonoBehaviour {
 		}
 	}
 	public void Move(){
-		StartCoroutine (MoveRoutine ());
-	}
-	IEnumerator MoveRoutine(){
-		target = new Vector3 (Random.Range (-moveBounds.x, moveBounds.x), Random.Range (-moveBounds.y, moveBounds.y));
-		while ((Vector3.Distance (target, transform.position) < minMoveDistance)) {
-			target = new Vector3 (Random.Range (-moveBounds.x, moveBounds.x), Random.Range (-moveBounds.y, moveBounds.y));
-			yield return null;
-		}
+		//StartCoroutine (MoveRoutine ());
+		controller.Move();
 	}
 	public void Kill(){
 		GetComponent<SpriteRenderer>().sprite = deadSprite;
@@ -41,8 +43,8 @@ public class Gnat : MonoBehaviour {
 		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 		tag = "dead";
 	}
-	void OnTriggerStay2D(Collider2D c){
-		if (c.tag == "web") {
+	void OnCollisionEnter2D(Collision2D c){
+		if (c.gameObject.tag == "web") {
 			stuck = true;
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 		}

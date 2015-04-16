@@ -140,14 +140,6 @@ public class Bug : MonoBehaviour {
 		return true;
 	}
 	protected virtual void OnTriggerEnter2D(Collider2D c){
-		if(c.tag == "gnat" && !dead){
-			GetComponent<AudioSource>().clip = gnatEatSound;
-			GetComponent<AudioSource>().Play();
-			gameManager.ScoreBug(1);
-			cooldown = Mathf.Lerp(cooldown, finalCooldown, gameManager.bugScore / winningScore);
-			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 2f), gameManager.bugScore / winningScore);
-			Destroy(c.gameObject);
-		}
         if (c.tag == "berry" && !dead && !holdingBerry) {
             berry = GameObject.Instantiate(c.gameObject, transform.position, Quaternion.identity) as GameObject;
             berry.GetComponent<Collider2D>().enabled = false;
@@ -157,6 +149,14 @@ public class Bug : MonoBehaviour {
         }
 	}
 	protected virtual void OnCollisionEnter2D(Collision2D c){
+		if(c.gameObject.tag == "gnat" && !dead){
+			GetComponent<AudioSource>().clip = gnatEatSound;
+			GetComponent<AudioSource>().Play();
+			gameManager.ScoreBug(1);
+			cooldown = Mathf.Lerp(cooldown, finalCooldown, gameManager.bugScore / winningScore);
+			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 2f), gameManager.bugScore / winningScore);
+			Destroy(c.gameObject);
+		}
 		if(c.gameObject.tag == "web"){
 			/*Debug.Log("collision");
 			moveSpeed = moveSpeed / 2;

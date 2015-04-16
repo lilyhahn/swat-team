@@ -158,8 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b17ffc80c3609b43a56b8381d6dc82c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  maxSpeed: 15
+  moveSpeed: 12
+  maxSpeed: 12
   gnatEatSound: {fileID: 8300000, guid: 331d63c04f7b9d04f914dc5c07e9a117, type: 3}
   deathScream: {fileID: 8300000, guid: 252f5676c7c945347b2d4baf2f777835, type: 3}
   specialSound: {fileID: 8300000, guid: 991c151af4ee3984f9b3da234a9ebe52, type: 3}

@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour {
 	public Vector3 modeSelectCamera;
 	public float modeSelectZoom;
 	public GameObject modeSelectText;
-	public GameObject[] modeNames;
 	public int[] winningScores; // in order of mode number
 	public int bugScore {get; private set;} // for bug
     public Vector3 characterSelectCamera;
@@ -67,21 +66,26 @@ public class GameManager : MonoBehaviour {
             l.gameObject.SetActive(false);
         }
         GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
-        StartCoroutine(PreMenuTransistion());
+        //StartCoroutine(PreMenuTransistion());
     }
     void Update() {
         switch (state) {
 			case StateType.SelectingMode:
-				if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Menu)")) > 0){
-					modeNames[mode].GetComponent<TextMesh>().color = Color.white;
-					mode += (int)Input.GetAxisRaw("Horizontal (Menu)");
+				if(Mathf.Abs(Input.GetAxisRaw("Vertical (Menu)")) > 0){
+					int oldMode = mode;
+					mode += (int)Input.GetAxisRaw("Vertical (Menu)");
 					if(mode > 1){
 						mode = 1;
 					}
 					if(mode < 0){
 						mode = 0;
 					}
-					modeNames[mode].GetComponent<TextMesh>().color = Color.blue;
+					if(mode == 0 && mode != oldMode){
+						modeSelectText.GetComponent<Animator>().SetTrigger("classic");
+					}
+					if(mode == 1 && mode != oldMode){
+						modeSelectText.GetComponent<Animator>().SetTrigger("new");
+					}
 				}
 			break;
             case StateType.SelectingCharacter:
@@ -178,6 +182,11 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetButtonDown("Submit")) {
             switch (state) {
+            	case StateType.PreMenu:
+					Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
+					preMenuText.SetActive(false);
+					state = StateType.MainMenu;
+					break;
                 case StateType.MainMenu:
 					state = StateType.SelectingMode;
 					LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);

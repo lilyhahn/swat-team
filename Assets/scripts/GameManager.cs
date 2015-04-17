@@ -7,6 +7,7 @@ public enum WinnerType {
 }
 
 public class GameManager : MonoBehaviour {
+	public bool inGame = false;
     public float preMenuTime = 3f;
     public GameObject preMenuText;
     public Vector3 mainMenuCamera;
@@ -245,6 +246,7 @@ public class GameManager : MonoBehaviour {
         Camera.main.orthographicSize = val;
     }
     void StartGame(){
+    	inGame = true;
 		GetComponent<AudioSource>().clip = inGameMusic;
 		GetComponent<AudioSource>().time = inGameMusicTime;
 		GetComponent<AudioSource>().Play();
@@ -263,6 +265,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
     public void EndGame(WinnerType winner) {
+    	inGame = false;
         inGameMusicTime = GetComponent<AudioSource>().time;
         endTime = Time.time;
         gameOverText.SetActive(true);

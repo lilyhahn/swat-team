@@ -104,7 +104,7 @@ public class Bug : MonoBehaviour {
 		}
 	}
 	public void Kill(){
-        if(!dying)
+        if(!dying && gameManager.inGame)
         StartCoroutine(KillSelf());
 	}
     IEnumerator KillSelf() {
@@ -113,6 +113,15 @@ public class Bug : MonoBehaviour {
                 berry.GetComponent<SpriteRenderer>().sprite = squishedBerries[Random.Range(0, squishedBerries.Length-1)];
                 berry.transform.parent = null;
                 holdingBerry = false;
+                int berryCount = 0;
+                foreach(GameObject b in GameObject.FindGameObjectsWithTag("berry")){
+                	if(b.transform.parent != null && b.transform.parent.tag == "berry tree"){
+                		berryCount++;
+                	}
+                }
+                if(berryCount == 0){
+                	gameManager.EndGame(WinnerType.Human);
+                }
         }
         else {
             dead = true;

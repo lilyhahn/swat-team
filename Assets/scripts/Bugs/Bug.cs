@@ -8,6 +8,9 @@ public class Bug : MonoBehaviour {
 	public AudioClip gnatEatSound;
 	public AudioClip deathScream;
 	public AudioClip specialSound;
+    public AudioClip berrySnatchSound;
+    public AudioClip berryDepositSound;
+    public AudioClip berrySquishSound;
 	bool dead;
     bool dying = false;
     bool holdingBerry = false;
@@ -113,6 +116,8 @@ public class Bug : MonoBehaviour {
                 berry.GetComponent<SpriteRenderer>().sprite = squishedBerries[Random.Range(0, squishedBerries.Length-1)];
                 berry.transform.parent = null;
                 holdingBerry = false;
+                GetComponent<AudioSource>().clip = berrySquishSound;
+                GetComponent<AudioSource>().Play();
                 int berryCount = 0;
                 foreach(GameObject b in GameObject.FindGameObjectsWithTag("berry")){
                 	if(b.transform.parent != null && b.transform.parent.tag == "berry tree"){
@@ -155,6 +160,8 @@ public class Bug : MonoBehaviour {
             berry.transform.parent = transform;
             holdingBerry = true;
             c.gameObject.SetActive(false);
+            GetComponent<AudioSource>().clip = berrySnatchSound;
+            GetComponent<AudioSource>().Play();
         }
 	}
 	protected virtual void OnCollisionEnter2D(Collision2D c){
@@ -176,6 +183,8 @@ public class Bug : MonoBehaviour {
             berry.transform.parent = c.transform;
             holdingBerry = false;
             gameManager.ScoreBug(1);
+            GetComponent<AudioSource>().clip = berryDepositSound;
+            GetComponent<AudioSource>().Play();
         }
 	}
 	void OnCollisionExit2D(Collision2D c){

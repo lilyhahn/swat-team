@@ -163,6 +163,9 @@ MonoBehaviour:
   gnatEatSound: {fileID: 8300000, guid: 331d63c04f7b9d04f914dc5c07e9a117, type: 3}
   deathScream: {fileID: 8300000, guid: 252f5676c7c945347b2d4baf2f777835, type: 3}
   specialSound: {fileID: 8300000, guid: 991c151af4ee3984f9b3da234a9ebe52, type: 3}
+  berrySnatchSound: {fileID: 8300000, guid: 1f76b87096cefb34995ffb6d9a8a45a6, type: 3}
+  berryDepositSound: {fileID: 8300000, guid: 0889ef8bc1ee8e843888928c8c9564bd, type: 3}
+  berrySquishSound: {fileID: 0}
   winningScore: 25
   cooldown: .5
   finalCooldown: .5

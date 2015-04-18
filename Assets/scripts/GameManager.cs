@@ -7,6 +7,7 @@ public enum WinnerType {
 }
 
 public class GameManager : MonoBehaviour {
+    public float randomSpawnRadius = 1;
 	public bool inGame = false;
     public float preMenuTime = 3f;
     public GameObject preMenuText;
@@ -251,7 +252,7 @@ public class GameManager : MonoBehaviour {
 		GetComponent<AudioSource>().time = inGameMusicTime;
 		GetComponent<AudioSource>().Play();
 		state = StateType.InGame;
-		bug = Instantiate(characters[character]) as GameObject;
+		bug = Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity) as GameObject;
 		hand = Instantiate(swatters[swatter]) as GameObject;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);

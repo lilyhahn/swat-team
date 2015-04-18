@@ -7,6 +7,7 @@ public class Gnat : MonoBehaviour {
 	public Sprite deadSprite;
 	bool dead = false;
 	public bool stuck = false;
+    Vector3 lastStuckPosition = Vector3.zero;
 	public float bugRunDistance = 1f;
 	GnatController controller;
 	Transform bug;
@@ -18,6 +19,10 @@ public class Gnat : MonoBehaviour {
 	}
 	void Update () {
 		target = controller.target;
+        if (stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition) {
+            stuck = false;
+            GetComponent<Rigidbody2D>().isKinematic = false;
+        }
 		if(Vector3.Distance(transform.position, bug.position) < bugRunDistance){
 			Move();
 		}
@@ -47,6 +52,7 @@ public class Gnat : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D c){
 		if (c.gameObject.tag == "web") {
 			stuck = true;
+            lastStuckPosition = c.transform.position;
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 			GetComponent<Rigidbody2D>().isKinematic = true;
 		}

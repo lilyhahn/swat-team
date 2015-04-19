@@ -233,6 +233,22 @@ InputManager:
     m_Name: Vertical (Menu)
     descriptiveName: 
     descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: .189999998
+    sensitivity: 1
+    snap: 0
+    invert: 1
+    type: 1
+    axis: 2
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Vertical (Menu)
+    descriptiveName: 
+    descriptiveNegativeName: 
     negativeButton: down
     positiveButton: up
     altNegativeButton: s

@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickControls: {fileID: 1030841086}
   keyboardControls: {fileID: 1298203211}
+  comboControls: {fileID: 0}
 --- !u!1 &24547755
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +213,7 @@ Transform:
   m_Children:
   - {fileID: 1293273421}
   - {fileID: 476907206}
+  - {fileID: 619451225}
   m_Father: {fileID: 650353736}
   m_RootOrder: 14
 --- !u!114 &108636114
@@ -227,6 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickControls: {fileID: 1293273418}
   keyboardControls: {fileID: 476907205}
+  comboControls: {fileID: 619451224}
 --- !u!1 &115958339
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +791,150 @@ Transform:
   - {fileID: 336537575}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!1 &283744747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 283744748}
+  - 212: {fileID: 283744750}
+  - 95: {fileID: 283744749}
+  m_Layer: 10
+  m_Name: bug
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &283744748
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 283744747}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.20000076, y: 1.40000153, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_Children: []
+  m_Father: {fileID: 619451225}
+  m_RootOrder: 0
+--- !u!95 &283744749
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 283744747}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c21697e1babb648cea6a84caad7d91a7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!212 &283744750
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 283744747}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: d85f3d45683c6447b885cc9b1ba9d105, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &315923851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 315923852}
+  - 212: {fileID: 315923854}
+  - 95: {fileID: 315923853}
+  m_Layer: 10
+  m_Name: swatter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &315923852
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 315923851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.3999996, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_Children: []
+  m_Father: {fileID: 619451225}
+  m_RootOrder: 1
+--- !u!95 &315923853
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 315923851}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 34f106b4d916c4e1ab7dc6cbf8278095, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!212 &315923854
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 315923851}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 9d4a1fd3a0cc34c5d900ca9a5ecbff88, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &321127780
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,6 +1839,35 @@ Transform:
   - {fileID: 1939682031}
   m_Father: {fileID: 1307173236}
   m_RootOrder: 0
+--- !u!1 &619451224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 619451225}
+  m_Layer: 0
+  m_Name: combo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &619451225
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 619451224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 283744748}
+  - {fileID: 315923852}
+  m_Father: {fileID: 108636113}
+  m_RootOrder: 2
 --- !u!1 &632862150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,6 +1962,7 @@ Transform:
   - {fileID: 14273367}
   - {fileID: 1830245184}
   - {fileID: 108636113}
+  - {fileID: 1259890545}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!1 &681879744
@@ -2958,6 +3135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickControls: {fileID: 24547755}
   keyboardControls: {fileID: 882527077}
+  comboControls: {fileID: 0}
 --- !u!1 &997698463
 GameObject:
   m_ObjectHideFlags: 0
@@ -3543,8 +3721,8 @@ Transform:
   m_Children:
   - {fileID: 1552664640}
   - {fileID: 1947595755}
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 650353736}
+  m_RootOrder: 15
 --- !u!114 &1259890546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3558,6 +3736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickControls: {fileID: 1552664639}
   keyboardControls: {fileID: 1947595752}
+  comboControls: {fileID: 0}
 --- !u!1 &1266417192
 GameObject:
   m_ObjectHideFlags: 0
@@ -5997,7 +6176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8627e95a5658c51439e20c26aa8a3175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomSpawnRadius: 2
+  randomSpawnRadius: 4
   inGame: 0
   preMenuTime: 1.5
   preMenuText: {fileID: 1737650283}

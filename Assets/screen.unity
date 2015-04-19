@@ -2083,7 +2083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: .5
   speed: .5
-  magnitude: .100000001
+  magnitude: .300000012
 --- !u!1 &700677123
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class CameraShake : MonoBehaviour {
 		
 		while (elapsed < duration && shaking) {
 			elapsed += Time.deltaTime;
-            transform.position += new Vector3(Random.Range(-magnitude, magnitude), Random.Range(-magnitude, magnitude), originalCamPos.z);
+            transform.position = originalCamPos + new Vector3(Random.Range(-magnitude, magnitude), Random.Range(-magnitude, magnitude), originalCamPos.z);
             yield return null;
 		}
         transform.position = originalCamPos;

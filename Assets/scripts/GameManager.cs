@@ -259,6 +259,8 @@ public class GameManager : MonoBehaviour {
         Camera.main.orthographicSize = val;
     }
     IEnumerator StartGame(){
+		inGame = true;
+		state = StateType.InGame;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 		if(mode == 1){
@@ -272,11 +274,9 @@ public class GameManager : MonoBehaviour {
     	countdown.text = "1";
     	yield return new WaitForSeconds(1f);
     	countdown.gameObject.SetActive(false);
-    	inGame = true;
 		GetComponent<AudioSource>().clip = inGameMusic;
 		GetComponent<AudioSource>().time = inGameMusicTime;
 		GetComponent<AudioSource>().Play();
-		state = StateType.InGame;
 		bug = Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity) as GameObject;
 		hand = Instantiate(swatters[swatter]) as GameObject;
 		if(mode == 0){

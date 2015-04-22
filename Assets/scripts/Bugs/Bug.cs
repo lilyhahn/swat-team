@@ -127,7 +127,7 @@ public class Bug : MonoBehaviour {
                 		berryCount++;
                 	}
                 }
-                if(berryCount == 0){
+                if(berryCount < 3){
                 	gameManager.EndGame(WinnerType.Human);
                 }
         }

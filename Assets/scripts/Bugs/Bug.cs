@@ -5,6 +5,7 @@ public class Bug : MonoBehaviour {
 	
 	public float moveSpeed = 2f;
 	public float maxSpeed = 5f;
+	public float berrySpeedMultiplier = 0.7f;
 	public AudioClip gnatEatSound;
 	public AudioClip deathScream;
 	public AudioClip specialSound;
@@ -113,6 +114,8 @@ public class Bug : MonoBehaviour {
     IEnumerator KillSelf() {
         dying = true;
         if (holdingBerry) {
+        		maxSpeed = origMaxSpeed;
+        		moveSpeed = origMoveSpeed;
                 berry.GetComponent<SpriteRenderer>().sprite = squishedBerries[Random.Range(0, squishedBerries.Length-1)];
                 berry.transform.parent = null;
                 holdingBerry = false;
@@ -155,6 +158,8 @@ public class Bug : MonoBehaviour {
 	}
 	protected virtual void OnTriggerEnter2D(Collider2D c){
         if (c.tag == "berry" && !dead && !holdingBerry) {
+        	moveSpeed = origMoveSpeed * berrySpeedMultiplier;
+        	maxSpeed = origMaxSpeed * berrySpeedMultiplier;
             berry = GameObject.Instantiate(c.gameObject, transform.position, Quaternion.identity) as GameObject;
             berry.GetComponent<Collider2D>().enabled = false;
             berry.transform.parent = transform;
@@ -180,6 +185,8 @@ public class Bug : MonoBehaviour {
 			Physics2D.IgnoreCollision(c.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		}
         if (c.gameObject.tag == "house" && holdingBerry) {
+        	maxSpeed = origMaxSpeed;
+        	moveSpeed = origMoveSpeed;
             berry.transform.parent = c.transform;
             holdingBerry = false;
             gameManager.ScoreBug(1);

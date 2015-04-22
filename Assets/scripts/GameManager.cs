@@ -7,6 +7,7 @@ public enum WinnerType {
 }
 
 public class GameManager : MonoBehaviour {
+	public TextMesh countdown;
     public float randomSpawnRadius = 1;
 	public bool inGame = false;
     public float preMenuTime = 3f;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	public Vector3 modeSelectCamera;
 	public float modeSelectZoom;
 	public GameObject modeSelectText;
+	public AudioClip[] gnatVoices;
+	public AudioClip[] berryVoices;
 	public int[] winningScores; // in order of mode number
 	public int bugScore {get; private set;} // for bug
     public Vector3 characterSelectCamera;
@@ -136,7 +139,7 @@ public class GameManager : MonoBehaviour {
                     state = StateType.InGame;
                     characterSelectText.SetActive(false);
                     //stageSelectText.SetActive(true);
-                    StartGame();
+                    StartCoroutine(StartGame());
                 }
                 if (Input.GetButtonDown("Cancel (Bug)") && bugReady) {
                     characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = originalCharacterProfiles[character];
@@ -175,7 +178,7 @@ public class GameManager : MonoBehaviour {
                     }
                     gameOverText.transform.Find("human").gameObject.SetActive(false);
                     gameOverText.transform.Find("bug").gameObject.SetActive(false);
-                    StartGame();
+                    StartCoroutine(StartGame());
                 }
                 if (Input.GetButtonDown("Cancel")) {
                     Application.LoadLevel(0);
@@ -203,6 +206,14 @@ public class GameManager : MonoBehaviour {
 					state = StateType.SelectingCharacter;
 					LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
 					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
+					switch(mode){
+						case 0:
+							GetComponent<AudioSource>().PlayOneShot(gnatVoices[Random.Range(0, gnatVoices.Length - 1)]);
+							break;
+						case 1:
+							GetComponent<AudioSource>().PlayOneShot(berryVoices[Random.Range(0, gnatVoices.Length - 1)]);
+							break;
+				}
 					characterSelectText.SetActive(true);
 				break;
                 /*case StateType.SelectingCharacter:
@@ -246,7 +257,17 @@ public class GameManager : MonoBehaviour {
     void UpdateZoom(float val) {
         Camera.main.orthographicSize = val;
     }
-    void StartGame(){
+    IEnumerator StartGame(){
+		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
+		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
+		countdown.gameObject.SetActive(true);
+    	countdown.text = "3";
+    	yield return new WaitForSeconds(1f);
+    	countdown.text = "2";
+    	yield return new WaitForSeconds(1f);
+    	countdown.text = "1";
+    	yield return new WaitForSeconds(1f);
+    	countdown.gameObject.SetActive(false);
     	inGame = true;
 		GetComponent<AudioSource>().clip = inGameMusic;
 		GetComponent<AudioSource>().time = inGameMusicTime;
@@ -254,8 +275,6 @@ public class GameManager : MonoBehaviour {
 		state = StateType.InGame;
 		bug = Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity) as GameObject;
 		hand = Instantiate(swatters[swatter]) as GameObject;
-		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
-		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 		switch(mode){
 			case 0: //classic gnat-eating
 				gnatSpawner.SetActive(true);

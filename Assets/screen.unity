@@ -2237,6 +2237,7 @@ Transform:
   - {fileID: 1830245184}
   - {fileID: 108636113}
   - {fileID: 1259890545}
+  - {fileID: 1314065143}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!1 &681879744
@@ -4540,6 +4541,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1307173236}
   m_RootOrder: 1
+--- !u!1 &1314065142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1314065143}
+  - 23: {fileID: 1314065146}
+  - 102: {fileID: 1314065145}
+  - 114: {fileID: 1314065144}
+  m_Layer: 0
+  m_Name: countdown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1314065143
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1314065142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.639999986, y: 2.48000002, z: -7.30000019}
+  m_LocalScale: {x: .100000001, y: .100000001, z: 1}
+  m_Children: []
+  m_Father: {fileID: 650353736}
+  m_RootOrder: 16
+--- !u!114 &1314065144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1314065142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e30c3bc17e795140aef6c23c06ed5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingLayer: menu
+  sortingOrder: 1
+--- !u!102 &1314065145
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1314065142}
+  m_Text: 3
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 300
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 12800000, guid: 360ce9d2dbc69944ebbcd3ecfa0a4666, type: 3}
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+--- !u!23 &1314065146
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1314065142}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 360ce9d2dbc69944ebbcd3ecfa0a4666, type: 3}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!1 &1333184123
 GameObject:
   m_ObjectHideFlags: 0
@@ -6660,6 +6749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8627e95a5658c51439e20c26aa8a3175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countdown: {fileID: 1314065145}
   randomSpawnRadius: 4
   inGame: 0
   preMenuTime: 1.5
@@ -6669,6 +6759,10 @@ MonoBehaviour:
   modeSelectCamera: {x: -1.5, y: -21.7999992, z: -10}
   modeSelectZoom: 17.0499992
   modeSelectText: {fileID: 1830245183}
+  gnatVoices:
+  - {fileID: 8300000, guid: 8f99012a5eb65ad49aeb88a43e9b9e7b, type: 3}
+  berryVoices:
+  - {fileID: 8300000, guid: 8f99012a5eb65ad49aeb88a43e9b9e7b, type: 3}
   winningScores: 0f00000003000000
   characterSelectCamera: {x: 0, y: 33.5999985, z: -10}
   characterSelectCameraZoom: 30
@@ -6712,7 +6806,7 @@ MonoBehaviour:
   bugWinJingle: {fileID: 8300000, guid: d4ea1849efe2b104fa12463b44ab0f16, type: 3}
   gnatSpawner: {fileID: 886134433}
   berryMode: {fileID: 276164101}
-  restartDelay: .5
+  restartDelay: 1
 --- !u!4 &2037015352
 Transform:
   m_ObjectHideFlags: 0

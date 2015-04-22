@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour {
                     Destroy(bug);
                     Destroy(hand);
                     Destroy(GameObject.FindGameObjectWithTag("web"));
+                    gnatSpawner.SetActive(false);
                     foreach (GameObject dead in GameObject.FindGameObjectsWithTag("dead")) {
                         Destroy(dead);
                     }
@@ -260,6 +261,9 @@ public class GameManager : MonoBehaviour {
     IEnumerator StartGame(){
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
+		if(mode == 1){
+			berryMode.SetActive(true);
+		}
 		countdown.gameObject.SetActive(true);
     	countdown.text = "3";
     	yield return new WaitForSeconds(1f);
@@ -275,13 +279,8 @@ public class GameManager : MonoBehaviour {
 		state = StateType.InGame;
 		bug = Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity) as GameObject;
 		hand = Instantiate(swatters[swatter]) as GameObject;
-		switch(mode){
-			case 0: //classic gnat-eating
-				gnatSpawner.SetActive(true);
-			break;
-			case 1:
-                berryMode.SetActive(true);
-			break;
+		if(mode == 0){
+			gnatSpawner.SetActive(true);
 		}
 	}
     public void EndGame(WinnerType winner) {

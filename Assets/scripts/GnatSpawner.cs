@@ -7,11 +7,19 @@ public class GnatSpawner : MonoBehaviour {
 	public float checkInterval = 2f;
 	
 	void Start () {
-		InvokeRepeating("SpawnBugs", 0, checkInterval);	
+		StartCoroutine(SpawnBugs());
 	}
-	void SpawnBugs(){
-		if(GameObject.FindGameObjectsWithTag("gnat").Length < maxGnats){
-			Instantiate(gnat, transform.position, Quaternion.identity);
+	
+	void OnEnable(){
+		StartCoroutine(SpawnBugs());
+	}
+	
+	IEnumerator SpawnBugs(){
+		while(true){
+			if(GameObject.FindGameObjectsWithTag("gnat").Length < maxGnats){
+				Instantiate(gnat, transform.position, Quaternion.identity);
+			}
+			yield return new WaitForSeconds(checkInterval);
 		}
 	}
 }

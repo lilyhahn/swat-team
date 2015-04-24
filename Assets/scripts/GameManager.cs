@@ -17,8 +17,11 @@ public class GameManager : MonoBehaviour {
 	public Vector3 modeSelectCamera;
 	public float modeSelectZoom;
 	public GameObject modeSelectText;
+	public AudioSource voiceAudio;
 	public AudioClip[] gnatVoices;
 	public AudioClip[] berryVoices;
+	public AudioClip beep12;
+	public AudioClip beep3;
 	public int[] winningScores; // in order of mode number
 	public int bugScore {get; private set;} // for bug
     public Vector3 characterSelectCamera;
@@ -209,10 +212,10 @@ public class GameManager : MonoBehaviour {
 					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
 					switch(mode){
 						case 0:
-							GetComponent<AudioSource>().PlayOneShot(gnatVoices[Random.Range(0, gnatVoices.Length - 1)]);
+							voiceAudio.PlayOneShot(gnatVoices[Random.Range(0, gnatVoices.Length - 1)]);
 							break;
 						case 1:
-							GetComponent<AudioSource>().PlayOneShot(berryVoices[Random.Range(0, gnatVoices.Length - 1)]);
+							voiceAudio.PlayOneShot(berryVoices[Random.Range(0, gnatVoices.Length - 1)]);
 							break;
 				}
 					characterSelectText.SetActive(true);
@@ -259,6 +262,7 @@ public class GameManager : MonoBehaviour {
         Camera.main.orthographicSize = val;
     }
     IEnumerator StartGame(){
+		GetComponent<AudioSource>().Stop ();
 		inGame = true;
 		state = StateType.InGame;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
@@ -268,10 +272,13 @@ public class GameManager : MonoBehaviour {
 		}
 		countdown.gameObject.SetActive(true);
     	countdown.text = "3";
+    	GetComponent<AudioSource>().PlayOneShot(beep12);
     	yield return new WaitForSeconds(1f);
     	countdown.text = "2";
+		GetComponent<AudioSource>().PlayOneShot(beep12);
     	yield return new WaitForSeconds(1f);
     	countdown.text = "1";
+		GetComponent<AudioSource>().PlayOneShot(beep3);
     	yield return new WaitForSeconds(1f);
     	countdown.gameObject.SetActive(false);
 		GetComponent<AudioSource>().clip = inGameMusic;
@@ -297,6 +304,7 @@ public class GameManager : MonoBehaviour {
             gameOverText.transform.Find("bug").gameObject.SetActive(true);
             GetComponent<AudioSource>().clip = bugWinJingle;
         }
+        GetComponent<AudioSource>().time = 0f;
         GetComponent<AudioSource>().Play();
     }
     public void ScoreBug(int amount){

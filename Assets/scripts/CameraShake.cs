@@ -16,12 +16,17 @@ public class CameraShake : MonoBehaviour {
         oldDuration = duration;
         oldSpeed = speed;
         oldMagnitude = magnitude;
-        LTDescr toCA = LeanTween.value(gameObject, GetComponent<VignetteAndChromaticAberration>().chromaticAberration, chromaticAberration, duration / 2);
-		toCA.setOnComplete(delegate(){LeanTween.value(gameObject, GetComponent<VignetteAndChromaticAberration>().chromaticAberration, 0, duration / 2);});
+        LTDescr toCA = LeanTween.value(gameObject, setChromaticAberration, GetComponent<VignetteAndChromaticAberration>().chromaticAberration, chromaticAberration, duration / 2);
+		toCA.setOnComplete(delegate(){LeanTween.value(gameObject, setChromaticAberration, GetComponent<VignetteAndChromaticAberration>().chromaticAberration, 0, duration / 2);});
         if(!shaking){
 		    StartCoroutine("Shake");
 		}
 	}
+
+    void setChromaticAberration(float cA) {
+        GetComponent<VignetteAndChromaticAberration>().chromaticAberration = cA;
+    }
+
     public void PlayShake(float Duration, float Speed, float Magnitude) {
         if (Duration > 0) {
             oldDuration = duration;

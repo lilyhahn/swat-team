@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 using System.Collections;
 
 public class CameraShake : MonoBehaviour {
 	public float duration = 0.5f;
 	public float speed = 1.0f;
 	public float magnitude = 0.1f;
+	public float chromaticAberration = 15f;
     bool shaking = false;
     float oldDuration;
     float oldSpeed;
@@ -14,8 +16,11 @@ public class CameraShake : MonoBehaviour {
         oldDuration = duration;
         oldSpeed = speed;
         oldMagnitude = magnitude;
-        if(!shaking)
+        LTDescr toCA = LeanTween.value(gameObject, GetComponent<VignetteAndChromaticAberration>().chromaticAberration, chromaticAberration, duration / 2);
+		toCA.setOnComplete(delegate(){LeanTween.value(gameObject, GetComponent<VignetteAndChromaticAberration>().chromaticAberration, 0, duration / 2);});
+        if(!shaking){
 		    StartCoroutine("Shake");
+		}
 	}
     public void PlayShake(float Duration, float Speed, float Magnitude) {
         if (Duration > 0) {

@@ -6257,6 +6257,7 @@ GameObject:
   - 4: {fileID: 1939682031}
   - 212: {fileID: 1939682030}
   - 95: {fileID: 1939682029}
+  - 114: {fileID: 1939682032}
   m_Layer: 0
   m_Name: shooting star
   m_TagString: Untagged
@@ -6319,6 +6320,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 572881343}
   m_RootOrder: 5
+--- !u!114 &1939682032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1939682028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863bc647c1bfc3d4f8255c894e3721b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounds: {x: 4, y: 3}
+  minDelay: 0
+  maxDelay: 30
 --- !u!1 &1943628182
 GameObject:
   m_ObjectHideFlags: 0

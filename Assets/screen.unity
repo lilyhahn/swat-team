@@ -2401,7 +2401,7 @@ MonoBehaviour:
   duration: .5
   speed: .5
   magnitude: .300000012
-  chromaticAberration: 15
+  chromaticAberration: 5
 --- !u!114 &694114726
 MonoBehaviour:
   m_ObjectHideFlags: 0

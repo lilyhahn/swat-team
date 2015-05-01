@@ -132,6 +132,7 @@ public class Bug : MonoBehaviour {
                 }
         }
         else {
+			GetComponent<Rigidbody2D>().isKinematic = true;
             dead = true;
             GetComponent<AudioSource>().clip = deathScream;
             GetComponent<AudioSource>().Play();

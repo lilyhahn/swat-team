@@ -108,7 +108,7 @@ public class Bug : MonoBehaviour {
 		}
 	}
 	public void Kill(){
-        if(!dying && gameManager.inGame)
+        if(!dying)
         StartCoroutine(KillSelf());
 	}
     IEnumerator KillSelf() {
@@ -136,7 +136,9 @@ public class Bug : MonoBehaviour {
             GetComponent<AudioSource>().clip = deathScream;
             GetComponent<AudioSource>().Play();
             GetComponent<Animator>().SetTrigger("dead");
-            GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Human);
+			if(gameManager.inGame){
+            	GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Human);
+			}
         }
         yield return new WaitForSeconds(0.1f);
         dying = false;

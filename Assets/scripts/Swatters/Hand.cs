@@ -6,6 +6,9 @@ public class Hand : MonoBehaviour {
 	public AudioClip miss;
 	public float stuckTime = 4f;
 	public float gnatScatterRadius;
+	public float stuckShakeDuration = 0.2f;
+	public float stuckShakeMagnitude = 0.1f;
+	bool shaking;
 	protected Animator anim;
 	protected bool stuck = false;
 	Vector3 lastStuckPosition = Vector3.zero;
@@ -78,6 +81,24 @@ public class Hand : MonoBehaviour {
 		stuck = false;
 	}
 	protected virtual void Swat(){
+		if(stuck){
+			StartCoroutine(Shake());
+			shaking = true;
+		}
 		anim.SetTrigger("swat");
+	}
+	
+	IEnumerator Shake(){
+		float elapsed = 0.0f;
+		shaking = true;
+		Vector3 origPos = transform.position;
+		
+		while (elapsed < stuckShakeDuration && shaking) {
+			elapsed += Time.deltaTime;
+            transform.position = origPos + new Vector3(Random.Range(-stuckShakeMagnitude, stuckShakeMagnitude), Random.Range(-stuckShakeMagnitude, stuckShakeMagnitude), origPos.z);
+            yield return null;
+		}
+        transform.position = origPos;
+		shaking = false;
 	}
 }

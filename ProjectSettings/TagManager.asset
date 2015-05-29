@@ -12,6 +12,7 @@ TagManager:
   - berry
   - house
   - berry tree
+  - worm
   layers:
   - Default
   - TransparentFX

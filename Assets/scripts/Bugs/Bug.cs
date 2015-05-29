@@ -27,20 +27,14 @@ public class Bug : MonoBehaviour {
 	float origMaxSpeed;
 	float origMoveSpeed;
 	
-	void Start(){
+	virtual protected void Start(){
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		origMaxSpeed = maxSpeed;
 		origMoveSpeed = moveSpeed;
 	}
 	
-	// Update is called once per frame
-	virtual protected void Update () {
-		/*if(score >= winningScore && inGame){
-			inGame = false;
-			GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Bug);
-		}*/
-		if(!dead){
-			if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0){
+	virtual protected void Move(){
+		if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0){
 				if(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) < maxSpeed)
 					GetComponent<Rigidbody2D>().AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * moveSpeed);
 				else
@@ -101,7 +95,16 @@ public class Bug : MonoBehaviour {
 			else if(h < 0 && v < 0){
 				transform.eulerAngles = new Vector3(0, 0, -45);
 			}
-			
+	}
+	
+	// Update is called once per frame
+	virtual protected void Update () {
+		/*if(score >= winningScore && inGame){
+			inGame = false;
+			GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Bug);
+		}*/
+		if(!dead){
+			Move();
 			if(Input.GetButtonDown("Bug Special")){
 				Special();
 			}

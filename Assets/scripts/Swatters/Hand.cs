@@ -43,7 +43,7 @@ public class Hand : MonoBehaviour {
         else {
             transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
         }
-		if(Input.GetButtonDown("Swat")){
+		if(Input.GetButtonDown("Swat") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			GetComponent<AudioSource>().clip = miss;
 			GetComponent<AudioSource>().Play();
 			Swat ();

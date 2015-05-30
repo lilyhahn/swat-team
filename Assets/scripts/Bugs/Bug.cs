@@ -34,28 +34,27 @@ public class Bug : MonoBehaviour {
 	}
 	
 	virtual protected void Move(){
-        Vector2 force = GetComponent<Rigidbody2D>().velocity;
+        Vector2 velocity = GetComponent<Rigidbody2D>().velocity;
 		if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0){
-				if(Mathf.Abs(force.x) < maxSpeed)
-					force += Vector2.right * Input.GetAxisRaw("Horizontal");
+				if(Mathf.Abs(velocity.x) < maxSpeed)
+					velocity += Vector2.right * Input.GetAxisRaw("Horizontal");
 				else
-					force = new Vector2(Mathf.Sign(force.x), force.y);
+					velocity = new Vector2(Mathf.Sign(velocity.x), velocity.y);
 			}
 			else{
-				force = new Vector2(0f, force.y);
+				velocity = new Vector2(0f, velocity.y);
 			}
 			if(Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0){
-				if(Mathf.Abs(force.y) < maxSpeed)
-					force += Vector2.up * Input.GetAxisRaw("Vertical");
+				if(Mathf.Abs(velocity.y) < maxSpeed)
+					velocity += Vector2.up * Input.GetAxisRaw("Vertical");
 				else
-					force = new Vector2(force.x, Mathf.Sign(force.y));
+					velocity = new Vector2(velocity.x, Mathf.Sign(velocity.y));
 			}
 			else{
-				force = new Vector2(force.x, 0f);
+				velocity = new Vector2(velocity.x, 0f);
 			}
-            force = force.normalized * moveSpeed;
-            Debug.Log(force);
-            GetComponent<Rigidbody2D>().velocity = force;
+            velocity = velocity.normalized * moveSpeed;
+            GetComponent<Rigidbody2D>().velocity = velocity;
 			if(Input.GetAxis("Vertical") != 0){
 				GetComponent<Animator>().SetInteger("direction", (int)Mathf.Sign (Input.GetAxis("Vertical")));
 				GetComponent<Animator>().SetTrigger("move");

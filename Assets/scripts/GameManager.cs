@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour {
     GameObject bug;
     GameObject hand;
     bool swatterScrolling = false;
+    bool bugScrolling = false;
+    bool selectingCharacterActive = false;
     enum StateType {
         PreMenu,
         MainMenu,
@@ -98,16 +100,21 @@ public class GameManager : MonoBehaviour {
 			break;
             case StateType.SelectingCharacter:
                 characterProfiles[character].SetActive(false);
-                if (Input.GetAxisRaw("Vertical (Bug Menu)") > 0 && !bugReady) {
+                if (Input.GetAxisRaw("Vertical (Bug Menu)") > 0 && !bugReady && !bugScrolling) {
                     character++;
+                    bugScrolling = true;
                 }
-                if (Input.GetAxisRaw("Vertical (Bug Menu)") < 0 && !bugReady) {
+                if (Input.GetAxisRaw("Vertical (Bug Menu)") < 0 && !bugReady && !bugScrolling) {
                     character--;
+                    bugScrolling = true;
+                }
+                if (Input.GetAxisRaw("Vertical (Bug Menu)") == 0) {
+                    bugScrolling = false;
                 }
                 if (character >= characters.Length)
-                    character = characters.Length-1;
-                if (character < 0)
                     character = 0;
+                if (character < 0)
+                    character = characters.Length - 1;
                 characterProfiles[character].SetActive(true);
 
                 swatterProfiles[swatter].SetActive(false);
@@ -126,15 +133,17 @@ public class GameManager : MonoBehaviour {
                 if(Input.GetAxisRaw("Vertical (Swatter Menu)") == 0)
                         swatterScrolling = false;
                 if (swatter >= swatters.Length)
-                    swatter = swatters.Length - 1;
-                if (swatter < 0)
                     swatter = 0;
+                if (swatter < 0)
+                    swatter = swatters.Length - 1;
                 swatterProfiles[swatter].SetActive(true);
                 if (Input.GetButtonDown("Submit (Bug)")) {
+                    selectingCharacterActive = true;
                     characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = finalCharacterProfiles[character];
                     bugReady = true;
                 }
                 if (Input.GetButtonDown("Submit (Swatter)")) {
+                    selectingCharacterActive = true;
                     swatterProfiles[swatter].transform.Find("box").GetComponent<SpriteRenderer>().sprite = finalSwatterProfiles[swatter];
                     swatterReady = true;
                 }
@@ -240,6 +249,10 @@ public class GameManager : MonoBehaviour {
 		if(Input.GetButtonDown ("Cancel")){
 			switch(state){
                 case StateType.SelectingCharacter:
+                    if (selectingCharacterActive) {
+                        selectingCharacterActive = false;
+                        break;
+                    }
                     LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
 					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
                     state = StateType.SelectingMode;

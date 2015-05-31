@@ -64,7 +64,7 @@ public class Hand : MonoBehaviour {
 			}
 			if(c.gameObject.tag == "worm"){
 				GetComponent<AudioSource>().clip = squish;
-				c.transform.parent.GetComponent<Worm>().Kill(c.gameObject);
+				c.transform.GetComponent<WormPart>().Kill();
 			}
 			if(c.gameObject.tag == "gnat"){
 				GetComponent<AudioSource>().clip = squish;

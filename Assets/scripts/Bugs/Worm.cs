@@ -6,17 +6,29 @@ public class Worm : Bug {
 	
 	Transform head;
 	
-	public List<GameObject> bodyParts;
+	public List<WormPart> bodyParts;
 	
 	override protected void Start(){
 		base.Start();
 		head = transform.Find("Head");
 	}
 	
-	public void Kill(GameObject part){
-		for(int i = bodyParts.IndexOf(part)-1; i < bodyParts.Count; i++){
-			bodyParts[i].GetComponent<HingeJoint2D>().enabled = false;
-		}
+	public void Kill(WormPart part){
+        if (!part.isHead) {
+            for (int i = bodyParts.IndexOf(part) - 1; i < bodyParts.Count; i++) {
+                bodyParts[i].GetComponent<HingeJoint2D>().enabled = false;
+            }
+        }
+        else {
+            bodyParts[0].Kill(WormPartStates.Dead);
+            for (int i = 0; i < bodyParts.Count; i++) {
+                bodyParts[i].Kill(WormPartStates.Dead);
+                bodyParts[i].GetComponent<HingeJoint2D>().enabled = false;
+            }
+            if (gameManager.inGame) {
+                gameManager.EndGame(WinnerType.Human);
+            }
+        }
 	}
 
 	override protected void Move(){

@@ -12,6 +12,7 @@ GameObject:
   - 61: {fileID: 6190220}
   - 50: {fileID: 5032772}
   - 233: {fileID: 23393174}
+  - 114: {fileID: 11470504}
   m_Layer: 0
   m_Name: Body 4
   m_TagString: worm
@@ -32,6 +33,7 @@ GameObject:
   - 50: {fileID: 5039268}
   - 233: {fileID: 23382906}
   - 232: {fileID: 23248708}
+  - 114: {fileID: 11491440}
   m_Layer: 0
   m_Name: Body 1
   m_TagString: worm
@@ -51,6 +53,7 @@ GameObject:
   - 61: {fileID: 6140284}
   - 50: {fileID: 5019878}
   - 233: {fileID: 23355962}
+  - 114: {fileID: 11424898}
   m_Layer: 0
   m_Name: Head
   m_TagString: worm
@@ -70,6 +73,7 @@ GameObject:
   - 61: {fileID: 6104144}
   - 50: {fileID: 5045684}
   - 233: {fileID: 23308700}
+  - 114: {fileID: 11402474}
   m_Layer: 0
   m_Name: Body 2
   m_TagString: worm
@@ -89,6 +93,7 @@ GameObject:
   - 61: {fileID: 6107854}
   - 50: {fileID: 5023874}
   - 233: {fileID: 23339436}
+  - 114: {fileID: 11431568}
   m_Layer: 0
   m_Name: Body 3
   m_TagString: worm
@@ -399,6 +404,20 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &11402474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e134274d4ddf311498d7803fe128e3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
+  deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
+  isHead: 0
 --- !u!114 &11419644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -425,9 +444,67 @@ MonoBehaviour:
   nextFire: 0
   squishedBerries: []
   bodyParts:
-  - {fileID: 150858}
-  - {fileID: 127336}
-  - {fileID: 155472}
+  - {fileID: 11424898}
+  - {fileID: 11491440}
+  - {fileID: 11402474}
+  - {fileID: 11431568}
+  - {fileID: 11470504}
+--- !u!114 &11424898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e134274d4ddf311498d7803fe128e3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dead: {fileID: 21300000, guid: 9d4182754d05d614babd49f2ba3197b7, type: 3}
+  deader: {fileID: 21300000, guid: 22045d9408166824cacfe6e139c49135, type: 3}
+  isHead: 1
+--- !u!114 &11431568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e134274d4ddf311498d7803fe128e3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
+  deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
+  isHead: 0
+--- !u!114 &11470504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e134274d4ddf311498d7803fe128e3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
+  deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
+  isHead: 0
+--- !u!114 &11491440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e134274d4ddf311498d7803fe128e3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
+  deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
+  isHead: 0
 --- !u!212 &21202142
 SpriteRenderer:
   m_ObjectHideFlags: 1

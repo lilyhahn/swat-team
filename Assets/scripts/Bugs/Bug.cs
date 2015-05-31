@@ -16,7 +16,7 @@ public class Bug : MonoBehaviour {
     bool dying = false;
     bool holdingBerry = false;
     GameObject berry = null;
-	GameManager gameManager;
+	protected GameManager gameManager;
 	public float winningScore = 15;
 	public float cooldown = 1f;
 	public float finalCooldown = 0.5f;

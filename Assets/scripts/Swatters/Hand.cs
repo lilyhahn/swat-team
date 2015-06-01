@@ -52,6 +52,7 @@ public class Hand : MonoBehaviour {
 	protected void OnTriggerEnter2D(Collider2D c){
 		if(c.gameObject.tag == "stinger"){
 			StartCoroutine(GetStuck());
+			Destroy(c.gameObject);
 		}
 	}
 	protected void OnTriggerStay2D(Collider2D c){

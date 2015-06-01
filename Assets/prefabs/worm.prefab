@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6190220}
   - 50: {fileID: 5032772}
   - 233: {fileID: 23393174}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body 4
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ GameObject:
   - 50: {fileID: 5039268}
   - 233: {fileID: 23382906}
   - 232: {fileID: 23248708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body 1
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - 61: {fileID: 6140284}
   - 50: {fileID: 5019878}
   - 233: {fileID: 23355962}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - 61: {fileID: 6104144}
   - 50: {fileID: 5045684}
   - 233: {fileID: 23308700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body 2
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - 61: {fileID: 6107854}
   - 50: {fileID: 5023874}
   - 233: {fileID: 23339436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body 3
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - 4: {fileID: 499394}
   - 114: {fileID: 11419644}
   - 82: {fileID: 8251062}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: worm
   m_TagString: bug
   m_Icon: {fileID: 0}

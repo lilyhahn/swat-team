@@ -15,7 +15,7 @@ GameObject:
   - 95: {fileID: 9500000}
   m_Layer: 0
   m_Name: normal
-  m_TagString: Untagged
+  m_TagString: swatter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,6 +146,8 @@ MonoBehaviour:
   miss: {fileID: 8300000, guid: 29638e49d90874c4db442f22e5212464, type: 3}
   stuckTime: 4
   gnatScatterRadius: 3
+  stuckShakeDuration: .200000003
+  stuckShakeMagnitude: .100000001
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

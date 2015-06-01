@@ -13,6 +13,8 @@ TagManager:
   - house
   - berry tree
   - worm
+  - stinger
+  - swatter
   layers:
   - Default
   - TransparentFX

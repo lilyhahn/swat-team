@@ -6,7 +6,6 @@ public class Ladybug : Bug {
 	protected override bool Special(){
 		if (!base.Special ())
 			return true;
-		GetComponent<Animator>().SetTrigger("special");
 		StartCoroutine(Roll ());
 		return true;
 	}

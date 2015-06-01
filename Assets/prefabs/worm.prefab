@@ -12,12 +12,8 @@ GameObject:
   - 61: {fileID: 6190220}
   - 50: {fileID: 5032772}
   - 233: {fileID: 23393174}
-<<<<<<< HEAD
   - 114: {fileID: 11470504}
-  m_Layer: 0
-=======
   m_Layer: 8
->>>>>>> wasp
   m_Name: Body 4
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -37,12 +33,8 @@ GameObject:
   - 50: {fileID: 5039268}
   - 233: {fileID: 23382906}
   - 232: {fileID: 23248708}
-<<<<<<< HEAD
   - 114: {fileID: 11491440}
-  m_Layer: 0
-=======
   m_Layer: 8
->>>>>>> wasp
   m_Name: Body 1
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -61,12 +53,8 @@ GameObject:
   - 61: {fileID: 6140284}
   - 50: {fileID: 5019878}
   - 233: {fileID: 23355962}
-<<<<<<< HEAD
   - 114: {fileID: 11424898}
-  m_Layer: 0
-=======
   m_Layer: 8
->>>>>>> wasp
   m_Name: Head
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -85,12 +73,8 @@ GameObject:
   - 61: {fileID: 6104144}
   - 50: {fileID: 5045684}
   - 233: {fileID: 23308700}
-<<<<<<< HEAD
   - 114: {fileID: 11402474}
-  m_Layer: 0
-=======
   m_Layer: 8
->>>>>>> wasp
   m_Name: Body 2
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -109,12 +93,8 @@ GameObject:
   - 61: {fileID: 6107854}
   - 50: {fileID: 5023874}
   - 233: {fileID: 23339436}
-<<<<<<< HEAD
   - 114: {fileID: 11431568}
-  m_Layer: 0
-=======
   m_Layer: 8
->>>>>>> wasp
   m_Name: Body 3
   m_TagString: worm
   m_Icon: {fileID: 0}

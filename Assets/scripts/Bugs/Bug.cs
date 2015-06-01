@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(BoxCollider2D))]
 
 public class Bug : MonoBehaviour {
 	
@@ -163,6 +168,7 @@ public class Bug : MonoBehaviour {
 		GetComponent<AudioSource>().clip = specialSound;
 		GetComponent<AudioSource>().Play();
         Camera.main.GetComponent<CameraShake>().PlayShake(0.5f, 0.5f, 0.05f);
+		GetComponent<Animator>().SetTrigger("special");
 		return true;
 	}
 	protected virtual void OnTriggerEnter2D(Collider2D c){

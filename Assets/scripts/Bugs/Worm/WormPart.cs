@@ -12,17 +12,25 @@ public class WormPart : MonoBehaviour {
     public Sprite dead;
     public Sprite deader;
     public bool isHead;
+    public float attatchDelay = 0.5f;
 
-    WormPartStates state = WormPartStates.Alive;
+    public WormPartStates state { get; private set; }
 
     bool killing = false;
 
+    public void Awake() {
+        state = WormPartStates.Alive;
+    }
+
     public void Kill() {
         if (!killing)
-            KillRoutine();
+            StartCoroutine(KillRoutine());
     }
     public void Kill(WormPartStates killState) {
         switch (killState) {
+            case WormPartStates.Alive:
+                state = WormPartStates.Alive;
+                break;
             case WormPartStates.Detatched:
                 transform.parent.GetComponent<Worm>().Kill(this);
                 state = WormPartStates.Detatched;
@@ -38,11 +46,12 @@ public class WormPart : MonoBehaviour {
                 break;
         }
     }
-    void KillRoutine() {
+    IEnumerator KillRoutine() {
         killing = true;
         switch (state) {
             case WormPartStates.Alive:
                 transform.parent.GetComponent<Worm>().Kill(this);
+                yield return new WaitForSeconds(attatchDelay);
                 state = WormPartStates.Detatched;
                 break;
             case WormPartStates.Detatched:
@@ -58,5 +67,9 @@ public class WormPart : MonoBehaviour {
     }
     void OnTriggerExit2D() {
         killing = false;
+    }
+
+    void OnCollisionEnter2D(Collision2D c) {
+        transform.parent.GetComponent<Worm>().Collide(c);
     }
 }

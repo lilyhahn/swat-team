@@ -70,6 +70,10 @@ public class WormPart : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D c) {
-        transform.parent.GetComponent<Worm>().Collide(c);
+        transform.parent.GetComponent<Worm>().OnCollisionEnter2D(c);
+    }
+
+    void OnTriggerEnter2D(Collider2D c) {
+        transform.parent.GetComponent<Worm>().OnTriggerEnter2D(c);
     }
 }

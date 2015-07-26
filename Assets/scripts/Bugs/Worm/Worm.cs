@@ -44,7 +44,7 @@ public class Worm : Bug {
             bodyParts.Remove(c.gameObject.GetComponent<WormPart>());
             bodyParts.Insert(insertIndex, c.gameObject.GetComponent<WormPart>());
             c.gameObject.GetComponent<WormPart>().Kill(WormPartStates.Alive);
-            for (int i = 0; i < bodyParts.Count; i++) {
+            for (int i = 0; i < insertIndex; i++) {
                 bodyParts[i].transform.localPosition = partPositions[i];
                 if (i < bodyParts.Count - 1) {
                     bodyParts[i].GetComponent<HingeJoint2D>().connectedBody = bodyParts[i + 1].GetComponent<Rigidbody2D>();

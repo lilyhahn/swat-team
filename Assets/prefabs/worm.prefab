@@ -418,6 +418,7 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
   deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
   isHead: 0
+  attatchDelay: 1
 --- !u!114 &11419644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -442,7 +443,10 @@ MonoBehaviour:
   cooldown: 1
   finalCooldown: .5
   nextFire: 0
-  squishedBerries: []
+  scoreScale: 4
+  squishedBerries:
+  - {fileID: 21300000, guid: e6c1ab96cd560472994fe4eabb97fc22, type: 3}
+  - {fileID: 21300000, guid: 2bc1bb68d863249c6995a2fb69c5bdef, type: 3}
   bodyParts:
   - {fileID: 11424898}
   - {fileID: 11491440}
@@ -463,6 +467,7 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: 9d4182754d05d614babd49f2ba3197b7, type: 3}
   deader: {fileID: 21300000, guid: 22045d9408166824cacfe6e139c49135, type: 3}
   isHead: 1
+  attatchDelay: .5
 --- !u!114 &11431568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -477,6 +482,7 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
   deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
   isHead: 0
+  attatchDelay: 1
 --- !u!114 &11470504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -491,6 +497,7 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
   deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
   isHead: 0
+  attatchDelay: 1
 --- !u!114 &11491440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -505,6 +512,7 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
   deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
   isHead: 0
+  attatchDelay: 1
 --- !u!212 &21202142
 SpriteRenderer:
   m_ObjectHideFlags: 1

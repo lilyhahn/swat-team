@@ -126,6 +126,7 @@ public class Bug : MonoBehaviour {
     }
     IEnumerator KillSelf() {
         dying = true;
+        OnKill();
         if (holdingBerry) {
             maxSpeed = origMaxSpeed;
             moveSpeed = origMoveSpeed;
@@ -157,6 +158,11 @@ public class Bug : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         dying = false;
     }
+
+    virtual protected void OnKill() {
+        // override in children for events
+    }
+
     public void Reset() {
         dead = false;
         GetComponent<Animator>().SetTrigger("Reset");

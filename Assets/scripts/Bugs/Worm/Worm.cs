@@ -26,11 +26,12 @@ public class Worm : Bug {
 
     protected override void Update() {
         base.Update();
-        Debug.Log(holdingBerry);
+        //Debug.Log(holdingBerry);
     }
 
     public void Kill(WormPart part) {
         StartCoroutine(KillRoutine(part));
+        //KillRoutine(part);
     }
 
     IEnumerator KillRoutine(WormPart part) {
@@ -71,7 +72,7 @@ public class Worm : Bug {
                     }
                 }
             }
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.3f);
             killing = false;
         }
     }
@@ -81,17 +82,14 @@ public class Worm : Bug {
         if (c.gameObject.tag == "worm" && !c.gameObject.GetComponent<WormPart>().isHead && c.gameObject.GetComponent<WormPart>().state == WormPartStates.Detatched) {
             int insertIndex = bodyParts.IndexOf(bodyParts.Last(w => w.state == WormPartStates.Alive)) + 1;
             bodyParts.Remove(c.gameObject.GetComponent<WormPart>());
-            try {
-                bodyParts.Insert(insertIndex, c.gameObject.GetComponent<WormPart>());
-            }
-            catch (System.InvalidOperationException) {
-                insertIndex = 1;
-                bodyParts.Insert(insertIndex, c.gameObject.GetComponent<WormPart>());
-            }
+            bodyParts.Insert(insertIndex, c.gameObject.GetComponent<WormPart>());
             c.gameObject.GetComponent<WormPart>().Kill(WormPartStates.Alive);
+            c.gameObject.GetComponent<HingeJoint2D>().enabled = false;
             for (int i = 0; i < insertIndex; i++) {
-                bodyParts[i].transform.localPosition = partPositions[i];
-                bodyParts[i].transform.localRotation = Quaternion.identity;
+                if (i > 0) {
+                    bodyParts[i].transform.localPosition = partPositions[i];
+                    bodyParts[i].transform.localRotation = Quaternion.identity;
+                }
                 bodyParts[i].GetComponent<HingeJoint2D>().anchor = partAnchor;
                 bodyParts[i].GetComponent<HingeJoint2D>().connectedAnchor = partConnectedAnchor;
                 if (i < bodyParts.Count - 1) {
@@ -101,6 +99,7 @@ public class Worm : Bug {
                     }
                 }
             }
+            //head.transform.localPosition = partPositions[insertIndex];
         }
     }
 

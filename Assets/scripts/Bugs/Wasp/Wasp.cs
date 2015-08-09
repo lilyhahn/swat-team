@@ -32,6 +32,11 @@ public class Wasp : Bug {
 			wings.SetTrigger("idle");
 		}
 	}
+
+    protected override void OnKill() {
+        wings.speed = 0f;
+    }
+
 	protected override bool Special(){
 		if(!base.Special()){
 			return false;

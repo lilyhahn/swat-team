@@ -12,7 +12,7 @@ public class WormPart : MonoBehaviour {
     public Sprite dead;
     public Sprite deader;
     public bool isHead;
-    public float attatchDelay = 0.5f;
+    public float killDelay = 0.5f;
 
     public WormPartStates state { get; private set; }
 
@@ -26,11 +26,11 @@ public class WormPart : MonoBehaviour {
 
     public void Kill() {
         if (!killing)
-            //StartCoroutine(KillRoutine());
-            KillRoutine();
+            StartCoroutine(KillRoutine());
+            //KillRoutine();
     }
     public void Kill(WormPartStates killState) {
-        if (!isHead && canKill) {
+        if (!isHead) {
             switch (killState) {
                 case WormPartStates.Alive:
                     state = WormPartStates.Alive;
@@ -51,21 +51,24 @@ public class WormPart : MonoBehaviour {
             }
         }
     }
-    void KillRoutine() {
+    IEnumerator KillRoutine() {
         killing = true;
         if (!isHead && canKill) {
             canKill = false;
             switch (state) {
                 case WormPartStates.Alive:
                     transform.parent.GetComponent<Worm>().Kill(this);
-                    //yield return new WaitForSeconds(attatchDelay);
+                    GetComponent<HingeJoint2D>().enabled = false;
                     state = WormPartStates.Detatched;
+                    yield return new WaitForSeconds(killDelay);
+                    canKill = true;
                     break;
                 case WormPartStates.Detatched:
                     GetComponent<SpriteRenderer>().sprite = dead;
                     GetComponent<Rigidbody2D>().isKinematic = true;
-                    //yield return new WaitForSeconds(attatchDelay);
                     state = WormPartStates.Dead;
+                    yield return new WaitForSeconds(killDelay);
+                    canKill = true;
                     break;
                 case WormPartStates.Dead:
                     GetComponent<SpriteRenderer>().sprite = deader;
@@ -85,7 +88,8 @@ public class WormPart : MonoBehaviour {
     //}
 
     void OnCollisionEnter2D(Collision2D c) {
-        transform.parent.GetComponent<Worm>().Collide(c);
+        //if(state == WormPartStates.Detatched)
+            transform.parent.GetComponent<Worm>().Collide(c);
     }
 
     void OnTriggerEnter2D(Collider2D c) {
@@ -93,7 +97,11 @@ public class WormPart : MonoBehaviour {
     }
 
     void Update() {
-        if (Vector3.Distance(transform.position, transform.parent.GetChild(0).position) > KillDistance)
-            canKill = true;
+        //Debug.Log(gameObject.name + " " + state);
+        if (state != WormPartStates.Alive) {
+            GetComponent<HingeJoint2D>().enabled = false;
+        }
+        //if (Vector2.Distance(transform.position, transform.parent.GetChild(0).position) > KillDistance)
+        //    canKill = true;
     }
 }

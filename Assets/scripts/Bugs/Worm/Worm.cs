@@ -8,6 +8,8 @@ public class Worm : Bug {
     Transform head;
 
     bool killing = false;
+    bool canAttach = true;
+    public float attachDelay = 0.2f;
 
     public List<WormPart> bodyParts;
     List<Vector3> partPositions = new List<Vector3>();
@@ -37,9 +39,11 @@ public class Worm : Bug {
     IEnumerator KillRoutine(WormPart part) {
         if (!killing) {
             killing = true;
+            canAttach = false;
             if (!part.isHead && !holdingBerry) {
-                for (int i = bodyParts.IndexOf(part) - 1; i < bodyParts.Count; i++) {
-                    bodyParts[i].GetComponent<HingeJoint2D>().enabled = false;
+                for (int i = bodyParts.IndexOf(part); i < bodyParts.Count; i++) {
+                    bodyParts[i].Kill();
+                    //bodyParts[i].GetComponent<HingeJoint2D>().enabled = false;
                 }
             }
             else {
@@ -72,22 +76,35 @@ public class Worm : Bug {
                     }
                 }
             }
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(attachDelay);
+            canAttach = true;
             killing = false;
         }
     }
 
     public void Collide(Collision2D c) {
         base.OnCollisionEnter2D(c);
-        if (c.gameObject.tag == "worm" && !c.gameObject.GetComponent<WormPart>().isHead && c.gameObject.GetComponent<WormPart>().state == WormPartStates.Detatched) {
-            int insertIndex = bodyParts.IndexOf(bodyParts.Last(w => w.state == WormPartStates.Alive)) + 1;
+        Reattach(c);
+        //foreach (WormPart part in bodyParts) {
+        //    Physics2D.IgnoreCollision(c.gameObject.GetComponent<Collider2D>(), part.GetComponent<Collider2D>());
+        //}
+    }
+    
+    void Reattach(Collision2D c) {
+        if (c.gameObject.tag == "worm" && !c.gameObject.GetComponent<WormPart>().isHead && c.gameObject.GetComponent<WormPart>().state == WormPartStates.Detatched && canAttach) {
+            canAttach = false;
+            c.gameObject.GetComponent<WormPart>().canKill = false;
+            int insertIndex = 1;
+            //int insertIndex = bodyParts.IndexOf(bodyParts.Last(w => w.state == WormPartStates.Alive)) + 1;
             bodyParts.Remove(c.gameObject.GetComponent<WormPart>());
             bodyParts.Insert(insertIndex, c.gameObject.GetComponent<WormPart>());
             c.gameObject.GetComponent<WormPart>().Kill(WormPartStates.Alive);
             c.gameObject.GetComponent<HingeJoint2D>().enabled = false;
-            for (int i = 0; i < insertIndex; i++) {
-                if (i > 0) {
-                    bodyParts[i].transform.localPosition = partPositions[i];
+            c.transform.localPosition = head.localPosition + partPositions[insertIndex];//partPositions[insertIndex];
+            c.transform.localRotation = Quaternion.identity;
+            for (int i = 0; i < bodyParts.Count; i++) {
+                if (i > 0 && bodyParts[i].GetComponent<WormPart>().state == WormPartStates.Alive) {
+                    bodyParts[i].transform.localPosition = head.transform.localPosition + partPositions[i];
                     bodyParts[i].transform.localRotation = Quaternion.identity;
                 }
                 bodyParts[i].GetComponent<HingeJoint2D>().anchor = partAnchor;
@@ -98,9 +115,11 @@ public class Worm : Bug {
                         bodyParts[i].GetComponent<HingeJoint2D>().enabled = true;
                     }
                 }
+                bodyParts[bodyParts.Count - 1].GetComponent<HingeJoint2D>().enabled = false;
             }
             //head.transform.localPosition = partPositions[insertIndex];
         }
+        canAttach = true;
     }
 
     public new void OnTriggerEnter2D(Collider2D c) {

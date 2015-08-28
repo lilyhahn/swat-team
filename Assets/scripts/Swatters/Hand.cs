@@ -78,7 +78,11 @@ public class Hand : MonoBehaviour {
 				StartCoroutine(GetStuck());
 			}
 		}
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c); // only hit once
 	}
+    protected void OnTriggerExit2D(Collider2D c) {
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c, false);
+    }
 	protected IEnumerator GetStuck(){
 		stuck = true;
 		yield return new WaitForSeconds(stuckTime);

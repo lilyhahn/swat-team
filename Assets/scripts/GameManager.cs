@@ -166,7 +166,10 @@ public class GameManager : MonoBehaviour {
                 if (Input.anyKeyDown && !Input.GetButtonDown("Cancel") && Time.time > endTime + restartDelay) {
                     bugScore = 0;
                     gameOverText.SetActive(false);
-                    Destroy(bug);
+                    //Destroy(bug);
+                    foreach (GameObject bug in GameObject.FindGameObjectsWithTag("bug")) {
+                        Destroy(bug);
+                    }
                     Destroy(hand);
                     Destroy(GameObject.FindGameObjectWithTag("web"));
                     gnatSpawner.SetActive(false);

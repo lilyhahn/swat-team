@@ -18,7 +18,7 @@ public class Bug : MonoBehaviour {
     public AudioClip berryDepositSound;
     public AudioClip berrySquishSound;
     protected bool dead;
-    bool dying = false;
+    protected bool dying = false;
     public bool holdingBerry { get; protected set; }
     protected GameObject berry = null;
     protected GameManager gameManager;
@@ -124,7 +124,7 @@ public class Bug : MonoBehaviour {
         if (!dying)
             StartCoroutine(KillSelf());
     }
-    IEnumerator KillSelf() {
+    protected virtual IEnumerator KillSelf() {
         dying = true;
         OnKill();
         if (holdingBerry) {

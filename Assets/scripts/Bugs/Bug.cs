@@ -27,6 +27,7 @@ public class Bug : MonoBehaviour {
     public float finalCooldown = 0.5f;
     public float nextFire = 0.0f;
     public float scoreScale = 2f;
+    public GameObject ghost;
 
     public Sprite[] squishedBerries;
 
@@ -161,6 +162,7 @@ public class Bug : MonoBehaviour {
 
     virtual protected void OnKill() {
         // override in children for events
+        Instantiate(ghost, transform.position + GetComponent<SpriteRenderer>().bounds.extents, Quaternion.identity);
     }
 
     public void Reset() {

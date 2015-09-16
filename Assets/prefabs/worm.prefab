@@ -355,6 +355,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -451,6 +452,7 @@ MonoBehaviour:
   finalCooldown: .5
   nextFire: 0
   scoreScale: 4
+  ghost: {fileID: 154874, guid: 47808756791d84755b1e453fa16c06e0, type: 2}
   squishedBerries:
   - {fileID: 21300000, guid: e6c1ab96cd560472994fe4eabb97fc22, type: 3}
   - {fileID: 21300000, guid: 2bc1bb68d863249c6995a2fb69c5bdef, type: 3}
@@ -808,6 +810,10 @@ Prefab:
       propertyPath: attachDelay
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ghost
+      value: 
+      objectReference: {fileID: 154874, guid: 47808756791d84755b1e453fa16c06e0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167004}

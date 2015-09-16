@@ -65,6 +65,7 @@ Transform:
   m_RootOrder: 0
 --- !u!50 &5034650
 Rigidbody2D:
+  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -73,11 +74,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!61 &6181566
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -106,6 +107,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
+  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -218,6 +220,8 @@ MonoBehaviour:
   cooldown: 1
   finalCooldown: .5
   nextFire: 0
+  scoreScale: 2
+  ghost: {fileID: 154874, guid: 47808756791d84755b1e453fa16c06e0, type: 2}
   squishedBerries:
   - {fileID: 21300000, guid: e6c1ab96cd560472994fe4eabb97fc22, type: 3}
   - {fileID: 21300000, guid: 2bc1bb68d863249c6995a2fb69c5bdef, type: 3}
@@ -281,7 +285,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: ghost
+      value: 
+      objectReference: {fileID: 154874, guid: 47808756791d84755b1e453fa16c06e0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 146880}

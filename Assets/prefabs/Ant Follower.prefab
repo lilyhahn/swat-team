@@ -14,9 +14,9 @@ GameObject:
   - 82: {fileID: 8287296}
   - 95: {fileID: 9576670}
   - 114: {fileID: 11499324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ant Follower
-  m_TagString: Untagged
+  m_TagString: bug
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,6 +260,14 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 2bc1bb68d863249c6995a2fb69c5bdef,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: bug
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 155350}

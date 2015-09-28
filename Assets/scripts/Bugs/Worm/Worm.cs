@@ -9,7 +9,7 @@ public class Worm : Bug {
 
     bool killing = false;
     bool canAttach = true;
-    public float attachDelay = 0.2f;
+    public float killDelay = 0.2f;
     public AudioClip reattachSound;
 
     public List<WormPart> bodyParts;
@@ -34,7 +34,6 @@ public class Worm : Bug {
 
     public void Kill(WormPart part) {
         StartCoroutine(KillRoutine(part));
-		Instantiate(ghost, transform.position + bodyParts[0].GetComponent<SpriteRenderer>().bounds.extents, Quaternion.identity);
         //KillRoutine(part);
     }
 
@@ -68,6 +67,7 @@ public class Worm : Bug {
                     }
                 }
                 else {
+					Instantiate(ghost, bodyParts[0].transform.position + bodyParts[0].GetComponent<SpriteRenderer>().bounds.extents, Quaternion.identity);
                     bodyParts[0].Kill(WormPartStates.Dead);
                     moveSpeed = 0;
                     maxSpeed = 0;
@@ -80,7 +80,7 @@ public class Worm : Bug {
                     }
                 }
             }
-            yield return new WaitForSeconds(attachDelay);
+            yield return new WaitForSeconds(killDelay);
             canAttach = true;
             killing = false;
         }

@@ -13,7 +13,7 @@ GameObject:
   - 50: {fileID: 5032772}
   - 233: {fileID: 23393174}
   - 114: {fileID: 11470504}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Body 4
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   - 233: {fileID: 23382906}
   - 232: {fileID: 23248708}
   - 114: {fileID: 11491440}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Body 1
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - 50: {fileID: 5045684}
   - 233: {fileID: 23308700}
   - 114: {fileID: 11402474}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Body 2
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - 50: {fileID: 5023874}
   - 233: {fileID: 23339436}
   - 114: {fileID: 11431568}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Body 3
   m_TagString: worm
   m_Icon: {fileID: 0}
@@ -427,7 +427,6 @@ MonoBehaviour:
   killDelay: .5
   explodeCoefficient: 15
   canKill: 1
-  KillDistance: 2
 --- !u!114 &11419644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -457,7 +456,7 @@ MonoBehaviour:
   squishedBerries:
   - {fileID: 21300000, guid: e6c1ab96cd560472994fe4eabb97fc22, type: 3}
   - {fileID: 21300000, guid: 2bc1bb68d863249c6995a2fb69c5bdef, type: 3}
-  attachDelay: 1
+  killDelay: .200000003
   reattachSound: {fileID: 8300000, guid: 56d3474b6645b4b4c820f8f6a9811889, type: 3}
   bodyParts:
   - {fileID: 11424898}
@@ -482,7 +481,6 @@ MonoBehaviour:
   killDelay: .5
   explodeCoefficient: 15
   canKill: 1
-  KillDistance: 0
 --- !u!114 &11431568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -500,7 +498,6 @@ MonoBehaviour:
   killDelay: .5
   explodeCoefficient: 15
   canKill: 1
-  KillDistance: 3
 --- !u!114 &11470504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -518,7 +515,6 @@ MonoBehaviour:
   killDelay: .5
   explodeCoefficient: 15
   canKill: 1
-  KillDistance: 4
 --- !u!114 &11491440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -536,7 +532,6 @@ MonoBehaviour:
   killDelay: .5
   explodeCoefficient: 15
   canKill: 1
-  KillDistance: 1
 --- !u!212 &21202142
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -852,6 +847,10 @@ Prefab:
       propertyPath: reattachSound
       value: 
       objectReference: {fileID: 8300000, guid: 56d3474b6645b4b4c820f8f6a9811889, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167004}

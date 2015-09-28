@@ -19,7 +19,6 @@ public class WormPart : MonoBehaviour {
 
     bool killing = false;
     public bool canKill = true;
-    public float KillDistance = 0.2f;
 
     public void Awake() {
         state = WormPartStates.Alive;
@@ -86,10 +85,6 @@ public class WormPart : MonoBehaviour {
         //yield return new WaitForSeconds(1f);
         killing = false;
     }
-    //void OnTriggerExit2D(Collider2D c) {
-    //    if(c.tag == "swatter")
-    //        killing = false;
-    //}
 
     void OnCollisionEnter2D(Collision2D c) {
         //if(state == WormPartStates.Detatched)
@@ -108,7 +103,5 @@ public class WormPart : MonoBehaviour {
         if (state != WormPartStates.Alive) {
             GetComponent<HingeJoint2D>().enabled = false;
         }
-        //if (Vector2.Distance(transform.position, transform.parent.GetChild(0).position) > KillDistance)
-        //    canKill = true;
     }
 }

@@ -120,6 +120,7 @@ public class Worm : Bug {
             //head.transform.localPosition = partPositions[insertIndex];
         }
         canAttach = true;
+		c.gameObject.GetComponent<WormPart>().canKill = true;
     }
 
     public new void OnTriggerEnter2D(Collider2D c) {

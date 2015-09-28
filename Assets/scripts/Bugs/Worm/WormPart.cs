@@ -101,7 +101,7 @@ public class WormPart : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log(gameObject.name + " " + state);
+        //Debug.Log(gameObject.name + " " + state);
         if (state != WormPartStates.Alive) {
             GetComponent<HingeJoint2D>().enabled = false;
         }

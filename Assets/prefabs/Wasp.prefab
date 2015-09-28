@@ -210,14 +210,14 @@ MonoBehaviour:
   moveSpeed: 12
   maxSpeed: 12
   berrySpeedMultiplier: .699999988
-  gnatEatSound: {fileID: 0}
-  deathScream: {fileID: 0}
-  specialSound: {fileID: 0}
-  berrySnatchSound: {fileID: 0}
-  berryDepositSound: {fileID: 0}
-  berrySquishSound: {fileID: 0}
+  gnatEatSound: {fileID: 8300000, guid: 331d63c04f7b9d04f914dc5c07e9a117, type: 3}
+  deathScream: {fileID: 8300000, guid: cf131f62467b029499a48ac168b25faf, type: 3}
+  specialSound: {fileID: 8300000, guid: 991c151af4ee3984f9b3da234a9ebe52, type: 3}
+  berrySnatchSound: {fileID: 8300000, guid: 1f76b87096cefb34995ffb6d9a8a45a6, type: 3}
+  berryDepositSound: {fileID: 8300000, guid: 0889ef8bc1ee8e843888928c8c9564bd, type: 3}
+  berrySquishSound: {fileID: 8300000, guid: 8a45c2e57f483b341a25405b04bc15f4, type: 3}
   winningScore: 15
-  cooldown: 1
+  cooldown: 5
   finalCooldown: .5
   nextFire: 0
   scoreScale: 2
@@ -290,6 +290,34 @@ Prefab:
       propertyPath: ghost
       value: 
       objectReference: {fileID: 154874, guid: 47808756791d84755b1e453fa16c06e0, type: 2}
+    - target: {fileID: 0}
+      propertyPath: cooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: gnatEatSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 331d63c04f7b9d04f914dc5c07e9a117, type: 3}
+    - target: {fileID: 0}
+      propertyPath: deathScream
+      value: 
+      objectReference: {fileID: 8300000, guid: cf131f62467b029499a48ac168b25faf, type: 3}
+    - target: {fileID: 0}
+      propertyPath: specialSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 991c151af4ee3984f9b3da234a9ebe52, type: 3}
+    - target: {fileID: 0}
+      propertyPath: berrySnatchSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f76b87096cefb34995ffb6d9a8a45a6, type: 3}
+    - target: {fileID: 0}
+      propertyPath: berryDepositSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0889ef8bc1ee8e843888928c8c9564bd, type: 3}
+    - target: {fileID: 0}
+      propertyPath: berrySquishSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8a45c2e57f483b341a25405b04bc15f4, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 146880}

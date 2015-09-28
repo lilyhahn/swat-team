@@ -25,7 +25,7 @@ public class Hand : MonoBehaviour {
 				}
 			}
 		}
-		if(stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition){
+		if(GameObject.FindGameObjectWithTag("web") != null && stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition){
 			Debug.Log("lastStuckPosition: " + lastStuckPosition);
 			Debug.Log("web position: " + GameObject.FindGameObjectWithTag("web").transform.position);
 			stuck = false;

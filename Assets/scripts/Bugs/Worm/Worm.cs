@@ -10,6 +10,7 @@ public class Worm : Bug {
     bool killing = false;
     bool canAttach = true;
     public float attachDelay = 0.2f;
+    public AudioClip reattachSound;
 
     public List<WormPart> bodyParts;
     List<Vector3> partPositions = new List<Vector3>();
@@ -94,6 +95,7 @@ public class Worm : Bug {
     
     void Reattach(Collision2D c) {
         if (c.gameObject.tag == "worm" && !c.gameObject.GetComponent<WormPart>().isHead && c.gameObject.GetComponent<WormPart>().state == WormPartStates.Detatched && canAttach) {
+            GetComponent<AudioSource>().PlayOneShot(reattachSound);
             canAttach = false;
             //c.gameObject.GetComponent<WormPart>().canKill = false;
             int insertIndex = 1;

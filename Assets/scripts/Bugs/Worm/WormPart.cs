@@ -31,7 +31,7 @@ public class WormPart : MonoBehaviour {
             //KillRoutine();
     }
     public void Kill(WormPartStates killState) {
-        if (!isHead) {
+        //if (!isHead) {
             switch (killState) {
                 case WormPartStates.Alive:
                     state = WormPartStates.Alive;
@@ -50,7 +50,7 @@ public class WormPart : MonoBehaviour {
                     state = WormPartStates.Deader;
                     break;
             }
-        }
+        //}
     }
     IEnumerator KillRoutine() {
         killing = true;

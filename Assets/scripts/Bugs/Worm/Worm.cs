@@ -67,6 +67,8 @@ public class Worm : Bug {
                 }
                 else {
                     bodyParts[0].Kill(WormPartStates.Dead);
+                    moveSpeed = 0;
+                    maxSpeed = 0;
                     for (int i = 0; i < bodyParts.Count; i++) {
                         bodyParts[i].Kill(WormPartStates.Dead);
                         bodyParts[i].GetComponent<HingeJoint2D>().enabled = false;

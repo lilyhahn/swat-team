@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour {
     int swatter = 0;
     int character = 0;
 	int mode = 0;
-    GameObject bug;
     GameObject hand;
     bool swatterScrolling = false;
     bool bugScrolling = false;
@@ -300,7 +299,7 @@ public class GameManager : MonoBehaviour {
 		GetComponent<AudioSource>().clip = inGameMusic;
 		GetComponent<AudioSource>().time = inGameMusicTime;
 		GetComponent<AudioSource>().Play();
-		bug = Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity) as GameObject;
+		Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity);
 		hand = Instantiate(swatters[swatter]) as GameObject;
 		if(mode == 0){
 			gnatSpawner.SetActive(true);

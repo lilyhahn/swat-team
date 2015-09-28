@@ -43,7 +43,7 @@ public class Worm : Bug {
             if (!part.isHead && !holdingBerry) {
                 for (int i = bodyParts.IndexOf(part); i < bodyParts.Count; i++) {
                     bodyParts[i].Kill();
-                    //bodyParts[i].GetComponent<HingeJoint2D>().enabled = false;
+                    bodyParts[i-1].GetComponent<HingeJoint2D>().enabled = false;
                 }
             }
             else {
@@ -93,7 +93,7 @@ public class Worm : Bug {
     void Reattach(Collision2D c) {
         if (c.gameObject.tag == "worm" && !c.gameObject.GetComponent<WormPart>().isHead && c.gameObject.GetComponent<WormPart>().state == WormPartStates.Detatched && canAttach) {
             canAttach = false;
-            c.gameObject.GetComponent<WormPart>().canKill = false;
+            //c.gameObject.GetComponent<WormPart>().canKill = false;
             int insertIndex = 1;
             //int insertIndex = bodyParts.IndexOf(bodyParts.Last(w => w.state == WormPartStates.Alive)) + 1;
             bodyParts.Remove(c.gameObject.GetComponent<WormPart>());
@@ -120,7 +120,7 @@ public class Worm : Bug {
             //head.transform.localPosition = partPositions[insertIndex];
         }
         canAttach = true;
-		c.gameObject.GetComponent<WormPart>().canKill = true;
+		//c.gameObject.GetComponent<WormPart>().canKill = true;
     }
 
     public new void OnTriggerEnter2D(Collider2D c) {

@@ -13,6 +13,7 @@ public class WormPart : MonoBehaviour {
     public Sprite deader;
     public bool isHead;
     public float killDelay = 0.5f;
+	public float explodeCoefficient = 3f;
 
     public WormPartStates state { get; private set; }
 
@@ -59,8 +60,11 @@ public class WormPart : MonoBehaviour {
                 case WormPartStates.Alive:
                     transform.parent.GetComponent<Worm>().Kill(this);
                     GetComponent<HingeJoint2D>().enabled = false;
+					GetComponent<Rigidbody2D>().AddForce(-transform.up * explodeCoefficient);
+					Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Bug"), LayerMask.NameToLayer("Bug"));
                     state = WormPartStates.Detatched;
                     yield return new WaitForSeconds(killDelay);
+                    Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Bug"), LayerMask.NameToLayer("Bug"), false);
                     canKill = true;
                     break;
                 case WormPartStates.Detatched:
@@ -97,7 +101,7 @@ public class WormPart : MonoBehaviour {
     }
 
     void Update() {
-        //Debug.Log(gameObject.name + " " + state);
+        Debug.Log(gameObject.name + " " + state);
         if (state != WormPartStates.Alive) {
             GetComponent<HingeJoint2D>().enabled = false;
         }

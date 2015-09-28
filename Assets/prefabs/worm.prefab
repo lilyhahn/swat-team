@@ -424,7 +424,8 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
   deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
   isHead: 0
-  killDelay: .200000003
+  killDelay: .5
+  explodeCoefficient: 15
   canKill: 1
   KillDistance: 2
 --- !u!114 &11419644
@@ -477,7 +478,8 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: 9d4182754d05d614babd49f2ba3197b7, type: 3}
   deader: {fileID: 21300000, guid: 22045d9408166824cacfe6e139c49135, type: 3}
   isHead: 1
-  killDelay: .200000003
+  killDelay: .5
+  explodeCoefficient: 15
   canKill: 1
   KillDistance: 0
 --- !u!114 &11431568
@@ -494,7 +496,8 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
   deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
   isHead: 0
-  killDelay: .200000003
+  killDelay: .5
+  explodeCoefficient: 15
   canKill: 1
   KillDistance: 3
 --- !u!114 &11470504
@@ -511,7 +514,8 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
   deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
   isHead: 0
-  killDelay: .200000003
+  killDelay: .5
+  explodeCoefficient: 15
   canKill: 1
   KillDistance: 4
 --- !u!114 &11491440
@@ -528,7 +532,8 @@ MonoBehaviour:
   dead: {fileID: 21300000, guid: d8b70520987c6584bbe9666840ad369f, type: 3}
   deader: {fileID: 21300000, guid: 04e005223e9710947826863dd4f66501, type: 3}
   isHead: 0
-  killDelay: .200000003
+  killDelay: .5
+  explodeCoefficient: 15
   canKill: 1
   KillDistance: 1
 --- !u!212 &21202142
@@ -796,7 +801,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: killDelay
-      value: .200000003
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Size.x
@@ -814,6 +819,10 @@ Prefab:
       propertyPath: ghost
       value: 
       objectReference: {fileID: 154874, guid: 47808756791d84755b1e453fa16c06e0, type: 2}
+    - target: {fileID: 0}
+      propertyPath: explodeCoefficient
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167004}

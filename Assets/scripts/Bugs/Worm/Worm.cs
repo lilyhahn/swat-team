@@ -34,6 +34,7 @@ public class Worm : Bug {
 
     public void Kill(WormPart part) {
         StartCoroutine(KillRoutine(part));
+		Instantiate(ghost, transform.position + bodyParts[0].GetComponent<SpriteRenderer>().bounds.extents, Quaternion.identity);
         //KillRoutine(part);
     }
 

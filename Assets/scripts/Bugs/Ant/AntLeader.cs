@@ -12,7 +12,7 @@ public class AntLeader : Bug {
             Vector3 pos = transform.up * radius;
             pos = Quaternion.Euler(0, 0, 360 / radius * i) * pos;
             Debug.Log(pos);
-            Instantiate(follower, pos, Quaternion.identity);
+            Instantiate(follower, transform.position + pos, Quaternion.identity);
         }
     }
 }

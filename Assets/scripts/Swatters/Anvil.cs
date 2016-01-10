@@ -16,19 +16,22 @@ public class Anvil : Hand {
 	protected override void Update(){
 		base.Update();
 		if(Input.GetButton("Swat") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
-			charge_circle.SetFloat("speed", chargeRate);
+			//charge_circle.SetFloat("speed", chargeRate);
+            charge_circle.speed = chargeRate;
 		}
         else if (charge_circle.GetCurrentAnimatorStateInfo(0).normalizedTime > 0) {
-			charge_circle.SetFloat("speed", -chargeRate);
+			//charge_circle.SetFloat("speed", -chargeRate);
+            charge_circle.speed = -chargeRate;
 		}
         else {
-            charge_circle.SetFloat("speed", 0);
+            //charge_circle.SetFloat("speed", 0);
+            charge_circle.speed = 0;
         }
 		if(charge_circle.GetCurrentAnimatorStateInfo(0).normalizedTime > 0 && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			charge_circle.GetComponent<SpriteRenderer>().enabled = true;
 		}
 		else{
-			charge_circle.GetComponent<SpriteRenderer>().enabled = false;
+			//charge_circle.GetComponent<SpriteRenderer>().enabled = false;
 		}
 		//GetComponent<SpriteRenderer>().color = Color.Lerp(GetComponent<SpriteRenderer>().color, new Color(255, 255, 255, 1), Time.deltaTime * charge / 100);
 		if(Input.GetButtonUp("Swat")){

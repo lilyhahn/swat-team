@@ -12,12 +12,16 @@ public class Hand : MonoBehaviour {
 	protected Animator anim;
 	protected bool stuck = false;
 	Vector3 lastStuckPosition = Vector3.zero;
+	Vector3 lastAnimPosition = Vector3.zero;
+	Vector3 firstAnimPosition;
 	protected virtual void Start(){
-		anim = GetComponent<Animator>();
+		anim = transform.Find("anim").GetComponent<Animator>();
+		firstAnimPosition = anim.transform.localPosition;
 	}
 	
 	// Update is called once per frame
 	protected virtual void Update () {
+		lastAnimPosition = anim.transform.position;
 		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") && anim.GetCurrentAnimatorStateInfo (0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo (0).normalizedTime <= 1) {
 			foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
 				if(Vector3.Distance(transform.position, gnat.transform.position) <= gnatScatterRadius){
@@ -37,8 +41,7 @@ public class Hand : MonoBehaviour {
         if (Input.GetJoystickNames().Length < 2) {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && !stuck)
-                transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
+            transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
         }
         else {
             transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
@@ -47,6 +50,12 @@ public class Hand : MonoBehaviour {
 			GetComponent<AudioSource>().clip = miss;
 			GetComponent<AudioSource>().Play();
 			Swat ();
+		}
+		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") || stuck) {
+			anim.transform.position = lastAnimPosition;
+		}
+		else {
+			anim.transform.localPosition = firstAnimPosition;
 		}
 	}
 	protected void OnTriggerEnter2D(Collider2D c){

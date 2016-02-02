@@ -197,7 +197,6 @@ Transform:
   m_RootOrder: 0
 --- !u!50 &5019878
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -206,14 +205,13 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!50 &5023874
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -222,14 +220,13 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!50 &5032772
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -238,14 +235,13 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!50 &5039268
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -254,14 +250,13 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!50 &5045684
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -270,11 +265,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &6104144
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -355,7 +350,6 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -442,7 +436,7 @@ MonoBehaviour:
   maxSpeed: 12
   berrySpeedMultiplier: .699999988
   gnatEatSound: {fileID: 8300000, guid: 331d63c04f7b9d04f914dc5c07e9a117, type: 3}
-  deathScream: {fileID: 8300000, guid: cf131f62467b029499a48ac168b25faf, type: 3}
+  deathScream: {fileID: 8300000, guid: 169ce682c3163446dbe24afd6a06895c, type: 3}
   specialSound: {fileID: 8300000, guid: 991c151af4ee3984f9b3da234a9ebe52, type: 3}
   berrySnatchSound: {fileID: 8300000, guid: 1f76b87096cefb34995ffb6d9a8a45a6, type: 3}
   berryDepositSound: {fileID: 8300000, guid: 0889ef8bc1ee8e843888928c8c9564bd, type: 3}
@@ -669,7 +663,6 @@ DistanceJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127336}
   m_Enabled: 0
-  serializedVersion: 3
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5019878}
   m_Anchor: {x: 0, y: 0}
@@ -683,7 +676,6 @@ HingeJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155472}
   m_Enabled: 1
-  serializedVersion: 3
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5023874}
   m_Anchor: {x: -8.62181187e-05, y: -.100000001}
@@ -703,7 +695,6 @@ HingeJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164372}
   m_Enabled: 1
-  serializedVersion: 3
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5032772}
   m_Anchor: {x: -8.62181187e-05, y: -.109999999}
@@ -723,7 +714,6 @@ HingeJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150858}
   m_Enabled: 1
-  serializedVersion: 3
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5039268}
   m_Anchor: {x: 0, y: -.193888903}
@@ -743,7 +733,6 @@ HingeJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127336}
   m_Enabled: 1
-  serializedVersion: 3
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5045684}
   m_Anchor: {x: 0, y: -.100000001}
@@ -763,7 +752,6 @@ HingeJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 106676}
   m_Enabled: 0
-  serializedVersion: 3
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5019878}
   m_Anchor: {x: -8.62181187e-05, y: .11046508}

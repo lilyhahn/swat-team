@@ -43,6 +43,7 @@ public class Anvil : Hand {
 	}
 	protected override void Swat(){
 		if(charge_circle.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9){
+            LeanTween.moveLocalY(anim.gameObject, 0, 0.25f);
 			GetComponent<SpriteRenderer>().color = Color.white;
 			charge_circle.Play("fire_circle", 0, 0);
 			anim.SetTrigger("swat");

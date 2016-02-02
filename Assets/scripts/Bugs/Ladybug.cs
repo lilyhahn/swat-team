@@ -7,14 +7,15 @@ public class Ladybug : Bug {
 		if (!base.Special ())
 			return true;
 		StartCoroutine(Roll ());
+		//GetComponent<Rigidbody2D>().AddForce(transform.up * rollSpeedMultiplier * GetComponent<Animator>().GetInteger("direction"));
 		return true;
 	}
 	IEnumerator Roll(){
-		float maxSpeedOld = maxSpeed;
-		maxSpeed = Mathf.Infinity;
-		GetComponent<Rigidbody2D>().AddForce(transform.up * moveSpeed * rollSpeedMultiplier * GetComponent<Animator>().GetInteger("direction"));
+		float maxSpeedOld = moveSpeed;
+		moveSpeed = moveSpeed * rollSpeedMultiplier;
+		//GetComponent<Rigidbody2D>().AddForce(transform.up * moveSpeed * rollSpeedMultiplier * GetComponent<Animator>().GetInteger("direction"));
 		yield return new WaitForSeconds(0.25f);
-		maxSpeed = maxSpeedOld;
+		moveSpeed = maxSpeedOld;
 		/*Vector3 target = transform.up * rollDistance + transform.position;
 		Debug.Log (target);
 		while(Vector3.Distance(transform.position, target) > 0.3){

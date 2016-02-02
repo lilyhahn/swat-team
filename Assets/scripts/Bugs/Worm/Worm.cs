@@ -71,6 +71,7 @@ public class Worm : Bug {
                     bodyParts[0].Kill(WormPartStates.Dead);
                     moveSpeed = 0;
                     maxSpeed = 0;
+                    GetComponent<AudioSource>().PlayOneShot(deathScream);
                     for (int i = 0; i < bodyParts.Count; i++) {
                         bodyParts[i].Kill(WormPartStates.Dead);
                         bodyParts[i].GetComponent<HingeJoint2D>().enabled = false;

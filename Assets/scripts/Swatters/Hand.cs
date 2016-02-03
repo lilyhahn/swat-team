@@ -65,7 +65,7 @@ public class Hand : MonoBehaviour {
 		}
 	}
 	protected void OnTriggerStay2D(Collider2D c){
-		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
+		if(!stuck && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
 			Camera.main.GetComponent<CameraShake>().PlayShake();
 			if(c.gameObject.tag == "bug"){
 				GetComponent<AudioSource>().clip = squish;
@@ -79,13 +79,11 @@ public class Hand : MonoBehaviour {
 				GetComponent<AudioSource>().clip = squish;
 				c.GetComponent<Gnat>().Kill();
 			}
-			GetComponent<AudioSource>().Play();
-		}
-		if(Input.GetButtonDown("Swat")){
-			if(c.gameObject.tag == "web"){
+            if(c.gameObject.tag == "web"){
 				lastStuckPosition = c.transform.position;
 				StartCoroutine(GetStuck());
 			}
+			GetComponent<AudioSource>().Play();
 		}
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c); // only hit once
 	}
@@ -101,6 +99,7 @@ public class Hand : MonoBehaviour {
 		if(stuck){
 			StartCoroutine(Shake());
 			shaking = true;
+            return;
 		}
 		anim.SetTrigger("swat");
 	}

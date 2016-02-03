@@ -201,7 +201,6 @@ public class GameManager : MonoBehaviour {
                 break;
         }
         if (Input.GetButtonDown("Submit")) {
-        	Debug.Log ("submit");
             switch (state) {
             	case StateType.PreMenu:
 					Camera.main.cullingMask = LayerMask.NameToLayer("Everything");

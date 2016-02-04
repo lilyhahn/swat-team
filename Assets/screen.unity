@@ -181,7 +181,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1801856287
+  m_SortingLayerID: 125163033
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: cfe1d819a8090834da1d2a6f921d6ab7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e30c3bc17e795140aef6c23c06ed5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingLayer: menu
+  sortingLayer: foreground ui
   sortingOrder: 1
 --- !u!102 &215794784
 TextMesh:
@@ -892,7 +892,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1801856287
+  m_SortingLayerID: 125163033
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: fa4531317a12f432b9365b33222b4257, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1534,7 +1534,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -175790577
+  m_SortingLayerID: 125163033
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 417512d5151aa19448c5be153bc8b84f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2234,7 +2234,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -175790577
+  m_SortingLayerID: 125163033
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e1e36745164e8884abdc0d2680fea9a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2279,7 +2279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e30c3bc17e795140aef6c23c06ed5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingLayer: menu
+  sortingLayer: foreground ui
   sortingOrder: 1
 --- !u!102 &643682143
 TextMesh:
@@ -3248,7 +3248,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1801856287
+  m_SortingLayerID: 125163033
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6dec189565d607a40b2b5397917c7d35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5736,7 +5736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e30c3bc17e795140aef6c23c06ed5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingLayer: menu
+  sortingLayer: foreground ui
   sortingOrder: 1
 --- !u!102 &1524691966
 TextMesh:
@@ -6278,7 +6278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e30c3bc17e795140aef6c23c06ed5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingLayer: menu
+  sortingLayer: foreground ui
   sortingOrder: 1
 --- !u!102 &1649145194
 TextMesh:

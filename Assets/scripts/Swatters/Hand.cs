@@ -63,6 +63,7 @@ public class Hand : MonoBehaviour {
 			StartCoroutine(GetStuck());
 			Destroy(c.gameObject);
 		}
+        OnTriggerStay2D(c);
 	}
 	protected void OnTriggerStay2D(Collider2D c){
 		if(!stuck && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){

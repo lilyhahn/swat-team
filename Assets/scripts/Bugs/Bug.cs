@@ -132,6 +132,7 @@ public class Bug : MonoBehaviour {
             maxSpeed = origMaxSpeed;
             moveSpeed = origMoveSpeed;
             berry.GetComponent<SpriteRenderer>().sprite = squishedBerries[Random.Range(0, squishedBerries.Length - 1)];
+            berry.GetComponent<SpriteRenderer>().sortingLayerName = "squished";
             berry.transform.parent = null;
             holdingBerry = false;
             GetComponent<AudioSource>().clip = berrySquishSound;

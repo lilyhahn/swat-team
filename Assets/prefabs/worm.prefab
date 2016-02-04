@@ -205,7 +205,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 1
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -220,7 +220,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 1
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -235,7 +235,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 1
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -250,7 +250,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 1
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -265,7 +265,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 1
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -437,7 +437,7 @@ MonoBehaviour:
   berrySpeedMultiplier: .699999988
   gnatEatSound: {fileID: 8300000, guid: 331d63c04f7b9d04f914dc5c07e9a117, type: 3}
   deathScream: {fileID: 8300000, guid: 169ce682c3163446dbe24afd6a06895c, type: 3}
-  specialSound: {fileID: 8300000, guid: 991c151af4ee3984f9b3da234a9ebe52, type: 3}
+  specialSound: {fileID: 8300000, guid: 496c2abe2a184594abed01c1badbabb0, type: 3}
   berrySnatchSound: {fileID: 8300000, guid: 1f76b87096cefb34995ffb6d9a8a45a6, type: 3}
   berryDepositSound: {fileID: 8300000, guid: 0889ef8bc1ee8e843888928c8c9564bd, type: 3}
   berrySquishSound: {fileID: 8300000, guid: 8a45c2e57f483b341a25405b04bc15f4, type: 3}

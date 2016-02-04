@@ -149,6 +149,7 @@ public class Bug : MonoBehaviour {
         }
         else {
             GetComponent<Rigidbody2D>().isKinematic = true;
+            Instantiate(ghost, transform.position + GetComponent<SpriteRenderer>().bounds.extents, Quaternion.identity);
             dead = true;
             GetComponent<AudioSource>().clip = deathScream;
             GetComponent<AudioSource>().Play();
@@ -163,7 +164,7 @@ public class Bug : MonoBehaviour {
 
     virtual protected void OnKill() {
         // override in children for events
-        Instantiate(ghost, transform.position + GetComponent<SpriteRenderer>().bounds.extents, Quaternion.identity);
+        
     }
 
     public void Reset() {

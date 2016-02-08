@@ -218,7 +218,6 @@ public class GameManager : MonoBehaviour {
                     characterSelectText.SetActive(true);*/
                     break;
                  case StateType.SelectingMode:
-                 	Debug.Log ("switching state");
 					state = StateType.SelectingCharacter;
 					LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
 					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);

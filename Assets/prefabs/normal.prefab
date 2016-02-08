@@ -177,6 +177,8 @@ MonoBehaviour:
   gnatScatterRadius: 3
   stuckShakeDuration: .200000003
   stuckShakeMagnitude: .100000001
+  swatTime: .800000012
+  swatTimeEnd: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

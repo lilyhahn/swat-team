@@ -8,6 +8,8 @@ public class Hand : MonoBehaviour {
 	public float gnatScatterRadius;
 	public float stuckShakeDuration = 0.2f;
 	public float stuckShakeMagnitude = 0.1f;
+    public float swatTime = 0.7f;
+    public float swatTimeEnd = 0.8f;
 	bool shaking;
 	protected Animator anim;
 	protected bool stuck = false;
@@ -20,9 +22,8 @@ public class Hand : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	protected virtual void Update () {
-		lastAnimPosition = anim.transform.position;
-		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") && anim.GetCurrentAnimatorStateInfo (0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo (0).normalizedTime <= 1) {
+	protected virtual void FixedUpdate () {
+		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") && anim.GetCurrentAnimatorStateInfo (0).normalizedTime >= swatTime && anim.GetCurrentAnimatorStateInfo (0).normalizedTime <= swatTimeEnd) {
 			foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
 				if(Vector3.Distance(transform.position, gnat.transform.position) <= gnatScatterRadius){
 					(gnat.GetComponent<Gnat>() as Gnat).Move(); // wtf
@@ -38,6 +39,9 @@ public class Hand : MonoBehaviour {
 		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			anim.SetFloat("swatTime", anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
 		}
+	}
+    protected virtual void Update(){
+        lastAnimPosition = anim.transform.position;
         if (Input.GetJoystickNames().Length < 2) {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -57,16 +61,15 @@ public class Hand : MonoBehaviour {
 		else {
 			anim.transform.localPosition = firstAnimPosition;
 		}
-	}
+    }
 	protected void OnTriggerEnter2D(Collider2D c){
 		if(c.gameObject.tag == "stinger"){
 			StartCoroutine(GetStuck());
 			Destroy(c.gameObject);
 		}
-        OnTriggerStay2D(c);
 	}
 	protected void OnTriggerStay2D(Collider2D c){
-		if(!stuck && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
+		if(!stuck && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= swatTime && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= swatTimeEnd){
 			Camera.main.GetComponent<CameraShake>().PlayShake();
 			if(c.gameObject.tag == "bug"){
 				GetComponent<AudioSource>().clip = squish;

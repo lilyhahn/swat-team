@@ -67,6 +67,10 @@ GameObject:
   - 4: {fileID: 464740}
   - 212: {fileID: 21203062}
   - 95: {fileID: 9577678}
+  - 61: {fileID: 6142236}
+  - 61: {fileID: 6182180}
+  - 61: {fileID: 6138722}
+  - 114: {fileID: 11404570}
   m_Layer: 0
   m_Name: anim
   m_TagString: Untagged
@@ -131,7 +135,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
@@ -144,7 +148,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
@@ -157,13 +161,52 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: .00173382764, y: -.0779190212}
   serializedVersion: 2
   m_Size: {x: .231618121, y: .138496995}
+--- !u!61 &6138722
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110262}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: .280083865, y: -.170000017}
+  serializedVersion: 2
+  m_Size: {x: .229833037, y: .340000004}
+--- !u!61 &6142236
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110262}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -.000584125519, y: -.169891596}
+  serializedVersion: 2
+  m_Size: {x: .251128763, y: .159873486}
+--- !u!61 &6182180
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110262}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -.279726326, y: -.170000017}
+  serializedVersion: 2
+  m_Size: {x: .230547696, y: .340000004}
 --- !u!82 &8200000
 AudioSource:
   m_ObjectHideFlags: 1
@@ -301,6 +344,8 @@ MonoBehaviour:
   gnatScatterRadius: 3
   stuckShakeDuration: .200000003
   stuckShakeMagnitude: .100000001
+  swatTime: .800000012
+  swatTimeEnd: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -321,6 +366,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6201597517af8cf4f9d10bef1a436b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11404570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c0417a4fbc94559932964378fd9458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &21200000

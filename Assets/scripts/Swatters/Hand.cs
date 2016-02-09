@@ -63,13 +63,13 @@ public class Hand : MonoBehaviour {
 			anim.transform.localPosition = firstAnimPosition;
 		}
     }
-	protected void OnTriggerEnter2D(Collider2D c){
+	public void OnTriggerEnter2D(Collider2D c){
 		if(c.gameObject.tag == "stinger"){
 			StartCoroutine(GetStuck());
 			Destroy(c.gameObject);
 		}
 	}
-	protected void OnTriggerStay2D(Collider2D c){
+	public void OnTriggerStay2D(Collider2D c){
 		if(!stuck && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= swatTime && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= swatTimeEnd){
 			Camera.main.GetComponent<CameraShake>().PlayShake();
 			if(c.gameObject.tag == "bug"){
@@ -92,8 +92,8 @@ public class Hand : MonoBehaviour {
 		}
         //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c); // only hit once
 	}
-    protected void OnTriggerExit2D(Collider2D c) {
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c, false);
+    public void OnTriggerExit2D(Collider2D c) {
+        //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c, false);
     }
 	protected IEnumerator GetStuck(){
 		stuck = true;

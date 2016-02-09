@@ -15,8 +15,9 @@ public class WormPart : MonoBehaviour {
     public float killDelay = 0.5f;
 	public float explodeCoefficient = 3f;
 
-    public WormPartStates state { get; private set; }
-
+    //public WormPartStates state { get; private set; }
+    public WormPartStates state;
+    
     bool killing = false;
     public bool canKill = true;
 
@@ -87,7 +88,7 @@ public class WormPart : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D c) {
-        //if(state == WormPartStates.Detatched)
+        if(state == WormPartStates.Alive)
             transform.parent.GetComponent<Worm>().Collide(c);
     }
 

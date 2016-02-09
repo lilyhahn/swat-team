@@ -13,8 +13,8 @@ public class Anvil : Hand {
 		charge_circle.speed = 0;
 	}
 	
-	protected override void Update(){
-		base.Update();
+	protected override void FixedUpdate(){
+		base.FixedUpdate();
 		if(Input.GetButton("Swat") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			//charge_circle.SetFloat("speed", chargeRate);
             charge_circle.speed = chargeRate;
@@ -41,6 +41,9 @@ public class Anvil : Hand {
 			GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.558f);
 		}
 	}
+    protected override void Update(){
+        base.Update();
+    }
 	protected override void Swat(){
 		if(charge_circle.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9){
             //LeanTween.moveLocalY(anim.gameObject, 0, 0.25f);

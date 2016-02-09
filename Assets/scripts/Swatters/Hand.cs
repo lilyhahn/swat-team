@@ -8,6 +8,8 @@ public class Hand : MonoBehaviour {
 	public float gnatScatterRadius;
 	public float stuckShakeDuration = 0.2f;
 	public float stuckShakeMagnitude = 0.1f;
+    public float swatTime = 0.7f;
+    public float swatTimeEnd = 0.8f;
 	bool shaking;
 	protected Animator anim;
 	protected bool stuck = false;
@@ -20,9 +22,8 @@ public class Hand : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	protected virtual void Update () {
-		lastAnimPosition = anim.transform.position;
-		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") && anim.GetCurrentAnimatorStateInfo (0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo (0).normalizedTime <= 1) {
+	protected virtual void FixedUpdate () {
+		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") && anim.GetCurrentAnimatorStateInfo (0).normalizedTime >= swatTime && anim.GetCurrentAnimatorStateInfo (0).normalizedTime <= swatTimeEnd) {
 			foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
 				if(Vector3.Distance(transform.position, gnat.transform.position) <= gnatScatterRadius){
 					(gnat.GetComponent<Gnat>() as Gnat).Move(); // wtf
@@ -32,12 +33,16 @@ public class Hand : MonoBehaviour {
 		if(GameObject.FindGameObjectWithTag("web") != null && stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition){
 			Debug.Log("lastStuckPosition: " + lastStuckPosition);
 			Debug.Log("web position: " + GameObject.FindGameObjectWithTag("web").transform.position);
+            anim.SetTrigger("unstuck");
 			stuck = false;
 		}
 		anim.SetBool("stuck", stuck);
 		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			anim.SetFloat("swatTime", anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
 		}
+	}
+    protected virtual void Update(){
+        lastAnimPosition = anim.transform.position;
         if (Input.GetJoystickNames().Length < 2) {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -57,16 +62,15 @@ public class Hand : MonoBehaviour {
 		else {
 			anim.transform.localPosition = firstAnimPosition;
 		}
-	}
-	protected void OnTriggerEnter2D(Collider2D c){
+    }
+	public void OnTriggerEnter2D(Collider2D c){
 		if(c.gameObject.tag == "stinger"){
 			StartCoroutine(GetStuck());
 			Destroy(c.gameObject);
 		}
-        OnTriggerStay2D(c);
 	}
-	protected void OnTriggerStay2D(Collider2D c){
-		if(!stuck && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1){
+	public void OnTriggerStay2D(Collider2D c){
+		if(!stuck && anim.GetCurrentAnimatorStateInfo(0).IsName("swat") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= swatTime && anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= swatTimeEnd){
 			Camera.main.GetComponent<CameraShake>().PlayShake();
 			if(c.gameObject.tag == "bug"){
 				GetComponent<AudioSource>().clip = squish;
@@ -86,15 +90,16 @@ public class Hand : MonoBehaviour {
 			}
 			GetComponent<AudioSource>().Play();
 		}
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c); // only hit once
+        //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c); // only hit once
 	}
-    protected void OnTriggerExit2D(Collider2D c) {
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c, false);
+    public void OnTriggerExit2D(Collider2D c) {
+        //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c, false);
     }
 	protected IEnumerator GetStuck(){
 		stuck = true;
 		yield return new WaitForSeconds(stuckTime);
 		stuck = false;
+        anim.SetTrigger("unstuck");
 	}
 	protected virtual void Swat(){
 		if(stuck){

@@ -33,6 +33,7 @@ public class Hand : MonoBehaviour {
 		if(GameObject.FindGameObjectWithTag("web") != null && stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition){
 			Debug.Log("lastStuckPosition: " + lastStuckPosition);
 			Debug.Log("web position: " + GameObject.FindGameObjectWithTag("web").transform.position);
+            anim.SetTrigger("unstuck");
 			stuck = false;
 		}
 		anim.SetBool("stuck", stuck);
@@ -89,7 +90,7 @@ public class Hand : MonoBehaviour {
 			}
 			GetComponent<AudioSource>().Play();
 		}
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c); // only hit once
+        //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c); // only hit once
 	}
     protected void OnTriggerExit2D(Collider2D c) {
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), c, false);
@@ -98,6 +99,7 @@ public class Hand : MonoBehaviour {
 		stuck = true;
 		yield return new WaitForSeconds(stuckTime);
 		stuck = false;
+        anim.SetTrigger("unstuck");
 	}
 	protected virtual void Swat(){
 		if(stuck){

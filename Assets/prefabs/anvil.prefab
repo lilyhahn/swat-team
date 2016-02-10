@@ -325,7 +325,7 @@ MonoBehaviour:
   stuckShakeMagnitude: .100000001
   swatTime: .699999988
   swatTimeEnd: .800000012
-  chargeRate: 1
+  chargeRate: 3.5
   charge: 0
 --- !u!114 &11434864
 MonoBehaviour:

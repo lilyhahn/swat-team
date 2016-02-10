@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour {
     bool swatterScrolling = false;
     bool bugScrolling = false;
     bool selectingCharacterActive = false;
+    public bool paused { get; private set; }
     enum StateType {
         PreMenu,
         MainMenu,
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour {
     }
     StateType state = StateType.PreMenu;
     void Start() {
+        paused = false;
         Cursor.visible = false;
         foreach (Transform l in GameObject.Find("levels").transform) {
             l.gameObject.SetActive(false);
@@ -230,6 +232,16 @@ public class GameManager : MonoBehaviour {
         }
 		if(Input.GetButtonDown ("Cancel")){
 			switch(state){
+                case StateType.InGame:
+                    if (!paused) {
+                        Time.timeScale = 0;
+                        paused = true;
+                    }
+                    else {
+                        Time.timeScale = 1;
+                        paused = false;
+                    }
+                    break;
                 case StateType.SelectingCharacter:
                     if (selectingCharacterActive) {
                         selectingCharacterActive = false;

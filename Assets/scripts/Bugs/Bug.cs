@@ -114,7 +114,7 @@ public class Bug : MonoBehaviour {
             inGame = false;
             GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Bug);
         }*/
-        if (!dead) {
+        if (!dead && !gameManager.paused) {
             Move();
             if (Input.GetButtonDown("Bug Special")) {
                 Special();

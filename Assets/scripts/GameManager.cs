@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour {
         GameOver,
         Credits
     }
-    StateType state = StateType.PreMenu;
+    StateType state = StateType.MainMenu;
     void Start() {
         Cursor.visible = false;
         foreach (Transform l in GameObject.Find("levels").transform) {

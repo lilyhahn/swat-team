@@ -19,6 +19,7 @@ public class Hand : MonoBehaviour {
 	protected virtual void Start(){
 		anim = transform.Find("anim").GetComponent<Animator>();
 		firstAnimPosition = anim.transform.localPosition;
+        transform.Find("control").GetComponent<ControlDisplay>().Fade();
 	}
 	
 	// Update is called once per frame

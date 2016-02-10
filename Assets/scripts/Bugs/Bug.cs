@@ -127,7 +127,6 @@ public class Bug : MonoBehaviour {
     }
     protected virtual IEnumerator KillSelf() {
         dying = true;
-        OnKill();
         if (holdingBerry) {
             maxSpeed = origMaxSpeed;
             moveSpeed = origMoveSpeed;
@@ -148,6 +147,7 @@ public class Bug : MonoBehaviour {
             }
         }
         else {
+            OnKill();
             GetComponent<Rigidbody2D>().isKinematic = true;
             Instantiate(ghost, transform.position + GetComponent<SpriteRenderer>().bounds.extents, Quaternion.identity);
             dead = true;

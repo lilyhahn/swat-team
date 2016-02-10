@@ -163,40 +163,20 @@ public class GameManager : MonoBehaviour {
                 break;
             case StateType.GameOver:
                 if (Input.anyKeyDown && !Input.GetButtonDown("Cancel") && Time.time > endTime + restartDelay) {
-                    bugScore = 0;
-                    gameOverText.SetActive(false);
-                    //Destroy(bug);
-                    foreach (GameObject bug in GameObject.FindGameObjectsWithTag("bug")) {
-                        Destroy(bug);
-                    }
-                    Destroy(hand);
-                    Destroy(GameObject.FindGameObjectWithTag("web"));
-                    gnatSpawner.SetActive(false);
-                    foreach (GameObject dead in GameObject.FindGameObjectsWithTag("dead")) {
-                        Destroy(dead);
-                    }
-                    foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
-                    	Destroy(gnat);
-                    }
-                    foreach (GameObject berry in GameObject.FindGameObjectsWithTag("berry")) {
-                        if(berry.transform.parent != null && berry.transform.parent.tag != "berry tree")
-                            Destroy(berry);
-                        if(berry.transform.parent == null)
-                        	Destroy(berry);
-                    }
-                    foreach (Transform berryTree in berryMode.transform.Find("berryTrees")) {
-                        foreach (Transform berry in berryTree) {
-                            if (berry.tag == "berry") {
-                                berry.gameObject.SetActive(true);
-                            }
-                        }
-                    }
-                    gameOverText.transform.Find("human").gameObject.SetActive(false);
-                    gameOverText.transform.Find("bug").gameObject.SetActive(false);
+                    Cleanup();
                     StartCoroutine(StartGame());
                 }
                 if (Input.GetButtonDown("Cancel")) {
-                    Application.LoadLevel(0);
+                    Cleanup();
+                    LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
+                    LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
+                    characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = originalCharacterProfiles[character];
+                    bugReady = false;
+                    swatterProfiles[swatter].transform.Find("box").GetComponent<SpriteRenderer>().sprite = originalSwatterProfiles[swatter];
+                    swatterReady = false;
+                    characterSelectText.SetActive(true);
+                    state = StateType.SelectingCharacter;
+
                 }
                 break;
         }
@@ -255,6 +235,7 @@ public class GameManager : MonoBehaviour {
                         selectingCharacterActive = false;
                         break;
                     }
+                    berryMode.SetActive(false);
                     LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
 					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
                     state = StateType.SelectingMode;
@@ -333,5 +314,38 @@ public class GameManager : MonoBehaviour {
         Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
         preMenuText.SetActive(false);
         state = StateType.MainMenu;
+    }
+
+    void Cleanup() {
+        bugScore = 0;
+        gameOverText.SetActive(false);
+        //Destroy(bug);
+        foreach (GameObject bug in GameObject.FindGameObjectsWithTag("bug")) {
+            Destroy(bug);
+        }
+        Destroy(hand);
+        Destroy(GameObject.FindGameObjectWithTag("web"));
+        gnatSpawner.SetActive(false);
+        foreach (GameObject dead in GameObject.FindGameObjectsWithTag("dead")) {
+            Destroy(dead);
+        }
+        foreach (GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")) {
+            Destroy(gnat);
+        }
+        foreach (GameObject berry in GameObject.FindGameObjectsWithTag("berry")) {
+            if (berry.transform.parent != null && berry.transform.parent.tag != "berry tree")
+                Destroy(berry);
+            if (berry.transform.parent == null)
+                Destroy(berry);
+        }
+        foreach (Transform berryTree in berryMode.transform.Find("berryTrees")) {
+            foreach (Transform berry in berryTree) {
+                if (berry.tag == "berry") {
+                    berry.gameObject.SetActive(true);
+                }
+            }
+        }
+        gameOverText.transform.Find("human").gameObject.SetActive(false);
+        gameOverText.transform.Find("bug").gameObject.SetActive(false);
     }
 }

@@ -131,7 +131,7 @@ MonoBehaviour:
   joystickControls: {fileID: 1030841086}
   keyboardControls: {fileID: 1298203211}
   comboControls: {fileID: 0}
-  fade: 0
+  timed: 0
   fadeDelay: 5
   fadeTime: .25
 --- !u!1 &24547755
@@ -388,7 +388,7 @@ MonoBehaviour:
   joystickControls: {fileID: 715454528}
   keyboardControls: {fileID: 215794781}
   comboControls: {fileID: 0}
-  fade: 0
+  timed: 0
   fadeDelay: 5
   fadeTime: .25
 --- !u!1 &186355282
@@ -3362,7 +3362,7 @@ MonoBehaviour:
   joystickControls: {fileID: 24547755}
   keyboardControls: {fileID: 882527077}
   comboControls: {fileID: 0}
-  fade: 0
+  timed: 0
   fadeDelay: 5
   fadeTime: .25
 --- !u!1 &997698463
@@ -4031,7 +4031,7 @@ MonoBehaviour:
   joystickControls: {fileID: 1552664639}
   keyboardControls: {fileID: 1947595752}
   comboControls: {fileID: 0}
-  fade: 0
+  timed: 0
   fadeDelay: 5
   fadeTime: .25
 --- !u!1 &1266417192
@@ -6946,6 +6946,7 @@ MonoBehaviour:
   - {fileID: 0}
   beep12: {fileID: 8300000, guid: 2d6e33fcbfce6456cbf30b34d38a75f5, type: 3}
   beep3: {fileID: 8300000, guid: 042b713d2d5b748c9b9852f83958bcdd, type: 3}
+  menuMusic: {fileID: 8300000, guid: 889de80df6e41f646acc25bdab62b902, type: 3}
   winningScores: 0f00000003000000
   characterSelectCamera: {x: 0, y: 33.5999985, z: -10}
   characterSelectCameraZoom: 30
@@ -7002,6 +7003,8 @@ MonoBehaviour:
   gnatSpawner: {fileID: 886134433}
   berryMode: {fileID: 276164101}
   restartDelay: 1
+  showControls: 1
+  controlPromptTime: 604800
 --- !u!4 &2037015352
 Transform:
   m_ObjectHideFlags: 0

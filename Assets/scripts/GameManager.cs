@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
 	public AudioClip[] berryVoices;
 	public AudioClip beep12;
 	public AudioClip beep3;
+    public AudioClip menuMusic;
 	public int[] winningScores; // in order of mode number
 	public int bugScore {get; private set;} // for bug
     public Vector3 characterSelectCamera;
@@ -182,6 +183,8 @@ public class GameManager : MonoBehaviour {
                 }
                 if (Input.GetButtonDown("Cancel")) {
                     Cleanup();
+                    GetComponent<AudioSource>().clip = menuMusic;
+                    GetComponent<AudioSource>().Play();
                     LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
                     LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
                     characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = originalCharacterProfiles[character];

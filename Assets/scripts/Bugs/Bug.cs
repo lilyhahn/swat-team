@@ -47,16 +47,19 @@ public class Bug : MonoBehaviour {
             if (Mathf.Abs(velocity.x) < maxSpeed)
                 velocity += Vector2.right * Input.GetAxisRaw("Horizontal");
             else
-                velocity = new Vector2(Mathf.Sign(velocity.x), velocity.y);
+                velocity = new Vector2(Mathf.Sign(velocity.x) * maxSpeed, velocity.y);
         }
         else {
             velocity = new Vector2(0f, velocity.y);
+        }
+        if(Mathf.Sign(velocity.x) != Mathf.Sign(Input.GetAxisRaw("Horizontal"))){
+            velocity = new Vector2(-velocity.x, velocity.y);
         }
         if (Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0) {
             if (Mathf.Abs(velocity.y) < maxSpeed)
                 velocity += Vector2.up * Input.GetAxisRaw("Vertical");
             else
-                velocity = new Vector2(velocity.x, Mathf.Sign(velocity.y));
+                velocity = new Vector2(velocity.x, Mathf.Sign(velocity.y) * maxSpeed);
         }
         else {
             velocity = new Vector2(velocity.x, 0f);

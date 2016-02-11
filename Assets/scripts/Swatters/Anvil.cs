@@ -8,7 +8,7 @@ public class Anvil : Hand {
 	
 	protected override void Start(){
 		base.Start();
-		charge_circle = transform.Find("fire_circle").GetComponent<Animator>();
+		charge_circle = transform.Find("anim").transform.Find("fire_circle").GetComponent<Animator>();
 		chargeRate = charge_circle.speed;
 		charge_circle.speed = 0;
 	}

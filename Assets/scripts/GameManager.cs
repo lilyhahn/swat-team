@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour {
     public GameObject gnatSpawner;
     public GameObject berryMode;
     public float restartDelay = 0.5f;
+    public bool showControls = true;
+    public int controlPromptTime = 604800;
     float endTime;
     bool bugReady = false;
     bool swatterReady = false;
@@ -70,6 +72,16 @@ public class GameManager : MonoBehaviour {
     }
     StateType state = StateType.MainMenu;
     void Start() {
+        if (PlayerPrefs.HasKey("LastPlayed") && System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds - PlayerPrefs.GetInt("LastPlayed") >= controlPromptTime) {
+            showControls = true;
+        }
+        else if (!PlayerPrefs.HasKey("LastPlayed")) {
+            showControls = true;
+        }
+        else {
+            showControls = false;
+        }
+        PlayerPrefs.SetInt("LastPlayed", (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
         Cursor.visible = false;
         foreach (Transform l in GameObject.Find("levels").transform) {
             l.gameObject.SetActive(false);

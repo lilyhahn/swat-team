@@ -560,7 +560,7 @@ MonoBehaviour:
   joystickControls: {fileID: 105306}
   keyboardControls: {fileID: 190112}
   comboControls: {fileID: 195962}
-  fade: 0
+  timed: 1
   fadeDelay: 5
   fadeTime: .25
 --- !u!114 &11480370

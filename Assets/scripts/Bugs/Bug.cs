@@ -114,7 +114,7 @@ public class Bug : MonoBehaviour {
             inGame = false;
             GameObject.Find("GameManager").GetComponent<GameManager>().EndGame(WinnerType.Bug);
         }*/
-        if(Mathf.Abs(Input.GetAxis("Horizontal")) > 0 || Mathf.Abs(Input.GetAxis("Vertical")) > 0 || Input.GetButtonDown("Bug Special")){
+        if((Mathf.Abs(Input.GetAxis("Horizontal")) > 0 || Mathf.Abs(Input.GetAxis("Vertical")) > 0 || Input.GetButtonDown("Bug Special")) && gameManager.showControls){
             transform.Find("control").GetComponent<ControlDisplay>().Fade();
         }
         if (!dead) {

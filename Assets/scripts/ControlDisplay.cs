@@ -7,12 +7,15 @@ public class ControlDisplay : MonoBehaviour {
 	public GameObject keyboardControls;
     public GameObject comboControls;
     SpriteRenderer currentControls;
-    public bool fade = false;
+    public bool timed = false;
     public float fadeDelay = 5f;
     public float fadeTime = 0.25f;
     
 	// Use this for initialization
     void Start() {
+        if (timed && !GameObject.Find("GameManager").GetComponent<GameManager>().showControls) {
+            gameObject.SetActive(false);
+        }
         switch (Input.GetJoystickNames().Length) {
             case 0:
                 keyboardControls.SetActive(true);
@@ -47,7 +50,7 @@ public class ControlDisplay : MonoBehaviour {
     }
     IEnumerator FadeRoutine(){
         yield return new WaitForSeconds(fadeDelay);
-        LeanTween.alpha(currentControls.gameObject, 0f, fadeTime).setOnComplete(delegate(){ Destroy(gameObject); } );
+        LeanTween.alpha(currentControls.gameObject, 0f, fadeTime);
     }
 	
 }

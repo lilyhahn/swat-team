@@ -117,7 +117,7 @@ public class Bug : MonoBehaviour {
         if((Mathf.Abs(Input.GetAxis("Horizontal")) > 0 || Mathf.Abs(Input.GetAxis("Vertical")) > 0 || Input.GetButtonDown("Bug Special")) && gameManager.showControls){
             transform.Find("control").GetComponent<ControlDisplay>().Fade();
         }
-        if (!dead) {
+        if (!dead && !gameManager.paused) {
             Move();
             if (Input.GetButtonDown("Bug Special")) {
                 Special();

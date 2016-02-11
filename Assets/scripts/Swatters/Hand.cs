@@ -44,19 +44,21 @@ public class Hand : MonoBehaviour {
 	}
     protected virtual void Update(){
         lastAnimPosition = anim.transform.position;
-        if (Input.GetJoystickNames().Length < 2) {
-            Vector3 mousePosition = Input.mousePosition;
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
+        if(!GameObject.Find("GameManager").GetComponent<GameManager>().paused){
+            if (Input.GetJoystickNames().Length < 2) {
+                Vector3 mousePosition = Input.mousePosition;
+                mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
+            }
+            else {
+                transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
+            }
+		    if(Input.GetButtonDown("Swat") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
+			    GetComponent<AudioSource>().clip = miss;
+			    GetComponent<AudioSource>().Play();
+			    Swat ();
+		    }
         }
-        else {
-            transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
-        }
-		if(Input.GetButtonDown("Swat") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
-			GetComponent<AudioSource>().clip = miss;
-			GetComponent<AudioSource>().Play();
-			Swat ();
-		}
 		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") || stuck) {
 			anim.transform.position = lastAnimPosition;
 		}

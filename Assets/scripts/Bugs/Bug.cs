@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
+
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -220,7 +222,12 @@ public class Bug : MonoBehaviour {
         if (c.gameObject.tag == "house" && holdingBerry) {
             maxSpeed = origMaxSpeed;
             moveSpeed = origMoveSpeed;
+            GameObject[] berryOutlines = GameObject.FindGameObjectsWithTag("berry outline");
+            berryOutlines = berryOutlines.OrderBy(berryOutline => (berryOutline.transform.position - transform.position).sqrMagnitude).ToArray();
             berry.transform.parent = c.transform;
+            berry.transform.position = berryOutlines[0].transform.position;
+            berry.transform.eulerAngles = Vector3.zero;
+            berryOutlines[0].SetActive(false);
             holdingBerry = false;
             gameManager.ScoreBug(1);
             GetComponent<AudioSource>().clip = berryDepositSound;

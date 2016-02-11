@@ -15,6 +15,7 @@ TagManager:
   - worm
   - stinger
   - swatter
+  - berry outline
   layers:
   - Default
   - TransparentFX

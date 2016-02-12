@@ -10,6 +10,7 @@ public class Hand : MonoBehaviour {
 	public float stuckShakeMagnitude = 0.1f;
     public float swatTime = 0.7f;
     public float swatTimeEnd = 0.8f;
+    public Animator hit;
 	bool shaking;
 	protected Animator anim;
 	protected bool stuck = false;
@@ -25,7 +26,8 @@ public class Hand : MonoBehaviour {
 	// Update is called once per frame
 	protected virtual void FixedUpdate () {
 		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") && anim.GetCurrentAnimatorStateInfo (0).normalizedTime >= swatTime && anim.GetCurrentAnimatorStateInfo (0).normalizedTime <= swatTimeEnd) {
-			foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
+			Instantiate(hit, anim.transform.position, Quaternion.identity);
+            foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
 				if(Vector3.Distance(transform.position, gnat.transform.position) <= gnatScatterRadius){
 					(gnat.GetComponent<Gnat>() as Gnat).Move(); // wtf
 				}
@@ -126,4 +128,5 @@ public class Hand : MonoBehaviour {
         transform.position = origPos;
 		shaking = false;
 	}
+    
 }

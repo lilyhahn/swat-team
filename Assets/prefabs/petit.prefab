@@ -667,6 +667,7 @@ MonoBehaviour:
   stuckShakeMagnitude: .100000001
   swatTime: .800000012
   swatTimeEnd: 1
+  hit: {fileID: 9524958, guid: 1f03fee35f66a4ac483a934448fe63ab, type: 2}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

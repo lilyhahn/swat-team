@@ -68,6 +68,9 @@ public class Bug : MonoBehaviour {
         }
         velocity = velocity.normalized * moveSpeed;
         GetComponent<Rigidbody2D>().velocity = velocity;
+        if (velocity == Vector2.zero) {
+            GetComponent<Animator>().SetTrigger("idle");
+        }
         if (Input.GetAxis("Vertical") != 0) {
             GetComponent<Animator>().SetInteger("direction", (int)Mathf.Sign(Input.GetAxis("Vertical")));
             GetComponent<Animator>().SetTrigger("move");

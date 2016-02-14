@@ -516,6 +516,7 @@ MonoBehaviour:
   swatTime: .800000012
   swatTimeEnd: 1
   hit: {fileID: 9524958, guid: 1f03fee35f66a4ac483a934448fe63ab, type: 2}
+  webStuckColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &11437446
 MonoBehaviour:
   m_ObjectHideFlags: 1

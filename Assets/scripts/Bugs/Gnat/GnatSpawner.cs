@@ -16,7 +16,7 @@ public class GnatSpawner : MonoBehaviour {
 	
 	IEnumerator SpawnBugs(){
 		while(true){
-			if(GameObject.FindGameObjectsWithTag("gnat").Length < maxGnats){
+			if(GameObject.FindGameObjectsWithTag("gnat").Length < maxGnats && !GameObject.Find("GameManager").GetComponent<GameManager>().paused){
 				Instantiate(gnat, transform.position, Quaternion.identity);
 			}
 			yield return new WaitForSeconds(checkInterval);

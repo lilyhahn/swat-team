@@ -18,24 +18,26 @@ public class Gnat : MonoBehaviour {
 		//Move ();
 	}
 	void Update () {
-		target = controller.target;
-        if (stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition) {
-            stuck = false;
-            GetComponent<Rigidbody2D>().isKinematic = false;
+        if (!GameObject.Find("GameManager").GetComponent<GameManager>().paused) {
+            target = controller.target;
+            if (stuck && GameObject.FindGameObjectWithTag("web").transform.position != lastStuckPosition) {
+                stuck = false;
+                GetComponent<Rigidbody2D>().isKinematic = false;
+            }
+            if (Vector3.Distance(transform.position, bug.position) < bugRunDistance) {
+                Move();
+            }
+            if (!dead && !stuck && target != Vector3.zero) {
+                Vector3 dir = target - transform.position;
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+                GetComponent<Rigidbody2D>().AddForce((target - transform.position) * moveForce);
+                if (Vector3.Distance(transform.position, target) < .5f) {
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                    Move();
+                }
+            }
         }
-		if(Vector3.Distance(transform.position, bug.position) < bugRunDistance){
-			Move();
-		}
-		if(!dead && !stuck && target != Vector3.zero){
-			Vector3 dir = target - transform.position;
-			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
-			GetComponent<Rigidbody2D>().AddForce((target - transform.position) * moveForce);
-			if(Vector3.Distance(transform.position, target) < .5f){
-				GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-				Move();
-			}
-		}
 	}
 	public void Move(){
 		//StartCoroutine (MoveRoutine ());

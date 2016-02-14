@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour {
     bool bugScrolling = false;
     bool selectingCharacterActive = false;
     public bool paused { get; private set; }
+    bool resuming = false;
     enum StateType {
         PreMenu,
         MainMenu,
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour {
             showControls = false;
         }
         PlayerPrefs.SetInt("LastPlayed", (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
-        paused = false;
+        paused = true;
         Cursor.visible = false;
         foreach (Transform l in GameObject.Find("levels").transform) {
             l.gameObject.SetActive(false);
@@ -253,8 +254,7 @@ public class GameManager : MonoBehaviour {
                         paused = true;
                     }
                     else {
-                        Time.timeScale = 1;
-                        paused = false;
+                        StartCoroutine(Resume());
                     }
                     break;
                 case StateType.SelectingCharacter:
@@ -286,6 +286,8 @@ public class GameManager : MonoBehaviour {
     }
     IEnumerator StartGame(){
 		GetComponent<AudioSource>().Stop ();
+        Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity);
+        hand = Instantiate(swatters[swatter]) as GameObject;
 		inGame = true;
 		state = StateType.InGame;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
@@ -307,11 +309,10 @@ public class GameManager : MonoBehaviour {
 		GetComponent<AudioSource>().clip = inGameMusic;
 		GetComponent<AudioSource>().time = inGameMusicTime;
 		GetComponent<AudioSource>().Play();
-		Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity);
-		hand = Instantiate(swatters[swatter]) as GameObject;
 		if(mode == 0){
 			gnatSpawner.SetActive(true);
 		}
+        paused = false;
 	}
     public void EndGame(WinnerType winner) {
     	inGame = false;
@@ -365,6 +366,9 @@ public class GameManager : MonoBehaviour {
             if (berry.transform.parent == null)
                 Destroy(berry);
         }
+        foreach (GameObject hit in GameObject.FindGameObjectsWithTag("hit")) {
+            Destroy(hit);
+        }
         foreach (Transform berryTree in berryMode.transform.Find("berryTrees")) {
             foreach (Transform berry in berryTree) {
                 if (berry.tag == "berry") {
@@ -374,5 +378,30 @@ public class GameManager : MonoBehaviour {
         }
         gameOverText.transform.Find("human").gameObject.SetActive(false);
         gameOverText.transform.Find("bug").gameObject.SetActive(false);
+    }
+    IEnumerator Resume() {
+        if (!resuming) {
+            resuming = true;
+            foreach (GameObject bug in GameObject.FindGameObjectsWithTag("bug")) {
+                bug.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
+            foreach (GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")) {
+                gnat.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
+            Time.timeScale = 1f;
+            countdown.gameObject.SetActive(true);
+            countdown.text = "3";
+            GetComponent<AudioSource>().PlayOneShot(beep12);
+            yield return new WaitForSeconds(1f);
+            countdown.text = "2";
+            GetComponent<AudioSource>().PlayOneShot(beep12);
+            yield return new WaitForSeconds(1f);
+            countdown.text = "1";
+            GetComponent<AudioSource>().PlayOneShot(beep3);
+            yield return new WaitForSeconds(1f);
+            countdown.gameObject.SetActive(false);
+            paused = false;
+            resuming = false;
+        }
     }
 }

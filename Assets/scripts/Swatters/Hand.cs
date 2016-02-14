@@ -11,6 +11,7 @@ public class Hand : MonoBehaviour {
     public float swatTime = 0.7f;
     public float swatTimeEnd = 0.8f;
     public Animator hit;
+    public Color webStuckColor;
 	bool shaking;
 	protected Animator anim;
 	protected bool stuck = false;
@@ -41,6 +42,7 @@ public class Hand : MonoBehaviour {
 			Debug.Log("web position: " + GameObject.FindGameObjectWithTag("web").transform.position);
             anim.SetTrigger("unstuck");
 			stuck = false;
+            anim.GetComponent<SpriteRenderer>().color = Color.white;
 		}
 		anim.SetBool("stuck", stuck);
 		if(anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
@@ -98,6 +100,7 @@ public class Hand : MonoBehaviour {
 			}
             if(c.gameObject.tag == "web"){
 				lastStuckPosition = c.transform.position;
+                anim.GetComponent<SpriteRenderer>().color = webStuckColor;
 				StartCoroutine(GetStuck());
 			}
 			GetComponent<AudioSource>().Play();
@@ -112,6 +115,7 @@ public class Hand : MonoBehaviour {
 		yield return new WaitForSeconds(stuckTime);
 		stuck = false;
         anim.SetTrigger("unstuck");
+        anim.GetComponent<SpriteRenderer>().color = Color.white;
 	}
 	protected virtual void Swat(){
 		if(stuck){

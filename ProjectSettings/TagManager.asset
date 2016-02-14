@@ -16,6 +16,7 @@ TagManager:
   - stinger
   - swatter
   - berry outline
+  - hit
   layers:
   - Default
   - TransparentFX

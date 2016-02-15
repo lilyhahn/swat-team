@@ -18,13 +18,10 @@ public class Hand : MonoBehaviour {
 	Vector3 lastStuckPosition = Vector3.zero;
 	Vector3 lastAnimPosition = Vector3.zero;
 	Vector3 firstAnimPosition;
-    Vector3 lastMousePosition = Vector3.zero;
-    Vector3 mouseDelta = Vector3.zero;
 	protected virtual void Start(){
 		anim = transform.Find("anim").GetComponent<Animator>();
 		firstAnimPosition = anim.transform.localPosition;
         transform.Find("control").GetComponent<ControlDisplay>().Fade();
-        lastMousePosition = Input.mousePosition;
 	}
 	
 	// Update is called once per frame
@@ -56,19 +53,9 @@ public class Hand : MonoBehaviour {
         else {
             anim.speed = 1;
         }
-        mouseDelta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
-        lastMousePosition = Input.mousePosition;
         lastAnimPosition = anim.transform.position;
         if(!GameObject.Find("GameManager").GetComponent<GameManager>().paused){
-            /*if (Input.GetJoystickNames().Length < 2) {
-                Vector3 mousePosition = Input.mousePosition;
-                mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                transform.position = Vector2.Lerp(transform.position, mousePosition, 1);
-            }
-            else {
-                transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
-            }*/
-            transform.position += mouseDelta;
+            transform.position += new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
 		    if(Input.GetButtonDown("Swat") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			    GetComponent<AudioSource>().clip = miss;

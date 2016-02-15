@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetInt("LastPlayed", (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
         paused = true;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         foreach (Transform l in GameObject.Find("levels").transform) {
             l.gameObject.SetActive(false);
         }

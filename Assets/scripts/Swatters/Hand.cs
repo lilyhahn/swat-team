@@ -50,6 +50,12 @@ public class Hand : MonoBehaviour {
 		}
 	}
     protected virtual void Update(){
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().paused) {
+            anim.speed = 0;
+        }
+        else {
+            anim.speed = 1;
+        }
         mouseDelta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
         lastMousePosition = Input.mousePosition;
         lastAnimPosition = anim.transform.position;

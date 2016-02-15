@@ -286,6 +286,7 @@ public class GameManager : MonoBehaviour {
         Camera.main.orthographicSize = val;
     }
     IEnumerator StartGame(){
+        paused = true;
 		GetComponent<AudioSource>().Stop ();
         Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity);
         hand = Instantiate(swatters[swatter]) as GameObject;

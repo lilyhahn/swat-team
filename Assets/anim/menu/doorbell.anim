@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: doorknob
+  m_Name: doorbell
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -18,17 +18,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 8c34c8f8b43f1cb44bd74d20c94526a7, type: 3}
+      value: {fileID: 21300000, guid: 87bd73120a9c4d54aadfdda6077cedde, type: 3}
     - time: .0833333358
-      value: {fileID: 21300000, guid: 56c7e1ddf2c35344f8dc6bc9bcde5556, type: 3}
-    - time: .166666672
-      value: {fileID: 21300000, guid: 060bcccaefeb206449a8a8845e978066, type: 3}
-    - time: .25
-      value: {fileID: 21300000, guid: 945816dbfa5ee754b9ba932a225600e0, type: 3}
-    - time: .333333343
-      value: {fileID: 21300000, guid: c4044f4bfda73e54392cf2fbedf6c80b, type: 3}
-    - time: .416666657
-      value: {fileID: 21300000, guid: 270a4d2c635caeb439312f54ba0beb37, type: 3}
+      value: {fileID: 21300000, guid: 887ff06b6409a40419c2e2e7ebc4ebb8, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -47,16 +39,12 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 8c34c8f8b43f1cb44bd74d20c94526a7, type: 3}
-    - {fileID: 21300000, guid: 56c7e1ddf2c35344f8dc6bc9bcde5556, type: 3}
-    - {fileID: 21300000, guid: 060bcccaefeb206449a8a8845e978066, type: 3}
-    - {fileID: 21300000, guid: 945816dbfa5ee754b9ba932a225600e0, type: 3}
-    - {fileID: 21300000, guid: c4044f4bfda73e54392cf2fbedf6c80b, type: 3}
-    - {fileID: 21300000, guid: 270a4d2c635caeb439312f54ba0beb37, type: 3}
+    - {fileID: 21300000, guid: 87bd73120a9c4d54aadfdda6077cedde, type: 3}
+    - {fileID: 21300000, guid: 887ff06b6409a40419c2e2e7ebc4ebb8, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: .5
+    m_StopTime: .166666672
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

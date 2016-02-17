@@ -5,7 +5,15 @@ public enum WinnerType {
     Human,
     Bug
 }
-
+[System.Serializable]
+public class MenuScreen{
+    public Vector3 InitialPosition;
+    public Vector3 InitialScale;
+    public Vector3 FinalPosition;
+    public Vector3 FinalScale;
+    public GameObject MenuObject;
+    public GameObject[] AlphaObjects;
+}
 public class GameManager : MonoBehaviour {
 	public TextMesh countdown;
     public float randomSpawnRadius = 1;
@@ -52,6 +60,9 @@ public class GameManager : MonoBehaviour {
     public float restartDelay = 0.5f;
     public bool showControls = true;
     public int controlPromptTime = 604800;
+    public float menuTransitionTime = 0.5f;
+    public MenuScreen MainMenu;
+    
     float endTime;
     bool bugReady = false;
     bool swatterReady = false;
@@ -87,8 +98,6 @@ public class GameManager : MonoBehaviour {
         }
         PlayerPrefs.SetInt("LastPlayed", (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
         paused = true;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         foreach (Transform l in GameObject.Find("levels").transform) {
             l.gameObject.SetActive(false);
         }
@@ -96,6 +105,26 @@ public class GameManager : MonoBehaviour {
         //StartCoroutine(PreMenuTransistion());
     }
     void Update() {
+        if(Input.GetButtonDown("Submit (Bug)") || Input.GetButtonDown("Submit (Swatter Joystick)")){
+            switch(state){
+                case StateType.MainMenu:
+                    StartCoroutine(MainMenuTransition());
+                break;
+            }
+        }
+        if(Input.GetButtonDown("Submit (Swatter Mouse)")){
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if(hit.collider != null){
+                switch(hit.transform.gameObject.name){
+                    case "MainMenu":
+                        StartCoroutine(MainMenuTransition());
+                        break;
+                    case "Doorbell":
+                        hit.transform.GetComponent<Animator>().SetTrigger("ring");
+                        break;
+                }
+            }
+        }
         switch (state) {
 			case StateType.SelectingMode:
 				if(Mathf.Abs(Input.GetAxisRaw("Vertical (Menu)")) > 0){
@@ -208,7 +237,7 @@ public class GameManager : MonoBehaviour {
 					state = StateType.MainMenu;
 					break;
                 case StateType.MainMenu:
-					state = StateType.SelectingMode;
+					/*state = StateType.SelectingMode;
 					LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
 					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
 					modeSelectText.SetActive(true);
@@ -287,6 +316,8 @@ public class GameManager : MonoBehaviour {
         Camera.main.orthographicSize = val;
     }
     IEnumerator StartGame(){
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         paused = true;
 		GetComponent<AudioSource>().Stop ();
         Instantiate(characters[character], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity);
@@ -321,6 +352,8 @@ public class GameManager : MonoBehaviour {
         paused = false;
 	}
     public void EndGame(WinnerType winner) {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Locked;
     	inGame = false;
         inGameMusicTime = GetComponent<AudioSource>().time;
         endTime = Time.time;
@@ -408,6 +441,17 @@ public class GameManager : MonoBehaviour {
             countdown.gameObject.SetActive(false);
             paused = false;
             resuming = false;
+        }
+    }
+    IEnumerator MainMenuTransition() {
+        MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
+        while(MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1){
+            yield return null;
+        }
+        LeanTween.moveLocal(MainMenu.MenuObject, MainMenu.FinalPosition, menuTransitionTime);
+        LeanTween.scale(MainMenu.MenuObject, MainMenu.FinalScale, menuTransitionTime);
+        foreach(GameObject a in MainMenu.AlphaObjects){
+            LeanTween.alpha(a, 0f, menuTransitionTime);
         }
     }
 }

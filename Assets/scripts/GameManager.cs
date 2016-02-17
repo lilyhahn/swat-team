@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour {
     public AudioClip bugWinJingle;
     public GameObject gnatSpawner;
     public GameObject berryMode;
+    public GameObject[] berryOutlines;
     public float restartDelay = 0.5f;
     public bool showControls = true;
     public int controlPromptTime = 604800;
@@ -296,6 +297,9 @@ public class GameManager : MonoBehaviour {
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
 		if(mode == 1){
 			berryMode.SetActive(true);
+            foreach(GameObject outline in berryOutlines){
+                outline.SetActive(true);
+            }
 		}
 		countdown.gameObject.SetActive(true);
     	countdown.text = "3";

@@ -7167,6 +7167,10 @@ MonoBehaviour:
   bugWinJingle: {fileID: 8300000, guid: d4ea1849efe2b104fa12463b44ab0f16, type: 3}
   gnatSpawner: {fileID: 886134433}
   berryMode: {fileID: 276164101}
+  berryOutlines:
+  - {fileID: 1934517061}
+  - {fileID: 843326249}
+  - {fileID: 1768082180}
   restartDelay: 1
   showControls: 1
   controlPromptTime: 604800

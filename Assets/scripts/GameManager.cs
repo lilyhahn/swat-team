@@ -5,15 +5,27 @@ public enum WinnerType {
     Human,
     Bug
 }
+
+public enum ModeType {
+    Gnat,
+    Berry
+}
+
+public enum DirectionType {
+    Forward,
+    Backward
+}
+
 [System.Serializable]
 public class MenuScreen{
     public Vector3 InitialPosition;
     public Vector3 InitialScale;
-    public Vector3 FinalPosition;
-    public Vector3 FinalScale;
+    public Vector3[] FinalPosition;
+    public Vector3[] FinalScale;
     public GameObject MenuObject;
     public GameObject[] AlphaObjects;
 }
+
 public class GameManager : MonoBehaviour {
 	public TextMesh countdown;
     public float randomSpawnRadius = 1;
@@ -62,13 +74,14 @@ public class GameManager : MonoBehaviour {
     public int controlPromptTime = 604800;
     public float menuTransitionTime = 0.5f;
     public MenuScreen MainMenu;
+    public MenuScreen ModeSelect;
     
     float endTime;
     bool bugReady = false;
     bool swatterReady = false;
     int swatter = 0;
     int character = 0;
-	int mode = 0;
+	ModeType mode = 0;
     GameObject hand;
     bool swatterScrolling = false;
     bool bugScrolling = false;
@@ -108,25 +121,40 @@ public class GameManager : MonoBehaviour {
         if(Input.GetButtonDown("Submit (Bug)") || Input.GetButtonDown("Submit (Swatter Joystick)")){
             switch(state){
                 case StateType.MainMenu:
-                    StartCoroutine(MainMenuTransition());
+                    StartCoroutine(MainMenuTransition(DirectionType.Forward));
                 break;
             }
         }
         if(Input.GetButtonDown("Submit (Swatter Mouse)")){
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if(hit.collider != null){
-                switch(hit.transform.gameObject.name){
-                    case "MainMenu":
-                        StartCoroutine(MainMenuTransition());
+                switch (state) {
+                    case StateType.MainMenu:
+                        switch (hit.transform.gameObject.name) {
+                            case "MainMenu":
+                                StartCoroutine(MainMenuTransition(DirectionType.Forward));
+                                break;
+                            case "Doorbell":
+                                hit.transform.GetComponent<Animator>().SetTrigger("ring");
+                                break;
+                        }
                         break;
-                    case "Doorbell":
-                        hit.transform.GetComponent<Animator>().SetTrigger("ring");
+                    case StateType.SelectingMode:
+                        switch (hit.transform.gameObject.name) {
+                            case "Gnat":
+                                ModeSelectTransition(ModeType.Gnat, DirectionType.Forward);
+                                break;
+                            case "Berry":
+                                ModeSelectTransition(ModeType.Berry, DirectionType.Forward);
+                                break;
+                        }
                         break;
                 }
+                
             }
         }
         switch (state) {
-			case StateType.SelectingMode:
+			/*case StateType.SelectingMode:
 				if(Mathf.Abs(Input.GetAxisRaw("Vertical (Menu)")) > 0){
 					int oldMode = mode;
 					mode += (int)Input.GetAxisRaw("Vertical (Menu)");
@@ -143,7 +171,7 @@ public class GameManager : MonoBehaviour {
 						modeSelectText.GetComponent<Animator>().SetTrigger("new");
 					}
 				}
-			break;
+			break;*/
             case StateType.SelectingCharacter:
                 characterProfiles[character].SetActive(false);
                 if (Input.GetAxisRaw("Vertical (Bug Menu)") > 0 && !bugReady && !bugScrolling) {
@@ -229,54 +257,54 @@ public class GameManager : MonoBehaviour {
                 }
                 break;
         }
-        if (Input.GetButtonDown("Submit")) {
-            switch (state) {
-            	case StateType.PreMenu:
-					Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
-					preMenuText.SetActive(false);
-					state = StateType.MainMenu;
-					break;
-                case StateType.MainMenu:
-					/*state = StateType.SelectingMode;
-					LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
-					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
-					modeSelectText.SetActive(true);
-                  	/*state = StateType.SelectingCharacter;
-                    LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
-                    LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
-                    characterSelectText.SetActive(true);*/
-                    break;
-                 case StateType.SelectingMode:
-					state = StateType.SelectingCharacter;
-					LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
-					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
-					switch(mode){
-						case 0:
-							voiceAudio.PlayOneShot(gnatVoices[Random.Range(0, gnatVoices.Length - 1)]);
-							break;
-						case 1:
-							voiceAudio.PlayOneShot(berryVoices[Random.Range(0, gnatVoices.Length - 1)]);
-							break;
-					}
-					characterSelectText.SetActive(true);
-				break;
-                /*case StateType.SelectingCharacter:
-                    state = StateType.SelectingStage;
-                    characterSelectText.SetActive(false);
-                    stageSelectText.SetActive(true);
-                    LeanTween.move(Camera.main.gameObject, stageSelectCamera, 0.5f);
-                    LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, stageSelectCameraZoom, 0.5f);
-                    break;*/
-                case StateType.SelectingStage:
-                    stageSelectText.SetActive(false);
-                    state = StateType.InGame;
-                    characters[character].SetActive(true);
-                    swatters[swatter].SetActive(true);
-                    LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
-                    LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
-                    break;
-            }
-        }
+        //if (Input.GetButtonDown("Submit")) {
+        //    switch (state) {
+        //        case StateType.PreMenu:
+        //            Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
+        //            preMenuText.SetActive(false);
+        //            state = StateType.MainMenu;
+        //            break;
+        //        case StateType.MainMenu:
+        //            /*state = StateType.SelectingMode;
+        //            LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
+        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
+        //            modeSelectText.SetActive(true);
+        //            /*state = StateType.SelectingCharacter;
+        //            LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
+        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
+        //            characterSelectText.SetActive(true);*/
+        //            break;
+        //         case StateType.SelectingMode:
+        //            state = StateType.SelectingCharacter;
+        //            LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
+        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
+        //            switch((int)mode){
+        //                case 0:
+        //                    voiceAudio.PlayOneShot(gnatVoices[Random.Range(0, gnatVoices.Length - 1)]);
+        //                    break;
+        //                case 1:
+        //                    voiceAudio.PlayOneShot(berryVoices[Random.Range(0, gnatVoices.Length - 1)]);
+        //                    break;
+        //            }
+        //            characterSelectText.SetActive(true);
+        //        break;
+        //        /*case StateType.SelectingCharacter:
+        //            state = StateType.SelectingStage;
+        //            characterSelectText.SetActive(false);
+        //            stageSelectText.SetActive(true);
+        //            LeanTween.move(Camera.main.gameObject, stageSelectCamera, 0.5f);
+        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, stageSelectCameraZoom, 0.5f);
+        //            break;*/
+        //        case StateType.SelectingStage:
+        //            stageSelectText.SetActive(false);
+        //            state = StateType.InGame;
+        //            characters[character].SetActive(true);
+        //            swatters[swatter].SetActive(true);
+        //            LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
+        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
+        //            break;
+        //    }
+        //}
 		if(Input.GetButtonDown ("Cancel")){
 			switch(state){
                 case StateType.InGame:
@@ -326,7 +354,7 @@ public class GameManager : MonoBehaviour {
 		state = StateType.InGame;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
-		if(mode == 1){
+		if(mode == ModeType.Berry){
 			berryMode.SetActive(true);
             foreach(GameObject outline in berryOutlines){
                 outline.SetActive(true);
@@ -372,7 +400,7 @@ public class GameManager : MonoBehaviour {
     }
     public void ScoreBug(int amount){
     	bugScore += amount;
-    	if(bugScore == winningScores[mode]){
+    	if(bugScore == winningScores[(int)mode]){
     		EndGame(WinnerType.Bug);
     	}
     }
@@ -443,15 +471,44 @@ public class GameManager : MonoBehaviour {
             resuming = false;
         }
     }
-    IEnumerator MainMenuTransition() {
-        MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
-        while(MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1){
-            yield return null;
+    void PerformTransition(MenuScreen screen, DirectionType direction, int positionIndex = 0) {
+        switch (direction) {
+            case DirectionType.Forward:
+                LeanTween.moveLocal(screen.MenuObject, screen.FinalPosition[positionIndex], menuTransitionTime);
+                LeanTween.scale(screen.MenuObject, screen.FinalScale[positionIndex], menuTransitionTime);
+                foreach (GameObject a in screen.AlphaObjects) {
+                    LeanTween.alpha(a, 0f, menuTransitionTime);
+                }
+                break;
+            case DirectionType.Backward:
+                LeanTween.moveLocal(screen.MenuObject, screen.InitialPosition, menuTransitionTime);
+                LeanTween.scale(screen.MenuObject, screen.InitialScale, menuTransitionTime);
+                foreach (GameObject a in screen.AlphaObjects) {
+                    LeanTween.alpha(a, 1f, menuTransitionTime);
+                }
+                break;
         }
-        LeanTween.moveLocal(MainMenu.MenuObject, MainMenu.FinalPosition, menuTransitionTime);
-        LeanTween.scale(MainMenu.MenuObject, MainMenu.FinalScale, menuTransitionTime);
-        foreach(GameObject a in MainMenu.AlphaObjects){
-            LeanTween.alpha(a, 0f, menuTransitionTime);
+        
+    }
+    IEnumerator MainMenuTransition(DirectionType direction) {
+        switch (direction) {
+            case DirectionType.Forward:
+                MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
+                while(MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1){
+                    yield return null;
+                }
+                PerformTransition(MainMenu, DirectionType.Forward);
+                state = StateType.SelectingMode;
+                break;
+            case DirectionType.Backward:
+                Application.Quit();
+                break;
         }
+        
+    }
+    void ModeSelectTransition(ModeType selectedMode, DirectionType direction) {
+        PerformTransition(ModeSelect, DirectionType.Forward, (int)selectedMode);
+        mode = selectedMode;
+        state = StateType.SelectingCharacter;
     }
 }

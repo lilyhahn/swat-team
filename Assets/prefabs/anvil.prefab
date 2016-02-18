@@ -15,7 +15,7 @@ GameObject:
   - 61: {fileID: 6100004}
   - 61: {fileID: 6100002}
   - 82: {fileID: 8200000}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: anvil
   m_TagString: swatter
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200002}
   - 95: {fileID: 9500002}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: fire_circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   - 4: {fileID: 404830}
   - 212: {fileID: 21263712}
   - 95: {fileID: 9559100}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: swatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - 4: {fileID: 469482}
   - 114: {fileID: 11421198}
   - 114: {fileID: 11494796}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 435324}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: combo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - 4: {fileID: 489236}
   - 212: {fileID: 21205314}
   - 95: {fileID: 9556460}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: key_swatter_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 481872}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: keyboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - 4: {fileID: 434646}
   - 212: {fileID: 21256954}
   - 95: {fileID: 9550170}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: bug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - 61: {fileID: 6115328}
   - 61: {fileID: 6132774}
   - 114: {fileID: 11434864}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - 4: {fileID: 483212}
   - 212: {fileID: 21271826}
   - 95: {fileID: 9555606}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - 4: {fileID: 406822}
   - 212: {fileID: 21294052}
   - 95: {fileID: 9527910}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: key_bug_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -143,7 +143,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 18679521}
   - 212: {fileID: 18679520}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Front-Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,8 +407,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 152746371}
   - 212: {fileID: 152746372}
-  m_Layer: 0
-  m_Name: CharacterSelect
+  m_Layer: 13
+  m_Name: ModeSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,7 +421,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 152746370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.1299992, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 25, y: 25, z: 1}
   m_Children:
   - {fileID: 2002282476}
@@ -1771,13 +1771,13 @@ GameObject:
   - 4: {fileID: 465496737}
   - 212: {fileID: 465496739}
   - 61: {fileID: 465496738}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MainMenu
   m_TagString: menu advance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &465496737
 Transform:
   m_ObjectHideFlags: 0
@@ -3613,7 +3613,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 983248947}
   - 212: {fileID: 983248948}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Flyer-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3787,7 +3787,7 @@ GameObject:
   - 4: {fileID: 1013592277}
   - 212: {fileID: 1013592279}
   - 95: {fileID: 1013592278}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Doorknob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4130,7 +4130,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1097165234}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6560,7 +6560,7 @@ GameObject:
   - 4: {fileID: 1765192344}
   - 212: {fileID: 1765192345}
   - 61: {fileID: 1765192346}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Berry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7374,7 +7374,7 @@ GameObject:
   - 212: {fileID: 1963194526}
   - 95: {fileID: 1963194525}
   - 61: {fileID: 1963194527}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Doorbell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7567,7 +7567,7 @@ GameObject:
   - 4: {fileID: 2002282476}
   - 212: {fileID: 2002282475}
   - 61: {fileID: 2002282477}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Gnat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7737,13 +7737,28 @@ MonoBehaviour:
   MainMenu:
     InitialPosition: {x: 0, y: 0, z: 0}
     InitialScale: {x: 0, y: 0, z: 0}
-    FinalPosition: {x: 0, y: 0, z: 0}
-    FinalScale: {x: 70, y: 70, z: 1}
+    FinalPosition:
+    - {x: 0, y: 0, z: 0}
+    FinalScale:
+    - {x: 90, y: 90, z: 1}
     MenuObject: {fileID: 465496736}
     AlphaObjects:
     - {fileID: 983248946}
     - {fileID: 1013592276}
     - {fileID: 18679519}
+  ModeSelect:
+    InitialPosition: {x: 0, y: 0, z: 0}
+    InitialScale: {x: 0, y: 0, z: 0}
+    FinalPosition:
+    - {x: -55, y: 0, z: 0}
+    - {x: -160.910004, y: 0, z: 0}
+    FinalScale:
+    - {x: 90, y: 90, z: 1}
+    - {x: 90, y: 90, z: 1}
+    MenuObject: {fileID: 152746370}
+    AlphaObjects:
+    - {fileID: 2002282474}
+    - {fileID: 1765192343}
 --- !u!4 &2037015352
 Transform:
   m_ObjectHideFlags: 0

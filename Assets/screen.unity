@@ -7734,6 +7734,35 @@ MonoBehaviour:
   showControls: 1
   controlPromptTime: 604800
   menuTransitionTime: .5
+  menu:
+  - InitialPosition: {x: 0, y: 0, z: 0}
+    InitialScale: {x: 1, y: 1, z: 1}
+    FinalPosition:
+    - {x: 0, y: 0, z: 0}
+    FinalScale:
+    - {x: 90, y: 90, z: 1}
+    MenuObject: {fileID: 465496736}
+    AlphaObjects:
+    - {fileID: 983248946}
+    - {fileID: 1013592276}
+    - {fileID: 1963194523}
+    Buttons:
+    - ButtonObject: {fileID: 18679519}
+  - InitialPosition: {x: 0, y: 0, z: 0}
+    InitialScale: {x: 1, y: 1, z: 1}
+    FinalPosition:
+    - {x: -55, y: 0, z: 0}
+    - {x: -160.910004, y: 0, z: 0}
+    FinalScale:
+    - {x: 90, y: 90, z: 1}
+    - {x: 90, y: 90, z: 1}
+    MenuObject: {fileID: 152746370}
+    AlphaObjects:
+    - {fileID: 2002282474}
+    - {fileID: 1765192343}
+    Buttons:
+    - ButtonObject: {fileID: 0}
+    - ButtonObject: {fileID: 0}
   MainMenu:
     InitialPosition: {x: 0, y: 0, z: 0}
     InitialScale: {x: 0, y: 0, z: 0}
@@ -7746,6 +7775,8 @@ MonoBehaviour:
     - {fileID: 983248946}
     - {fileID: 1013592276}
     - {fileID: 18679519}
+    Buttons:
+    - ButtonObject: {fileID: 0}
   ModeSelect:
     InitialPosition: {x: 0, y: 0, z: 0}
     InitialScale: {x: 0, y: 0, z: 0}
@@ -7759,6 +7790,7 @@ MonoBehaviour:
     AlphaObjects:
     - {fileID: 2002282474}
     - {fileID: 1765192343}
+    Buttons: []
 --- !u!4 &2037015352
 Transform:
   m_ObjectHideFlags: 0

@@ -24,6 +24,13 @@ public class MenuScreen{
     public Vector3[] FinalScale;
     public GameObject MenuObject;
     public GameObject[] AlphaObjects;
+    public MenuButton[] Buttons;
+}
+
+[System.Serializable]
+public class MenuButton {
+    public GameObject ButtonObject;
+    public delegate void Action(DirectionType direction, int modeArg = 0);
 }
 
 public class GameManager : MonoBehaviour {
@@ -73,6 +80,7 @@ public class GameManager : MonoBehaviour {
     public bool showControls = true;
     public int controlPromptTime = 604800;
     public float menuTransitionTime = 0.5f;
+    public MenuScreen[] menu;
     public MenuScreen MainMenu;
     public MenuScreen ModeSelect;
     

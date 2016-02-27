@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
+using System.Reflection;
 
 public enum WinnerType {
     Human,
@@ -30,7 +32,14 @@ public class MenuScreen{
 [System.Serializable]
 public class MenuButton {
     public GameObject ButtonObject;
-    public delegate void Action(DirectionType direction, int modeArg = 0);
+    public MenuAction Action;
+}
+
+[System.Serializable]
+public class MenuAction {
+    public DirectionType Direction;
+    public ModeType ModeArg = 0;
+    public string MethodName;
 }
 
 public class GameManager : MonoBehaviour {
@@ -129,34 +138,23 @@ public class GameManager : MonoBehaviour {
         if(Input.GetButtonDown("Submit (Bug)") || Input.GetButtonDown("Submit (Swatter Joystick)")){
             switch(state){
                 case StateType.MainMenu:
-                    StartCoroutine(MainMenuTransition(DirectionType.Forward));
+                    //StartCoroutine(MainMenuTransition(DirectionType.Forward));
                 break;
             }
         }
         if(Input.GetButtonDown("Submit (Swatter Mouse)")){
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if(hit.collider != null){
-                switch (state) {
-                    case StateType.MainMenu:
-                        switch (hit.transform.gameObject.name) {
-                            case "MainMenu":
-                                StartCoroutine(MainMenuTransition(DirectionType.Forward));
-                                break;
-                            case "Doorbell":
-                                hit.transform.GetComponent<Animator>().SetTrigger("ring");
-                                break;
-                        }
-                        break;
-                    case StateType.SelectingMode:
-                        switch (hit.transform.gameObject.name) {
-                            case "Gnat":
-                                ModeSelectTransition(ModeType.Gnat, DirectionType.Forward);
-                                break;
-                            case "Berry":
-                                ModeSelectTransition(ModeType.Berry, DirectionType.Forward);
-                                break;
-                        }
-                        break;
+                MenuButton buttonHit = null;
+                try {
+                    buttonHit = menu.First(m => m.MenuObject == hit.transform.parent.gameObject).Buttons.First(b => b.ButtonObject == hit.transform.gameObject);
+                }
+                catch (System.InvalidOperationException) {
+                    buttonHit = null;
+                }
+                if (buttonHit != null) {
+                    MethodInfo buttonMethod = this.GetType().GetMethod(buttonHit.Action.MethodName, BindingFlags.NonPublic | BindingFlags.Instance);
+                    buttonMethod.Invoke(this, new object[] { buttonHit.Action.Direction, buttonHit.Action.ModeArg });
                 }
                 
             }
@@ -498,7 +496,10 @@ public class GameManager : MonoBehaviour {
         }
         
     }
-    IEnumerator MainMenuTransition(DirectionType direction) {
+    void MainMenuTransition(DirectionType direction, ModeType mode = 0) {
+        StartCoroutine(MainMenuTransitionRoutine(direction));
+    }
+    IEnumerator MainMenuTransitionRoutine(DirectionType direction) {
         switch (direction) {
             case DirectionType.Forward:
                 MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
@@ -514,7 +515,7 @@ public class GameManager : MonoBehaviour {
         }
         
     }
-    void ModeSelectTransition(ModeType selectedMode, DirectionType direction) {
+    void ModeSelectTransition(DirectionType direction, ModeType selectedMode) {
         PerformTransition(ModeSelect, DirectionType.Forward, (int)selectedMode);
         mode = selectedMode;
         state = StateType.SelectingCharacter;

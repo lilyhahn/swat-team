@@ -32,14 +32,14 @@ TagManager:
   - Pre-Menu
   - Pickup
   - WormPart
-  - Menu
+  - 
   - Swatter
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - MainMenu
+  - SelectingMode
+  - CharacterSelect
+  - InGame
+  - GameOver
   - 
   - 
   - 

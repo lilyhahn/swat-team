@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+using System.Collections.Generic;
 
 public enum WinnerType {
     Human,
@@ -89,10 +90,8 @@ public class GameManager : MonoBehaviour {
     public bool showControls = true;
     public int controlPromptTime = 604800;
     public float menuTransitionTime = 0.5f;
-    public MenuScreen[] menu;
-    public MenuScreen MainMenu;
-    public MenuScreen ModeSelect;
-    
+    public List<MenuScreen> menu;
+
     float endTime;
     bool bugReady = false;
     bool swatterReady = false;
@@ -106,11 +105,9 @@ public class GameManager : MonoBehaviour {
     public bool paused { get; private set; }
     bool resuming = false;
     enum StateType {
-        PreMenu,
         MainMenu,
 		SelectingMode,
         SelectingCharacter,
-        SelectingStage,
         InGame,
         GameOver,
         Credits
@@ -143,7 +140,7 @@ public class GameManager : MonoBehaviour {
             }
         }
         if(Input.GetButtonDown("Submit (Swatter Mouse)")){
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer(state.ToString()));
             if(hit.collider != null){
                 MenuButton buttonHit = null;
                 try {
@@ -154,30 +151,14 @@ public class GameManager : MonoBehaviour {
                 }
                 if (buttonHit != null) {
                     MethodInfo buttonMethod = this.GetType().GetMethod(buttonHit.Action.MethodName, BindingFlags.NonPublic | BindingFlags.Instance);
-                    buttonMethod.Invoke(this, new object[] { buttonHit.Action.Direction, buttonHit.Action.ModeArg });
+                    if (buttonMethod != null) {
+                        buttonMethod.Invoke(this, new object[] { buttonHit.Action.Direction, buttonHit.Action.ModeArg });
+                    }
                 }
                 
             }
         }
         switch (state) {
-			/*case StateType.SelectingMode:
-				if(Mathf.Abs(Input.GetAxisRaw("Vertical (Menu)")) > 0){
-					int oldMode = mode;
-					mode += (int)Input.GetAxisRaw("Vertical (Menu)");
-					if(mode > 1){
-						mode = 1;
-					}
-					if(mode < 0){
-						mode = 0;
-					}
-					if(mode == 0 && mode != oldMode){
-						modeSelectText.GetComponent<Animator>().SetTrigger("classic");
-					}
-					if(mode == 1 && mode != oldMode){
-						modeSelectText.GetComponent<Animator>().SetTrigger("new");
-					}
-				}
-			break;*/
             case StateType.SelectingCharacter:
                 characterProfiles[character].SetActive(false);
                 if (Input.GetAxisRaw("Vertical (Bug Menu)") > 0 && !bugReady && !bugScrolling) {
@@ -263,54 +244,6 @@ public class GameManager : MonoBehaviour {
                 }
                 break;
         }
-        //if (Input.GetButtonDown("Submit")) {
-        //    switch (state) {
-        //        case StateType.PreMenu:
-        //            Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
-        //            preMenuText.SetActive(false);
-        //            state = StateType.MainMenu;
-        //            break;
-        //        case StateType.MainMenu:
-        //            /*state = StateType.SelectingMode;
-        //            LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
-        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
-        //            modeSelectText.SetActive(true);
-        //            /*state = StateType.SelectingCharacter;
-        //            LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
-        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
-        //            characterSelectText.SetActive(true);*/
-        //            break;
-        //         case StateType.SelectingMode:
-        //            state = StateType.SelectingCharacter;
-        //            LeanTween.move(Camera.main.gameObject, characterSelectCamera, 0.5f);
-        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, characterSelectCameraZoom, 0.5f);
-        //            switch((int)mode){
-        //                case 0:
-        //                    voiceAudio.PlayOneShot(gnatVoices[Random.Range(0, gnatVoices.Length - 1)]);
-        //                    break;
-        //                case 1:
-        //                    voiceAudio.PlayOneShot(berryVoices[Random.Range(0, gnatVoices.Length - 1)]);
-        //                    break;
-        //            }
-        //            characterSelectText.SetActive(true);
-        //        break;
-        //        /*case StateType.SelectingCharacter:
-        //            state = StateType.SelectingStage;
-        //            characterSelectText.SetActive(false);
-        //            stageSelectText.SetActive(true);
-        //            LeanTween.move(Camera.main.gameObject, stageSelectCamera, 0.5f);
-        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, stageSelectCameraZoom, 0.5f);
-        //            break;*/
-        //        case StateType.SelectingStage:
-        //            stageSelectText.SetActive(false);
-        //            state = StateType.InGame;
-        //            characters[character].SetActive(true);
-        //            swatters[swatter].SetActive(true);
-        //            LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
-        //            LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
-        //            break;
-        //    }
-        //}
 		if(Input.GetButtonDown ("Cancel")){
 			switch(state){
                 case StateType.InGame:
@@ -322,24 +255,6 @@ public class GameManager : MonoBehaviour {
                         StartCoroutine(Resume());
                     }
                     break;
-                case StateType.SelectingCharacter:
-                    if (selectingCharacterActive) {
-                        selectingCharacterActive = false;
-                        break;
-                    }
-                    berryMode.SetActive(false);
-                    LeanTween.move(Camera.main.gameObject, modeSelectCamera, 0.5f);
-					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, modeSelectZoom, 0.5f);
-                    state = StateType.SelectingMode;
-                    break;
-                case StateType.SelectingMode:
-                    LeanTween.move(Camera.main.gameObject, mainMenuCamera, 0.5f);
-					LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, mainMenuZoom, 0.5f);
-                    state = StateType.MainMenu;
-                    break;
-			    case StateType.PreMenu:
-				    Application.Quit();
-				    break;
 			    case StateType.MainMenu:
 				    Application.Quit();
 				    break;
@@ -492,6 +407,15 @@ public class GameManager : MonoBehaviour {
                 foreach (GameObject a in screen.AlphaObjects) {
                     LeanTween.alpha(a, 1f, menuTransitionTime);
                 }
+                int screenIndex = menu.FindIndex(delegate(MenuScreen s){return s.MenuObject == screen.MenuObject;});
+                if(screenIndex > 0){
+                    MenuScreen lastMenu = menu[screenIndex - 1];
+                    LeanTween.moveLocal(lastMenu.MenuObject, lastMenu.InitialPosition, menuTransitionTime);
+                    LeanTween.scale(lastMenu.MenuObject, lastMenu.InitialScale, menuTransitionTime);
+                    foreach (GameObject a in lastMenu.AlphaObjects) {
+                        LeanTween.alpha(a, 1f, menuTransitionTime);
+                    }
+                }
                 break;
         }
         
@@ -502,11 +426,11 @@ public class GameManager : MonoBehaviour {
     IEnumerator MainMenuTransitionRoutine(DirectionType direction) {
         switch (direction) {
             case DirectionType.Forward:
-                MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
-                while(MainMenu.MenuObject.transform.Find("Doorknob").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1){
+                menu[(int)state].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
+                while(menu[(int)state].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1){
                     yield return null;
                 }
-                PerformTransition(MainMenu, DirectionType.Forward);
+                PerformTransition(menu[(int)state], DirectionType.Forward);
                 state = StateType.SelectingMode;
                 break;
             case DirectionType.Backward:
@@ -516,8 +440,16 @@ public class GameManager : MonoBehaviour {
         
     }
     void ModeSelectTransition(DirectionType direction, ModeType selectedMode) {
-        PerformTransition(ModeSelect, DirectionType.Forward, (int)selectedMode);
-        mode = selectedMode;
-        state = StateType.SelectingCharacter;
+        switch (direction) {
+            case DirectionType.Forward:
+                PerformTransition(menu[(int)state], DirectionType.Forward, (int)selectedMode);
+                mode = selectedMode;
+                state = StateType.SelectingCharacter;
+                break;
+            case DirectionType.Backward:
+                PerformTransition(menu[(int)state], DirectionType.Backward);
+                state = StateType.MainMenu;
+                break;
+        }
     }
 }

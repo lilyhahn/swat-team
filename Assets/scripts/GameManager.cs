@@ -125,11 +125,13 @@ public class GameManager : MonoBehaviour {
         }
         PlayerPrefs.SetInt("LastPlayed", (int)System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
         paused = true;
-        foreach (Transform l in GameObject.Find("levels").transform) {
-            l.gameObject.SetActive(false);
-        }
-        GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
+        //foreach (Transform l in GameObject.Find("levels").transform) {
+        //    l.gameObject.SetActive(false);
+        //}
+        //GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
+        
         //StartCoroutine(PreMenuTransistion());
+        Camera.main.GetComponent<Borders>().DrawBorders(menu[(int)state].Buttons[0].ButtonObject.GetComponent<BoxCollider2D>());
     }
     void Update() {
         if(Input.GetButtonDown("Submit (Bug)") || Input.GetButtonDown("Submit (Swatter Joystick)")){

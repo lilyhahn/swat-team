@@ -2449,6 +2449,7 @@ GameObject:
   - 81: {fileID: 694114720}
   - 114: {fileID: 694114725}
   - 114: {fileID: 694114726}
+  - 114: {fileID: 694114727}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2559,6 +2560,20 @@ MonoBehaviour:
   separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
   chromAberrationShader: {fileID: 4800000, guid: 2b4f29398d9484ccfa9fd220449f5eee,
     type: 3}
+--- !u!114 &694114727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 694114719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ffa9de75503fa43aa2272edf175bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  z: -5
+  transitionSpeed: 1
+  color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &700677123
 GameObject:
   m_ObjectHideFlags: 0
@@ -7850,6 +7865,7 @@ MonoBehaviour:
         Direction: 0
         ModeArg: 1
         MethodName: ModeSelectTransition
+  borderMat: {fileID: 2100000, guid: ab4b146df581e9f42942168cca807726, type: 2}
 --- !u!4 &2037015352
 Transform:
   m_ObjectHideFlags: 0

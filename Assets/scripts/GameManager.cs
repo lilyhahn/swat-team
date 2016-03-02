@@ -113,6 +113,8 @@ public class GameManager : MonoBehaviour {
         Credits
     }
     StateType state = StateType.MainMenu;
+    MenuButton currentButton;
+    int buttonIndex = 0;
     void Start() {
         if (PlayerPrefs.HasKey("LastPlayed") && System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds - PlayerPrefs.GetInt("LastPlayed") >= controlPromptTime) {
             showControls = true;
@@ -131,9 +133,24 @@ public class GameManager : MonoBehaviour {
         //GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
         
         //StartCoroutine(PreMenuTransistion());
-        Camera.main.GetComponent<Borders>().DrawBorders(menu[(int)state].Buttons[0].ButtonObject.GetComponent<BoxCollider2D>());
+        //Camera.main.GetComponent<Borders>().DrawBorders(menu[(int)state].Buttons[0].ButtonObject.GetComponent<BoxCollider2D>());
+        currentButton = menu[(int)state].Buttons[buttonIndex];
     }
     void Update() {
+        Debug.Log(buttonIndex);
+        Camera.main.GetComponent<Borders>().DrawBorders(currentButton.ButtonObject.GetComponent<BoxCollider2D>());
+        if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0){
+            buttonIndex += (int) Input.GetAxisRaw("Horizontal (Bug Menu)");
+            buttonIndex += (int) Input.GetAxisRaw("Vertical (Bug Menu)");
+            if(buttonIndex < 0){
+                buttonIndex = menu[(int)state].Buttons.Length;
+            }
+            if(buttonIndex > menu[(int)state].Buttons.Length){
+                buttonIndex = 0;
+            }
+            currentButton = menu[(int)state].Buttons[buttonIndex];
+            Camera.main.GetComponent<Borders>().DrawBorders(currentButton.ButtonObject.GetComponent<BoxCollider2D>());
+        }
         if(Input.GetButtonDown("Submit (Bug)") || Input.GetButtonDown("Submit (Swatter Joystick)")){
             switch(state){
                 case StateType.MainMenu:
@@ -420,6 +437,8 @@ public class GameManager : MonoBehaviour {
                 }
                 break;
         }
+        buttonIndex = 0;
+        currentButton = menu[(int)state].Buttons[buttonIndex];
         
     }
     void MainMenuTransition(DirectionType direction, ModeType mode = 0) {

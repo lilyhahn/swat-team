@@ -54,10 +54,10 @@ public class Borders : MonoBehaviour {
         Vector3 extents = bounds.extents;
         Vector3 position = obj.transform.position;
         targetVerts = new Vector3[]{
-                              new Vector3(-extents.x, extents.y + center.y, z) - position,
-                              new Vector3(extents.x, extents.y + center.y, z) - position,
-                              new Vector3(extents.x, -extents.y + center.y, z) - position,
-                              new Vector3(-extents.x, -extents.y + center.y, z) - position
+                              new Vector3(-extents.x + position.x, extents.y + center.y, z),
+                              new Vector3(extents.x + position.x, extents.y + center.y, z),
+                              new Vector3(extents.x + position.x, -extents.y + center.y, z),
+                              new Vector3(-extents.x + position.x, -extents.y + center.y, z)
                           };
     }
 }

@@ -115,6 +115,8 @@ public class GameManager : MonoBehaviour {
     StateType state = StateType.MainMenu;
     MenuButton currentButton;
     int buttonIndex = 0;
+    bool bugAxisDown;
+    bool swatterAxisDown;
     void Start() {
         if (PlayerPrefs.HasKey("LastPlayed") && System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds - PlayerPrefs.GetInt("LastPlayed") >= controlPromptTime) {
             showControls = true;
@@ -137,19 +139,22 @@ public class GameManager : MonoBehaviour {
         currentButton = menu[(int)state].Buttons[buttonIndex];
     }
     void Update() {
-        Debug.Log(buttonIndex);
-        Camera.main.GetComponent<Borders>().DrawBorders(currentButton.ButtonObject.GetComponent<BoxCollider2D>());
-        if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0){
+        //Camera.main.GetComponent<Borders>().DrawBorders(currentButton.ButtonObject.GetComponent<BoxCollider2D>());
+        if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown){
+            bugAxisDown = true;
             buttonIndex += (int) Input.GetAxisRaw("Horizontal (Bug Menu)");
             buttonIndex += (int) Input.GetAxisRaw("Vertical (Bug Menu)");
             if(buttonIndex < 0){
-                buttonIndex = menu[(int)state].Buttons.Length;
+                buttonIndex = menu[(int)state].Buttons.Length - 1;
             }
-            if(buttonIndex > menu[(int)state].Buttons.Length){
+            if(buttonIndex >= menu[(int)state].Buttons.Length){
                 buttonIndex = 0;
             }
             currentButton = menu[(int)state].Buttons[buttonIndex];
             Camera.main.GetComponent<Borders>().DrawBorders(currentButton.ButtonObject.GetComponent<BoxCollider2D>());
+        }
+        if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) == 0 && Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) == 0){
+            bugAxisDown = false;
         }
         if(Input.GetButtonDown("Submit (Bug)") || Input.GetButtonDown("Submit (Swatter Joystick)")){
             switch(state){

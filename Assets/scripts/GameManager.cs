@@ -41,6 +41,12 @@ public class MenuAction {
     public DirectionType Direction;
     public ModeType ModeArg = 0;
     public string MethodName;
+    public void Activate(GameManager gameManager){
+        MethodInfo buttonMethod = gameManager.GetType().GetMethod(this.MethodName, BindingFlags.NonPublic | BindingFlags.Instance);
+        if (buttonMethod != null) {
+            buttonMethod.Invoke(gameManager, new object[] { this.Direction, this.ModeArg });
+        }
+    }
 }
 
 public class GameManager : MonoBehaviour {
@@ -91,6 +97,8 @@ public class GameManager : MonoBehaviour {
     public int controlPromptTime = 604800;
     public float menuTransitionTime = 0.5f;
     public List<MenuScreen> menu;
+    public Borders bugBorders;
+    public Borders swatterBorders;
 
     float endTime;
     bool bugReady = false;
@@ -113,7 +121,7 @@ public class GameManager : MonoBehaviour {
         Credits
     }
     StateType state = StateType.MainMenu;
-    MenuButton currentButton;
+    MenuButton currentBugButton;
     int buttonIndex = 0;
     bool bugAxisDown;
     bool swatterAxisDown;
@@ -135,11 +143,11 @@ public class GameManager : MonoBehaviour {
         //GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
         
         //StartCoroutine(PreMenuTransistion());
-        //Camera.main.GetComponent<Borders>().DrawBorders(menu[(int)state].Buttons[0].ButtonObject.GetComponent<BoxCollider2D>());
-        currentButton = menu[(int)state].Buttons[buttonIndex];
+        Camera.main.GetComponent<Borders>().DrawBorders(menu[(int)state].Buttons[0].ButtonObject.GetComponent<BoxCollider2D>());
+        currentBugButton = menu[(int)state].Buttons[buttonIndex];
     }
     void Update() {
-        //Camera.main.GetComponent<Borders>().DrawBorders(currentButton.ButtonObject.GetComponent<BoxCollider2D>());
+        Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
         if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown){
             bugAxisDown = true;
             buttonIndex += (int) Input.GetAxisRaw("Horizontal (Bug Menu)");
@@ -150,18 +158,14 @@ public class GameManager : MonoBehaviour {
             if(buttonIndex >= menu[(int)state].Buttons.Length){
                 buttonIndex = 0;
             }
-            currentButton = menu[(int)state].Buttons[buttonIndex];
-            Camera.main.GetComponent<Borders>().DrawBorders(currentButton.ButtonObject.GetComponent<BoxCollider2D>());
+            currentBugButton = menu[(int)state].Buttons[buttonIndex];
+            Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
         }
         if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) == 0 && Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) == 0){
             bugAxisDown = false;
         }
-        if(Input.GetButtonDown("Submit (Bug)") || Input.GetButtonDown("Submit (Swatter Joystick)")){
-            switch(state){
-                case StateType.MainMenu:
-                    //StartCoroutine(MainMenuTransition(DirectionType.Forward));
-                break;
-            }
+        if(Input.GetButtonDown("Submit (Bug)")){
+            currentBugButton.Action.Activate(this);
         }
         if(Input.GetButtonDown("Submit (Swatter Mouse)")){
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer(state.ToString()));
@@ -174,10 +178,7 @@ public class GameManager : MonoBehaviour {
                     buttonHit = null;
                 }
                 if (buttonHit != null) {
-                    MethodInfo buttonMethod = this.GetType().GetMethod(buttonHit.Action.MethodName, BindingFlags.NonPublic | BindingFlags.Instance);
-                    if (buttonMethod != null) {
-                        buttonMethod.Invoke(this, new object[] { buttonHit.Action.Direction, buttonHit.Action.ModeArg });
-                    }
+                    buttonHit.Action.Activate(this);
                 }
                 
             }
@@ -424,6 +425,8 @@ public class GameManager : MonoBehaviour {
                 foreach (GameObject a in screen.AlphaObjects) {
                     LeanTween.alpha(a, 0f, menuTransitionTime);
                 }
+                buttonIndex = 0;
+                currentBugButton = menu[(int)state + 1].Buttons[buttonIndex];
                 break;
             case DirectionType.Backward:
                 LeanTween.moveLocal(screen.MenuObject, screen.InitialPosition, menuTransitionTime);
@@ -440,11 +443,11 @@ public class GameManager : MonoBehaviour {
                         LeanTween.alpha(a, 1f, menuTransitionTime);
                     }
                 }
+                buttonIndex = 0;
+                currentBugButton = menu[(int)state - 1].Buttons[buttonIndex];
                 break;
         }
-        buttonIndex = 0;
-        currentButton = menu[(int)state].Buttons[buttonIndex];
-        
+        Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
     }
     void MainMenuTransition(DirectionType direction, ModeType mode = 0) {
         StartCoroutine(MainMenuTransitionRoutine(direction));

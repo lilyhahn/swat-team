@@ -455,8 +455,11 @@ public class GameManager : MonoBehaviour {
     IEnumerator MainMenuTransitionRoutine(DirectionType direction) {
         switch (direction) {
             case DirectionType.Forward:
-                menu[(int)state].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
-                while(menu[(int)state].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1){
+               Animator doorknob = menu[(int)state].MenuObject.transform.Find("Doorknob").GetComponent<Animator>();
+               doorknob.SetTrigger("open");
+                //menu[(int)state].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
+                while(doorknob.GetCurrentAnimatorStateInfo(0).fullPathHash == Animator.StringToHash("Base.doorknob")){
+                    Debug.Log("doorknob anim playing");
                     yield return null;
                 }
                 PerformTransition(menu[(int)state], DirectionType.Forward);
@@ -477,6 +480,8 @@ public class GameManager : MonoBehaviour {
                 break;
             case DirectionType.Backward:
                 PerformTransition(menu[(int)state], DirectionType.Backward);
+                //menu[(int)state - 1].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().Play("doorknob", -1, 0f);
+                //menu[(int)state - 1].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = false;
                 state = StateType.MainMenu;
                 break;
         }

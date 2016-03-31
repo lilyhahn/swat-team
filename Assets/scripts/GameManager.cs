@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour {
     public bool paused { get; private set; }
     bool resuming = false;
     enum StateType {
+        PreMenu,
         MainMenu,
 		SelectingMode,
         SelectingCharacter,
@@ -120,7 +121,7 @@ public class GameManager : MonoBehaviour {
         GameOver,
         Credits
     }
-    StateType state = StateType.MainMenu;
+    StateType state = StateType.PreMenu;
     MenuButton currentBugButton;
     int buttonIndex = 0;
     bool bugAxisDown;
@@ -182,6 +183,11 @@ public class GameManager : MonoBehaviour {
                 }
                 
             }
+        }
+        if(Input.anyKeyDown && state == StateType.PreMenu){
+            Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
+            PerformTransition(menu[(int)state], DirectionType.Forward);
+            state = StateType.MainMenu;
         }
         switch (state) {
             case StateType.SelectingCharacter:

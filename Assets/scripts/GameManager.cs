@@ -464,10 +464,12 @@ public class GameManager : MonoBehaviour {
                     case SelectionType.Bug:
                         bugReady = true;
                         currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = selectedSprites[(int)selectedCharacter];
+                        currentBugButton.ButtonObject.GetComponent<BoxCollider2D>().size = currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
                         break;
                     case SelectionType.Swatter:
                         swatterReady = true;
                         currentSwatterButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = selectedSprites[(int)selectedCharacter];
+                        currentBugButton.ButtonObject.GetComponent<BoxCollider2D>().size = currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
                         break;
                 }
                 if(bugReady && swatterReady){
@@ -484,10 +486,12 @@ public class GameManager : MonoBehaviour {
                     case SelectionType.Bug:
                         bugReady = false;
                         currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)selectedCharacter];
+                        currentBugButton.ButtonObject.GetComponent<BoxCollider2D>().size = currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
                         break;
                     case SelectionType.Swatter:
                         swatterReady = false;
                         currentSwatterButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)selectedCharacter];
+                        currentBugButton.ButtonObject.GetComponent<BoxCollider2D>().size = currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
                         break;
                 }
                 break;

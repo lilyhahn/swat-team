@@ -9,9 +9,24 @@ public enum WinnerType {
     Bug
 }
 
-public enum ModeType {
+public enum SelectionArgument {
     Gnat,
-    Berry
+    Berry,
+    Anvil,
+    Defibrilator,
+    Old,
+    Petit,
+    Ant,
+    Lady,
+    Spider,
+    Wasp,
+    Worm
+}
+
+public enum SelectionType{
+    Mode,
+    Bug,
+    Swatter
 }
 
 public enum DirectionType {
@@ -28,6 +43,8 @@ public class MenuScreen{
     public GameObject MenuObject;
     public GameObject[] AlphaObjects;
     public MenuButton[] Buttons;
+    public MenuButton[] SwatterButtons;
+    public MenuButton[] BugButtons;
 }
 
 [System.Serializable]
@@ -39,12 +56,13 @@ public class MenuButton {
 [System.Serializable]
 public class MenuAction {
     public DirectionType Direction;
-    public ModeType ModeArg = 0;
+    public SelectionArgument ModeArg = 0;
+    public SelectionType Type;
     public string MethodName;
     public void Activate(GameManager gameManager){
         MethodInfo buttonMethod = gameManager.GetType().GetMethod(this.MethodName, BindingFlags.NonPublic | BindingFlags.Instance);
         if (buttonMethod != null) {
-            buttonMethod.Invoke(gameManager, new object[] { this.Direction, this.ModeArg });
+            buttonMethod.Invoke(gameManager, new object[] { this.Direction, this.ModeArg, this.Type });
         }
     }
 }
@@ -99,13 +117,16 @@ public class GameManager : MonoBehaviour {
     public List<MenuScreen> menu;
     public Borders bugBorders;
     public Borders swatterBorders;
+    
+    public Sprite[] unselectedSprites;
+    public Sprite[] selectedSprites;
 
     float endTime;
     bool bugReady = false;
     bool swatterReady = false;
     int swatter = 0;
     int character = 0;
-	ModeType mode = 0;
+	SelectionArgument mode = 0;
     GameObject hand;
     bool swatterScrolling = false;
     bool bugScrolling = false;
@@ -122,7 +143,8 @@ public class GameManager : MonoBehaviour {
     }
     StateType state = StateType.MainMenu;
     MenuButton currentBugButton;
-    int buttonIndex = 0;
+    int bugButtonIndex = 0;
+    int swatterButtonIndex = 0;
     bool bugAxisDown;
     bool swatterAxisDown;
     void Start() {
@@ -143,23 +165,29 @@ public class GameManager : MonoBehaviour {
         //GameObject.Find("levels").transform.Find("level" + (int)(Random.Range(1f, 4f))).gameObject.SetActive(true);
         
         //StartCoroutine(PreMenuTransistion());
-        Camera.main.GetComponent<Borders>().DrawBorders(menu[(int)state].Buttons[0].ButtonObject.GetComponent<BoxCollider2D>());
-        currentBugButton = menu[(int)state].Buttons[buttonIndex];
+        Camera.main.GetComponent<Borders>().DrawBorders(menu[(int)state].BugButtons[0].ButtonObject.GetComponent<BoxCollider2D>());
+        currentBugButton = menu[(int)state].BugButtons[bugButtonIndex];
     }
     void Update() {
         Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
-        if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown){
+        if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown && !bugReady){
             bugAxisDown = true;
-            buttonIndex += (int) Input.GetAxisRaw("Horizontal (Bug Menu)");
-            buttonIndex += (int) Input.GetAxisRaw("Vertical (Bug Menu)");
-            if(buttonIndex < 0){
-                buttonIndex = menu[(int)state].Buttons.Length - 1;
+            bugButtonIndex += (int) Input.GetAxisRaw("Horizontal (Bug Menu)");
+            bugButtonIndex += (int) Input.GetAxisRaw("Vertical (Bug Menu)");
+            if(bugButtonIndex < 0){
+                bugButtonIndex = menu[(int)state].BugButtons.Length - 1;
             }
-            if(buttonIndex >= menu[(int)state].Buttons.Length){
-                buttonIndex = 0;
+            if(bugButtonIndex >= menu[(int)state].BugButtons.Length){
+                bugButtonIndex = 0;
             }
-            currentBugButton = menu[(int)state].Buttons[buttonIndex];
-            Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
+            if(menu[(int)state].BugButtons.Length > 0){
+                currentBugButton = menu[(int)state].BugButtons[bugButtonIndex];
+                Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
+            }
+            else{
+                currentBugButton = menu[(int)state].Buttons[bugButtonIndex];
+                Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
+            }
         }
         if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) == 0 && Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) == 0){
             bugAxisDown = false;
@@ -167,12 +195,15 @@ public class GameManager : MonoBehaviour {
         if(Input.GetButtonDown("Submit (Bug)")){
             currentBugButton.Action.Activate(this);
         }
+        if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown && bugReady){
+            CharacterSelectTransition(DirectionType.Backward, currentBugButton.Action.ModeArg, SelectionType.Bug);
+        }
         if(Input.GetButtonDown("Submit (Swatter Mouse)")){
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer(state.ToString()));
             if(hit.collider != null){
                 MenuButton buttonHit = null;
                 try {
-                    buttonHit = menu.First(m => m.MenuObject == hit.transform.parent.gameObject).Buttons.First(b => b.ButtonObject == hit.transform.gameObject);
+                    buttonHit = menu.First(m => m.MenuObject == hit.transform.parent.gameObject).SwatterButtons.First(b => b.ButtonObject == hit.transform.gameObject);
                 }
                 catch (System.InvalidOperationException) {
                     buttonHit = null;
@@ -184,70 +215,6 @@ public class GameManager : MonoBehaviour {
             }
         }
         switch (state) {
-            case StateType.SelectingCharacter:
-                characterProfiles[character].SetActive(false);
-                if (Input.GetAxisRaw("Vertical (Bug Menu)") > 0 && !bugReady && !bugScrolling) {
-                    character++;
-                    bugScrolling = true;
-                }
-                if (Input.GetAxisRaw("Vertical (Bug Menu)") < 0 && !bugReady && !bugScrolling) {
-                    character--;
-                    bugScrolling = true;
-                }
-                if (Input.GetAxisRaw("Vertical (Bug Menu)") == 0) {
-                    bugScrolling = false;
-                }
-                if (character >= characters.Length)
-                    character = 0;
-                if (character < 0)
-                    character = characters.Length - 1;
-                characterProfiles[character].SetActive(true);
-
-                swatterProfiles[swatter].SetActive(false);
-                if (Input.GetAxisRaw("Vertical (Swatter Menu)") > 0 && !swatterReady) {
-                    if (!swatterScrolling) {
-                        swatter++;
-                        swatterScrolling = true;
-                    }
-                }
-                if (Input.GetAxisRaw("Vertical (Swatter Menu)") < 0 && !swatterReady) {
-                    if (!swatterScrolling) {
-                        swatter--;
-                        swatterScrolling = true;
-                    }
-                }
-                if(Input.GetAxisRaw("Vertical (Swatter Menu)") == 0)
-                        swatterScrolling = false;
-                if (swatter >= swatters.Length)
-                    swatter = 0;
-                if (swatter < 0)
-                    swatter = swatters.Length - 1;
-                swatterProfiles[swatter].SetActive(true);
-                if (Input.GetButtonDown("Submit (Bug)")) {
-                    selectingCharacterActive = true;
-                    characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = finalCharacterProfiles[character];
-                    bugReady = true;
-                }
-                if (Input.GetButtonDown("Submit (Swatter)")) {
-                    selectingCharacterActive = true;
-                    swatterProfiles[swatter].transform.Find("box").GetComponent<SpriteRenderer>().sprite = finalSwatterProfiles[swatter];
-                    swatterReady = true;
-                }
-                if (swatterReady && bugReady) {
-                    state = StateType.InGame;
-                    characterSelectText.SetActive(false);
-                    //stageSelectText.SetActive(true);
-                    StartCoroutine(StartGame());
-                }
-                if (Input.GetButtonDown("Cancel (Bug)") && bugReady) {
-                    characterProfiles[character].transform.Find("egg").GetComponent<SpriteRenderer>().sprite = originalCharacterProfiles[character];
-                    bugReady = false;
-                }
-                if (Input.GetButtonDown("Cancel (Swatter)") && swatterReady) {
-                    swatterProfiles[swatter].transform.Find("box").GetComponent<SpriteRenderer>().sprite = originalSwatterProfiles[swatter];
-                    swatterReady = false;
-                }
-                break;
             case StateType.GameOver:
                 if (Input.anyKeyDown && !Input.GetButtonDown("Cancel") && Time.time > endTime + restartDelay) {
                     Cleanup();
@@ -300,7 +267,7 @@ public class GameManager : MonoBehaviour {
 		state = StateType.InGame;
 		LeanTween.move(Camera.main.gameObject, inGameCamera, 0.5f);
 		LeanTween.value(gameObject, UpdateZoom, Camera.main.orthographicSize, inGameCameraZoom, 0.5f);
-		if(mode == ModeType.Berry){
+		if(mode == SelectionArgument.Berry){
 			berryMode.SetActive(true);
             foreach(GameObject outline in berryOutlines){
                 outline.SetActive(true);
@@ -425,8 +392,13 @@ public class GameManager : MonoBehaviour {
                 foreach (GameObject a in screen.AlphaObjects) {
                     LeanTween.alpha(a, 0f, menuTransitionTime);
                 }
-                buttonIndex = 0;
-                currentBugButton = menu[(int)state + 1].Buttons[buttonIndex];
+                bugButtonIndex = 0;
+                if(menu[(int)state + 1].BugButtons.Length > 0){
+                    currentBugButton = menu[(int)state + 1].BugButtons[bugButtonIndex];
+                }
+                else{
+                    currentBugButton = menu[(int)state + 1].Buttons[bugButtonIndex];
+                }
                 break;
             case DirectionType.Backward:
                 LeanTween.moveLocal(screen.MenuObject, screen.InitialPosition, menuTransitionTime);
@@ -443,13 +415,18 @@ public class GameManager : MonoBehaviour {
                         LeanTween.alpha(a, 1f, menuTransitionTime);
                     }
                 }
-                buttonIndex = 0;
-                currentBugButton = menu[(int)state - 1].Buttons[buttonIndex];
+                bugButtonIndex = 0;
+                if(menu[(int)state - 1].BugButtons.Length > 0){
+                    currentBugButton = menu[(int)state + 1].BugButtons[bugButtonIndex];
+                }
+                else{
+                    currentBugButton = menu[(int)state - 1].Buttons[bugButtonIndex];
+                }
                 break;
         }
         Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
     }
-    void MainMenuTransition(DirectionType direction, ModeType mode = 0) {
+    void MainMenuTransition(DirectionType direction, SelectionArgument mode = 0, SelectionType type = 0) {
         StartCoroutine(MainMenuTransitionRoutine(direction));
     }
     IEnumerator MainMenuTransitionRoutine(DirectionType direction) {
@@ -458,7 +435,7 @@ public class GameManager : MonoBehaviour {
                Animator doorknob = menu[(int)state].MenuObject.transform.Find("Doorknob").GetComponent<Animator>();
                doorknob.SetTrigger("open");
                 //menu[(int)state].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = true;
-                while(doorknob.GetCurrentAnimatorStateInfo(0).fullPathHash == Animator.StringToHash("Base.doorknob")){
+                while(doorknob.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.doorknob")){
                     Debug.Log("doorknob anim playing");
                     yield return null;
                 }
@@ -471,7 +448,7 @@ public class GameManager : MonoBehaviour {
         }
         
     }
-    void ModeSelectTransition(DirectionType direction, ModeType selectedMode) {
+    void ModeSelectTransition(DirectionType direction, SelectionArgument selectedMode, SelectionType type = 0) {
         switch (direction) {
             case DirectionType.Forward:
                 PerformTransition(menu[(int)state], DirectionType.Forward, (int)selectedMode);
@@ -483,6 +460,38 @@ public class GameManager : MonoBehaviour {
                 //menu[(int)state - 1].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().Play("doorknob", -1, 0f);
                 //menu[(int)state - 1].MenuObject.transform.Find("Doorknob").GetComponent<Animator>().enabled = false;
                 state = StateType.MainMenu;
+                break;
+        }
+    }
+    void CharacterSelectTransition(DirectionType direction, SelectionArgument selectedCharacter, SelectionType type){
+        switch(direction){
+            case DirectionType.Forward:
+                switch(type){
+                    case SelectionType.Bug:
+                        bugReady = true;
+                        currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = selectedSprites[(int)selectedCharacter];
+                        break;
+                    case SelectionType.Swatter:
+                        swatterReady = true;
+                        break;
+                }
+                if(bugReady && swatterReady){
+                    PerformTransition(menu[(int)state], DirectionType.Forward, (int)selectedCharacter);
+                }
+                break;
+            case DirectionType.Backward:
+                if(!bugReady && !swatterReady){
+                    PerformTransition(menu[(int)state], DirectionType.Backward, (int)selectedCharacter);
+                }
+                switch(type){
+                    case SelectionType.Bug:
+                        bugReady = false;
+                        currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)selectedCharacter];
+                        break;
+                    case SelectionType.Swatter:
+                        swatterReady = false;
+                        break;
+                }
                 break;
         }
     }

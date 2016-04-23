@@ -42,7 +42,6 @@ public class MenuScreen{
     public Vector3[] FinalScale;
     public GameObject MenuObject;
     public GameObject[] AlphaObjects;
-    public MenuButton[] Buttons;
     public MenuButton[] SwatterButtons;
     public MenuButton[] BugButtons;
 }
@@ -180,14 +179,8 @@ public class GameManager : MonoBehaviour {
             if(bugButtonIndex >= menu[(int)state].BugButtons.Length){
                 bugButtonIndex = 0;
             }
-            if(menu[(int)state].BugButtons.Length > 0){
-                currentBugButton = menu[(int)state].BugButtons[bugButtonIndex];
-                Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
-            }
-            else{
-                currentBugButton = menu[(int)state].Buttons[bugButtonIndex];
-                Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
-            }
+            currentBugButton = menu[(int)state].BugButtons[bugButtonIndex];
+            Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
         }
         if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) == 0 && Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) == 0){
             bugAxisDown = false;
@@ -393,12 +386,7 @@ public class GameManager : MonoBehaviour {
                     LeanTween.alpha(a, 0f, menuTransitionTime);
                 }
                 bugButtonIndex = 0;
-                if(menu[(int)state + 1].BugButtons.Length > 0){
-                    currentBugButton = menu[(int)state + 1].BugButtons[bugButtonIndex];
-                }
-                else{
-                    currentBugButton = menu[(int)state + 1].Buttons[bugButtonIndex];
-                }
+                currentBugButton = menu[(int)state + 1].BugButtons[bugButtonIndex];
                 break;
             case DirectionType.Backward:
                 LeanTween.moveLocal(screen.MenuObject, screen.InitialPosition, menuTransitionTime);
@@ -416,12 +404,7 @@ public class GameManager : MonoBehaviour {
                     }
                 }
                 bugButtonIndex = 0;
-                if(menu[(int)state - 1].BugButtons.Length > 0){
-                    currentBugButton = menu[(int)state + 1].BugButtons[bugButtonIndex];
-                }
-                else{
-                    currentBugButton = menu[(int)state - 1].Buttons[bugButtonIndex];
-                }
+                currentBugButton = menu[(int)state - 1].BugButtons[bugButtonIndex];
                 break;
         }
         Camera.main.GetComponent<Borders>().DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());

@@ -161,9 +161,11 @@ public class GameManager : MonoBehaviour {
         //StartCoroutine(PreMenuTransistion());
         bugBorders.DrawBorders(menu[(int)state].BugButtons[0].ButtonObject.GetComponent<BoxCollider2D>());
         currentBugButton = menu[(int)state].BugButtons[bugButtonIndex];
+        currentSwatterButton = menu[(int)state].SwatterButtons[swatterButtonIndex];
     }
     void Update() {
         bugBorders.DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
+        swatterBorders.DrawBorders(currentSwatterButton.ButtonObject.GetComponent<BoxCollider2D>());
         if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown && !bugReady && state != StateType.InGame){
             bugAxisDown = true;
             bugButtonIndex += (int) Input.GetAxisRaw("Horizontal (Bug Menu)");
@@ -344,6 +346,14 @@ public class GameManager : MonoBehaviour {
                     berry.gameObject.SetActive(true);
                 }
             }
+        }
+        foreach (MenuButton bugButton in menu[(int)StateType.SelectingCharacter].BugButtons){
+            bugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)bugButton.Action.ModeArg];
+            bugButton.ButtonObject.GetComponent<BoxCollider2D>().size = unselectedSprites[(int)bugButton.Action.ModeArg].bounds.size;
+        }
+        foreach (MenuButton swatterButton in menu[(int)StateType.SelectingCharacter].SwatterButtons){
+            swatterButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)swatterButton.Action.ModeArg];
+            swatterButton.ButtonObject.GetComponent<BoxCollider2D>().size = unselectedSprites[(int)swatterButton.Action.ModeArg].bounds.size;
         }
         gameOverText.transform.Find("human").gameObject.SetActive(false);
         gameOverText.transform.Find("bug").gameObject.SetActive(false);

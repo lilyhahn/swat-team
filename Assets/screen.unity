@@ -152,9 +152,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: .0132962037, y: -.182417452}
+  m_Offset: {x: .0132962232, y: -.216179088}
   serializedVersion: 2
-  m_Size: {x: 1.18253934, y: 2.18707609}
+  m_Size: {x: 1.18253934, y: 2.25460052}
 --- !u!1 &24547755
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,8 +673,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 179892699}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalPosition: {x: -.270000011, y: 0, z: 0}
+  m_LocalScale: {x: .00999999978, y: .00999999978, z: 1}
   m_Children: []
   m_Father: {fileID: 1486793995}
   m_RootOrder: 4
@@ -6645,7 +6645,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 21300000, guid: e1423feee95bc3a4896edb84a846c8dc, type: 3}
   - {fileID: 21300000, guid: ae3393b11d2185b4e9e3b50eb0909d7b, type: 3}
-  - {fileID: 21300000, guid: 0f5266c66d2814206b6b613f0de30193, type: 3}
+  - {fileID: 21300000, guid: eee28e0effd7799449193d03d1a6be4b, type: 3}
   - {fileID: 21300000, guid: bee979cf9771e8e43936c24f8090deaa, type: 3}
   - {fileID: 21300000, guid: 684a3fa491ef64c448d2d40f6a52e2c3, type: 3}
   - {fileID: 21300000, guid: f09ce9cd98306cf40be39ed35175cc6d, type: 3}

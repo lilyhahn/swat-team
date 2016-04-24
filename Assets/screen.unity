@@ -3332,7 +3332,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1072217579}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8.15999985, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 1314829744}
@@ -6386,11 +6386,6 @@ MonoBehaviour:
   inGame: 0
   preMenuTime: 1.5
   preMenuText: {fileID: 0}
-  mainMenuCamera: {x: 0, y: -52.5, z: -10}
-  mainMenuZoom: 31.8599606
-  modeSelectCamera: {x: -1.5, y: -21.7999992, z: -10}
-  modeSelectZoom: 17.0499992
-  modeSelectText: {fileID: 0}
   voiceAudio: {fileID: 918989787}
   gnatVoices:
   - {fileID: 0}
@@ -6448,6 +6443,7 @@ MonoBehaviour:
     - {fileID: 1441722945}
     - {fileID: 2126770128}
     - {fileID: 550527180}
+    GrayscaleObjects: []
     SwatterButtons:
     - ButtonObject: {fileID: 179892699}
       Action:
@@ -6474,6 +6470,7 @@ MonoBehaviour:
     - {fileID: 1013592276}
     - {fileID: 1963194523}
     - {fileID: 18679519}
+    GrayscaleObjects: []
     SwatterButtons:
     - ButtonObject: {fileID: 18679519}
       Action:
@@ -6491,15 +6488,18 @@ MonoBehaviour:
   - InitialPosition: {x: 0, y: 0, z: 0}
     InitialScale: {x: 5, y: 5, z: 1}
     FinalPosition:
-    - {x: -25.1000004, y: 0, z: 0}
-    - {x: -75.9599991, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
     FinalScale:
-    - {x: 42, y: 42, z: 1}
-    - {x: 42, y: 42, z: 1}
+    - {x: 5, y: 5, z: 1}
+    - {x: 5, y: 5, z: 1}
     MenuObject: {fileID: 152746370}
-    AlphaObjects:
+    AlphaObjects: []
+    GrayscaleObjects:
+    - {fileID: 152746370}
     - {fileID: 2002282474}
     - {fileID: 1765192343}
+    - {fileID: 71945854}
     SwatterButtons:
     - ButtonObject: {fileID: 71945854}
       Action:
@@ -6538,14 +6538,12 @@ MonoBehaviour:
         ModeArg: 1
         Type: 0
         MethodName: ModeSelectTransition
-  - InitialPosition: {x: 0, y: 0, z: 0}
+  - InitialPosition: {x: 0, y: 8.15999985, z: 0}
     InitialScale: {x: 5, y: 5, z: 1}
     FinalPosition:
-    - {x: -55, y: 0, z: 0}
-    - {x: -160.910004, y: 0, z: 0}
+    - {x: 0, y: 8.15999985, z: 0}
     FinalScale:
-    - {x: 18, y: 18, z: 1}
-    - {x: 18, y: 18, z: 1}
+    - {x: 5, y: 5, z: 1}
     MenuObject: {fileID: 1072217579}
     AlphaObjects:
     - {fileID: 1314829742}
@@ -6560,6 +6558,9 @@ MonoBehaviour:
     - {fileID: 2027547500}
     - {fileID: 2026883643}
     - {fileID: 2021211616}
+    - {fileID: 2002282474}
+    - {fileID: 1765192343}
+    GrayscaleObjects: []
     SwatterButtons:
     - ButtonObject: {fileID: 1537233395}
       Action:
@@ -6636,10 +6637,18 @@ MonoBehaviour:
     - {x: 1, y: 1, z: 1}
     MenuObject: {fileID: 503774280}
     AlphaObjects: []
+    GrayscaleObjects: []
     SwatterButtons: []
     BugButtons: []
   bugBorders: {fileID: 1966628839}
   swatterBorders: {fileID: 1268679355}
+  shelfPosition: {x: 0, y: 0, z: 0}
+  finalModeSelectPositions:
+  - {x: -25.1000004, y: 0, z: 0}
+  - {x: -75.9599991, y: 0, z: 0}
+  finalModeSelectScales:
+  - {x: 42, y: 42, z: 0}
+  - {x: 42, y: 42, z: 0}
   unselectedSprites:
   - {fileID: 0}
   - {fileID: 0}

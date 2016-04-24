@@ -42,6 +42,7 @@ public class MenuScreen{
     public Vector3[] FinalScale;
     public GameObject MenuObject;
     public GameObject[] AlphaObjects;
+    public GameObject[] GrayscaleObjects;
     public MenuButton[] SwatterButtons;
     public MenuButton[] BugButtons;
 }
@@ -72,11 +73,6 @@ public class GameManager : MonoBehaviour {
 	public bool inGame = false;
     public float preMenuTime = 3f;
     public GameObject preMenuText;
-    public Vector3 mainMenuCamera;
-    public float mainMenuZoom;
-	public Vector3 modeSelectCamera;
-	public float modeSelectZoom;
-	public GameObject modeSelectText;
 	public AudioSource voiceAudio;
 	public AudioClip[] gnatVoices;
 	public AudioClip[] berryVoices;
@@ -109,6 +105,10 @@ public class GameManager : MonoBehaviour {
     public List<MenuScreen> menu;
     public Borders bugBorders;
     public Borders swatterBorders;
+    
+    public Vector3 shelfPosition;
+    public Vector3[] finalModeSelectPositions;
+    public Vector3[] finalModeSelectScales;
     
     public Sprite[] unselectedSprites;
     public Sprite[] selectedSprites;
@@ -238,6 +238,9 @@ public class GameManager : MonoBehaviour {
 				    break;
                 case StateType.GameOver:
                     PerformTransition(menu[(int)StateType.InGame], DirectionType.Backward);
+                    LeanTween.moveLocal(menu[(int)StateType.SelectingCharacter].MenuObject, shelfPosition, menuTransitionTime);
+                    LeanTween.moveLocal(menu[(int)StateType.SelectingMode].MenuObject, menu[(int)StateType.SelectingMode].InitialPosition, menuTransitionTime);
+                    LeanTween.scale(menu[(int)StateType.SelectingMode].MenuObject, menu[(int)StateType.SelectingMode].InitialScale, menuTransitionTime);
                     Cleanup();
                     bugBorders.gameObject.SetActive(true);
                     swatterBorders.gameObject.SetActive(true);
@@ -347,13 +350,13 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
-        foreach (MenuButton bugButton in menu[(int)StateType.SelectingCharacter].BugButtons){
-            bugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)bugButton.Action.ModeArg];
-            bugButton.ButtonObject.GetComponent<BoxCollider2D>().size = unselectedSprites[(int)bugButton.Action.ModeArg].bounds.size;
+        for(int i = 1; i < menu[(int)StateType.SelectingCharacter].BugButtons.Length; i++){
+            menu[(int)StateType.SelectingCharacter].BugButtons[i].ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)menu[(int)StateType.SelectingCharacter].BugButtons[i].Action.ModeArg];
+            menu[(int)StateType.SelectingCharacter].BugButtons[i].ButtonObject.GetComponent<BoxCollider2D>().size = unselectedSprites[(int)menu[(int)StateType.SelectingCharacter].BugButtons[i].Action.ModeArg].bounds.size;
         }
-        foreach (MenuButton swatterButton in menu[(int)StateType.SelectingCharacter].SwatterButtons){
-            swatterButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)swatterButton.Action.ModeArg];
-            swatterButton.ButtonObject.GetComponent<BoxCollider2D>().size = unselectedSprites[(int)swatterButton.Action.ModeArg].bounds.size;
+        for(int i = 1; i < menu[(int)StateType.SelectingCharacter].SwatterButtons.Length; i++){
+            menu[(int)StateType.SelectingCharacter].SwatterButtons[i].ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)menu[(int)StateType.SelectingCharacter].SwatterButtons[i].Action.ModeArg];
+            menu[(int)StateType.SelectingCharacter].SwatterButtons[i].ButtonObject.GetComponent<BoxCollider2D>().size = unselectedSprites[(int)menu[(int)StateType.SelectingCharacter].SwatterButtons[i].Action.ModeArg].bounds.size;
         }
         gameOverText.transform.Find("human").gameObject.SetActive(false);
         gameOverText.transform.Find("bug").gameObject.SetActive(false);
@@ -395,6 +398,9 @@ public class GameManager : MonoBehaviour {
                 foreach (GameObject a in screen.AlphaObjects) {
                     LeanTween.alpha(a, 0f, menuTransitionTime);
                 }
+                foreach (GameObject g in screen.GrayscaleObjects){
+                    LeanTween.color(g, Color.gray, menuTransitionTime);
+                }
                 hasBugButtons = menu[(int)state + 1].BugButtons.Length > 0;
                 hasSwatterButtons = menu[(int)state + 1].SwatterButtons.Length > 0;
                 if(hasBugButtons){
@@ -419,6 +425,9 @@ public class GameManager : MonoBehaviour {
                     LeanTween.scale(lastMenu.MenuObject, lastMenu.InitialScale, menuTransitionTime);
                     foreach (GameObject a in lastMenu.AlphaObjects) {
                         LeanTween.alpha(a, 1f, menuTransitionTime);
+                    }
+                    foreach (GameObject g in lastMenu.GrayscaleObjects){
+                        LeanTween.color(g, Color.white, menuTransitionTime);
                     }
                 }
                 hasBugButtons = menu[(int)state - 1].BugButtons.Length > 0;
@@ -466,6 +475,7 @@ public class GameManager : MonoBehaviour {
                 PerformTransition(menu[(int)state], DirectionType.Forward, (int)selectedMode);
                 mode = selectedMode;
                 state = StateType.SelectingCharacter;
+                LeanTween.move(menu[(int)StateType.SelectingCharacter].MenuObject, shelfPosition, menuTransitionTime);
                 break;
             case DirectionType.Backward:
                 PerformTransition(menu[(int)state], DirectionType.Backward);
@@ -494,6 +504,8 @@ public class GameManager : MonoBehaviour {
                 }
                 if(bugReady && swatterReady){
                     PerformTransition(menu[(int)state], DirectionType.Forward);
+                    LeanTween.moveLocal(menu[(int)StateType.SelectingMode].MenuObject, finalModeSelectPositions[(int)mode], menuTransitionTime);
+                    LeanTween.scale(menu[(int)StateType.SelectingMode].MenuObject, finalModeSelectScales[(int)mode], menuTransitionTime);
                     bugBorders.gameObject.SetActive(false);
                     swatterBorders.gameObject.SetActive(false);
                     state = StateType.InGame;

@@ -110,6 +110,8 @@ public class GameManager : MonoBehaviour {
     public Vector3 shelfPosition;
     public Vector3[] finalModeSelectPositions;
     public Vector3[] finalModeSelectScales;
+    public GameObject bugSelectControls;
+    public GameObject swatterSelectControls;
     
     public Sprite[] unselectedSprites;
     public Sprite[] selectedSprites;
@@ -193,6 +195,9 @@ public class GameManager : MonoBehaviour {
             currentBugButton.Action.Activate(this);
         }
         if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown && bugReady){
+            CharacterSelectTransition(DirectionType.Backward, currentBugButton.Action.ModeArg, SelectionType.Bug);
+        }
+        if(Input.GetButtonDown("Cancel (Bug)") && bugReady){
             CharacterSelectTransition(DirectionType.Backward, currentBugButton.Action.ModeArg, SelectionType.Bug);
         }
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer(state.ToString()));
@@ -529,12 +534,16 @@ public class GameManager : MonoBehaviour {
                         selectedBug = selectedCharacter;
                         currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = selectedSprites[(int)selectedCharacter];
                         currentBugButton.ButtonObject.GetComponent<BoxCollider2D>().size = currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+                        bugSelectControls.transform.Find("Select").gameObject.SetActive(false);
+                        bugSelectControls.transform.Find("Deselect").gameObject.SetActive(true);
                         break;
                     case SelectionType.Swatter:
                         swatterReady = true;
                         selectedSwatter = selectedCharacter;
                         currentSwatterButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = selectedSprites[(int)selectedCharacter];
                         currentBugButton.ButtonObject.GetComponent<BoxCollider2D>().size = currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+                        swatterSelectControls.transform.Find("Select").gameObject.SetActive(false);
+                        swatterSelectControls.transform.Find("Deselect").gameObject.SetActive(true);
                         break;
                 }
                 if(bugReady && swatterReady){
@@ -567,11 +576,15 @@ public class GameManager : MonoBehaviour {
                         bugReady = false;
                         currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)selectedCharacter];
                         currentBugButton.ButtonObject.GetComponent<BoxCollider2D>().size = currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+                        bugSelectControls.transform.Find("Select").gameObject.SetActive(true);
+                        bugSelectControls.transform.Find("Deselect").gameObject.SetActive(false);
                         break;
                     case SelectionType.Swatter:
                         swatterReady = false;
                         currentSwatterButton.ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)selectedCharacter];
                         currentBugButton.ButtonObject.GetComponent<BoxCollider2D>().size = currentBugButton.ButtonObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+                        swatterSelectControls.transform.Find("Select").gameObject.SetActive(true);
+                        swatterSelectControls.transform.Find("Deselect").gameObject.SetActive(false);
                         break;
                 }
                 break;

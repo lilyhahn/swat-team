@@ -268,17 +268,21 @@ public class GameManager : MonoBehaviour {
                 break;
 			}
 		}
-        foreach (MenuButton swatterButton in menu[(int)state].SwatterButtons){
-            if(swatterButton.ButtonObject != currentSwatterButton.ButtonObject && swatterButton.ButtonObject != currentBugButton.ButtonObject){
-                foreach (Animator anim in swatterButton.AnimationObjects){
-                    anim.SetTrigger("out");
+        if(menu[(int)state].SwatterButtons.Length > 0){
+            foreach (MenuButton swatterButton in menu[(int)state].SwatterButtons){
+                if(swatterButton.ButtonObject != currentSwatterButton.ButtonObject && swatterButton.ButtonObject != currentBugButton.ButtonObject){
+                    foreach (Animator anim in swatterButton.AnimationObjects){
+                        anim.SetTrigger("out");
+                    }
                 }
             }
         }
-        foreach (MenuButton bugButton in menu[(int)state].BugButtons){
-            if(bugButton.ButtonObject != currentBugButton.ButtonObject && bugButton.ButtonObject != currentSwatterButton.ButtonObject){
-                foreach (Animator anim in bugButton.AnimationObjects){
-                    anim.SetTrigger("out");
+        if(menu[(int)state].BugButtons.Length > 0){
+            foreach (MenuButton bugButton in menu[(int)state].BugButtons){
+                if(bugButton.ButtonObject != currentBugButton.ButtonObject && bugButton.ButtonObject != currentSwatterButton.ButtonObject){
+                    foreach (Animator anim in bugButton.AnimationObjects){
+                        anim.SetTrigger("out");
+                    }
                 }
             }
         }
@@ -368,6 +372,7 @@ public class GameManager : MonoBehaviour {
         Destroy(hand);
         Destroy(GameObject.FindGameObjectWithTag("web"));
         gnatSpawner.SetActive(false);
+        berryMode.SetActive(false);
         foreach (GameObject dead in GameObject.FindGameObjectsWithTag("dead")) {
             Destroy(dead);
         }

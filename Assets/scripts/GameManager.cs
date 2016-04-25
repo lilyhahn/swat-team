@@ -261,6 +261,9 @@ public class GameManager : MonoBehaviour {
                     LeanTween.moveLocal(menu[(int)StateType.SelectingCharacter].MenuObject, shelfPosition, menuTransitionTime);
                     LeanTween.moveLocal(menu[(int)StateType.SelectingMode].MenuObject, menu[(int)StateType.SelectingMode].InitialPosition, menuTransitionTime);
                     LeanTween.scale(menu[(int)StateType.SelectingMode].MenuObject, menu[(int)StateType.SelectingMode].InitialScale, menuTransitionTime);
+                    GetComponent<AudioSource>().clip = menuMusic;
+                    GetComponent<AudioSource>().time = 0f;
+                    GetComponent<AudioSource>().Play();
                     Cleanup();
                     bugBorders.gameObject.SetActive(true);
                     swatterBorders.gameObject.SetActive(true);
@@ -268,23 +271,28 @@ public class GameManager : MonoBehaviour {
                 break;
 			}
 		}
-        if(menu[(int)state].SwatterButtons.Length > 0){
-            foreach (MenuButton swatterButton in menu[(int)state].SwatterButtons){
-                if(swatterButton.ButtonObject != currentSwatterButton.ButtonObject && swatterButton.ButtonObject != currentBugButton.ButtonObject){
-                    foreach (Animator anim in swatterButton.AnimationObjects){
-                        anim.SetTrigger("out");
+        try{
+            if(menu[(int)state].SwatterButtons.Length > 0){
+                foreach (MenuButton swatterButton in menu[(int)state].SwatterButtons){
+                    if(swatterButton.ButtonObject != currentSwatterButton.ButtonObject && swatterButton.ButtonObject != currentBugButton.ButtonObject){
+                        foreach (Animator anim in swatterButton.AnimationObjects){
+                            anim.SetTrigger("out");
+                        }
+                    }
+                }
+            }
+            if(menu[(int)state].BugButtons.Length > 0){
+                foreach (MenuButton bugButton in menu[(int)state].BugButtons){
+                    if(bugButton.ButtonObject != currentBugButton.ButtonObject && bugButton.ButtonObject != currentSwatterButton.ButtonObject){
+                        foreach (Animator anim in bugButton.AnimationObjects){
+                            anim.SetTrigger("out");
+                        }
                     }
                 }
             }
         }
-        if(menu[(int)state].BugButtons.Length > 0){
-            foreach (MenuButton bugButton in menu[(int)state].BugButtons){
-                if(bugButton.ButtonObject != currentBugButton.ButtonObject && bugButton.ButtonObject != currentSwatterButton.ButtonObject){
-                    foreach (Animator anim in bugButton.AnimationObjects){
-                        anim.SetTrigger("out");
-                    }
-                }
-            }
+        catch(System.ArgumentOutOfRangeException){
+            // ignore
         }
         foreach(Animator anim in currentSwatterButton.AnimationObjects){
             anim.SetTrigger("in");

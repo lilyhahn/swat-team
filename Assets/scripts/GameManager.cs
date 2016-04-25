@@ -50,6 +50,7 @@ public class MenuScreen{
 [System.Serializable]
 public class MenuButton {
     public GameObject ButtonObject;
+    public Animator[] AnimationObjects;
     public MenuAction Action;
 }
 
@@ -176,7 +177,13 @@ public class GameManager : MonoBehaviour {
             if(bugButtonIndex >= menu[(int)state].BugButtons.Length){
                 bugButtonIndex = 0;
             }
+            foreach (Animator lastAnim in currentBugButton.AnimationObjects){
+                lastAnim.SetTrigger("out");
+            }
             currentBugButton = menu[(int)state].BugButtons[bugButtonIndex];
+            foreach(Animator anim in currentBugButton.AnimationObjects){
+                anim.SetTrigger("in");
+            }
             bugBorders.DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
         }
         if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) == 0 && Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) == 0){
@@ -198,6 +205,14 @@ public class GameManager : MonoBehaviour {
                 buttonHit = null;
             }
             if (buttonHit != null) {
+                /*if(buttonHit.ButtonObject != currentSwatterButton.ButtonObject){
+                    foreach (Animator lastAnim in currentSwatterButton.AnimationObjects){
+                        lastAnim.SetTrigger("out");
+                    }
+                    foreach(Animator anim in buttonHit.AnimationObjects){
+                        anim.SetTrigger("in");
+                    }
+                }*/
                 swatterBorders.DrawBorders(buttonHit.ButtonObject.GetComponent<BoxCollider2D>());
                 currentSwatterButton = buttonHit;
                 swatterButtonIndex = System.Array.FindIndex(menu[(int)state].SwatterButtons, delegate(MenuButton b){return b.ButtonObject == hit.transform.gameObject;});
@@ -248,6 +263,26 @@ public class GameManager : MonoBehaviour {
                 break;
 			}
 		}
+        foreach (MenuButton swatterButton in menu[(int)state].SwatterButtons){
+            if(swatterButton.ButtonObject != currentSwatterButton.ButtonObject && swatterButton.ButtonObject != currentBugButton.ButtonObject){
+                foreach (Animator anim in swatterButton.AnimationObjects){
+                    anim.SetTrigger("out");
+                }
+            }
+        }
+        foreach (MenuButton bugButton in menu[(int)state].BugButtons){
+            if(bugButton.ButtonObject != currentBugButton.ButtonObject && bugButton.ButtonObject != currentSwatterButton.ButtonObject){
+                foreach (Animator anim in bugButton.AnimationObjects){
+                    anim.SetTrigger("out");
+                }
+            }
+        }
+        foreach(Animator anim in currentSwatterButton.AnimationObjects){
+            anim.SetTrigger("in");
+        }
+        foreach(Animator anim in currentBugButton.AnimationObjects){
+            anim.SetTrigger("in");
+        }
     }
     void UpdateZoom(float val) {
         Camera.main.orthographicSize = val;
@@ -515,6 +550,16 @@ public class GameManager : MonoBehaviour {
             case DirectionType.Backward:
                 if(!bugReady && !swatterReady){
                     PerformTransition(menu[(int)state], DirectionType.Backward);
+                    foreach (MenuButton swatterButton in menu[(int)StateType.SelectingMode].SwatterButtons){
+                        foreach (Animator anim in swatterButton.AnimationObjects){
+                            anim.SetTrigger("out");
+                        }
+                    }
+                    foreach (MenuButton bugButton in menu[(int)StateType.SelectingMode].BugButtons){
+                        foreach (Animator anim in bugButton.AnimationObjects){
+                            anim.SetTrigger("out");
+                        }
+                    }
                     state = StateType.SelectingMode;
                 }
                 switch(type){

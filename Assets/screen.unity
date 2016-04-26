@@ -8814,7 +8814,7 @@ MonoBehaviour:
       AnimationObjects: []
       Action:
         Direction: 1
-        ModeArg: 2
+        ModeArg: 11
         Type: 0
         MethodName: CharacterSelectTransition
     - ButtonObject: {fileID: 1314829742}
@@ -8850,7 +8850,7 @@ MonoBehaviour:
       AnimationObjects: []
       Action:
         Direction: 1
-        ModeArg: 6
+        ModeArg: 11
         Type: 0
         MethodName: CharacterSelectTransition
     - ButtonObject: {fileID: 1078415700}
@@ -8922,6 +8922,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b8894e41e931bcb47ad003288f7c5485, type: 3}
   - {fileID: 21300000, guid: 63a16fedb9dbd0d499b8584648f75b31, type: 3}
   - {fileID: 21300000, guid: 513d88859b1864741833cd9eb72f3b69, type: 3}
+  - {fileID: 21300000, guid: 7ae2799b9b2dcb645b12e1233d18a3aa, type: 3}
   selectedSprites:
   - {fileID: 0}
   - {fileID: 0}
@@ -8934,6 +8935,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7a25a588e00752a44b915a000d7b18ac, type: 3}
   - {fileID: 21300000, guid: 68a8b755e8605fe4f95d91e62681c5ad, type: 3}
   - {fileID: 21300000, guid: eb151f1681822334fb35d7c6bc6f9abb, type: 3}
+  - {fileID: 21300000, guid: 7ae2799b9b2dcb645b12e1233d18a3aa, type: 3}
 --- !u!4 &2037015352
 Transform:
   m_ObjectHideFlags: 0

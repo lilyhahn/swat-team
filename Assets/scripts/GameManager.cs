@@ -20,7 +20,8 @@ public enum SelectionArgument {
     Lady,
     Spider,
     Wasp,
-    Worm
+    Worm,
+    Back
 }
 
 public enum SelectionType{
@@ -171,8 +172,12 @@ public class GameManager : MonoBehaviour {
         swatterBorders.DrawBorders(currentSwatterButton.ButtonObject.GetComponent<BoxCollider2D>());
         if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown && !bugReady && state != StateType.InGame){
             bugAxisDown = true;
-            bugButtonIndex += (int) Input.GetAxisRaw("Horizontal (Bug Menu)");
-            bugButtonIndex += (int) Input.GetAxisRaw("Vertical (Bug Menu)");
+            if (Input.GetAxisRaw("Horizontal (Bug Menu)") > 0 || Input.GetAxisRaw("Vertical (Bug Menu)") > 0) {
+                bugButtonIndex += 1;
+            }
+            else if (Input.GetAxisRaw("Horizontal (Bug Menu)") < 0 || Input.GetAxisRaw("Vertical (Bug Menu)") < 0) {
+                bugButtonIndex -= 1;
+            }
             if(bugButtonIndex < 0){
                 bugButtonIndex = menu[(int)state].BugButtons.Length - 1;
             }
@@ -197,8 +202,11 @@ public class GameManager : MonoBehaviour {
         if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown && bugReady){
             CharacterSelectTransition(DirectionType.Backward, currentBugButton.Action.ModeArg, SelectionType.Bug);
         }
-        if(Input.GetButtonDown("Cancel (Bug)") && bugReady){
+        if (Input.GetButtonDown("Cancel (Bug)") && state == StateType.SelectingCharacter && bugReady) {
             CharacterSelectTransition(DirectionType.Backward, currentBugButton.Action.ModeArg, SelectionType.Bug);
+        }
+        else if (Input.GetButtonDown("Cancel (Bug)") && state == StateType.SelectingCharacter && !bugReady) {
+            CharacterSelectTransition(DirectionType.Backward, SelectionArgument.Back, SelectionType.Bug);
         }
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer(state.ToString()));
         MenuButton buttonHit = null;
@@ -306,7 +314,7 @@ public class GameManager : MonoBehaviour {
     }
     IEnumerator StartGame(){
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         paused = true;
 		GetComponent<AudioSource>().Stop ();
         Instantiate(characters[(int)selectedBug], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity);

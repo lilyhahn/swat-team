@@ -41,6 +41,7 @@ public class Bug : MonoBehaviour {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         origMaxSpeed = maxSpeed;
         origMoveSpeed = moveSpeed;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Bug"), LayerMask.NameToLayer("Swatter"), false);
     }
 
     virtual protected void Move() {
@@ -207,12 +208,14 @@ public class Bug : MonoBehaviour {
             GetComponent<AudioSource>().Play();
         }
         if(c.tag == "cover"){
-            Physics2D.IgnoreCollision(gameManager.hand.transform.Find("anim").GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>(), true);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Bug"), LayerMask.NameToLayer("Swatter"));
+            Debug.Log("In cover");
         }
     }
     protected virtual void OnTriggerExit2D(Collider2D c){
         if(c.tag == "cover"){
-            Physics2D.IgnoreCollision(gameManager.hand.transform.Find("anim").GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Bug"), LayerMask.NameToLayer("Swatter"), false);
+            Debug.Log("Left cover");
         }
     }
     protected virtual void OnCollisionEnter2D(Collision2D c) {

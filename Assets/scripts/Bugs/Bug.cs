@@ -206,6 +206,14 @@ public class Bug : MonoBehaviour {
             GetComponent<AudioSource>().clip = berrySnatchSound;
             GetComponent<AudioSource>().Play();
         }
+        if(c.tag == "cover"){
+            Physics2D.IgnoreCollision(gameManager.hand.transform.Find("anim").GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>(), true);
+        }
+    }
+    protected virtual void OnTriggerExit2D(Collider2D c){
+        if(c.tag == "cover"){
+            Physics2D.IgnoreCollision(gameManager.hand.transform.Find("anim").GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+        }
     }
     protected virtual void OnCollisionEnter2D(Collision2D c) {
         if (c.gameObject.tag == "gnat" && !dead) {

@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 7a25a588e00752a44b915a000d7b18ac
-timeCreated: 1457799364
+guid: d9c1aef5dc5bd49b8875cdb6ea5d7cd9
+timeCreated: 1461683866
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: spid_out_0
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -41,25 +40,15 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: .5, y: .270000011}
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: spid_out_0
-      rect:
-        serializedVersion: 2
-        x: 299
-        y: 118
-        width: 36
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

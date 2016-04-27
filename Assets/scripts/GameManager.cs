@@ -114,6 +114,9 @@ public class GameManager : MonoBehaviour {
     public GameObject bugSelectControls;
     public GameObject swatterSelectControls;
     
+    public Vector3 inGameScale;
+    public float inGamePositionRadius;
+    
     public Sprite[] unselectedSprites;
     public Sprite[] selectedSprites;
 
@@ -123,7 +126,7 @@ public class GameManager : MonoBehaviour {
     SelectionArgument selectedSwatter = SelectionArgument.Old;
     SelectionArgument selectedBug = SelectionArgument.Ant;
 	SelectionArgument mode = 0;
-    GameObject hand;
+    public GameObject hand;
     bool swatterScrolling = false;
     bool bugScrolling = false;
     bool selectingCharacterActive = false;
@@ -196,7 +199,7 @@ public class GameManager : MonoBehaviour {
         if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) == 0 && Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) == 0){
             bugAxisDown = false;
         }
-        if(Input.GetButtonDown("Submit (Bug)")){
+        if(Input.GetButtonDown("Submit (Bug)") && state != StateType.InGame){
             currentBugButton.Action.Activate(this);
         }
         if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown && bugReady){
@@ -313,6 +316,9 @@ public class GameManager : MonoBehaviour {
         Camera.main.orthographicSize = val;
     }
     IEnumerator StartGame(){
+        LeanTween.scale(menu[(int)StateType.InGame].MenuObject, inGameScale, menuTransitionTime);
+        LeanTween.move(menu[(int)StateType.InGame].MenuObject, Random.insideUnitCircle * inGamePositionRadius, menuTransitionTime);
+        yield return new WaitForSeconds(menuTransitionTime);
         Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
         paused = true;

@@ -18,6 +18,7 @@ TagManager:
   - berry outline
   - hit
   - menu advance
+  - cover
   layers:
   - Default
   - TransparentFX
@@ -40,7 +41,7 @@ TagManager:
   - SelectingCharacter
   - InGame
   - GameOver
-  - 
+  - Cover
   - 
   - 
   - 

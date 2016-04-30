@@ -12,7 +12,7 @@ GameObject:
   - 212: {fileID: 21200000}
   - 82: {fileID: 8200000}
   - 61: {fileID: 6100000}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: normal
   m_TagString: swatter
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 4: {fileID: 465098}
   - 212: {fileID: 21224680}
   - 95: {fileID: 9514618}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: swatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - 4: {fileID: 418088}
   - 212: {fileID: 21242358}
   - 95: {fileID: 9503926}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: bug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   - 4: {fileID: 450036}
   - 212: {fileID: 21278520}
   - 95: {fileID: 9588250}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: key_swatter_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - 4: {fileID: 455244}
   - 212: {fileID: 21263154}
   - 95: {fileID: 9595780}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - 95: {fileID: 9554294}
   - 61: {fileID: 6190852}
   - 114: {fileID: 11471816}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - 4: {fileID: 499026}
   - 114: {fileID: 11472556}
   - 114: {fileID: 11437446}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - 4: {fileID: 413108}
   - 212: {fileID: 21288266}
   - 95: {fileID: 9512240}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: key_bug_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 499366}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: combo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 499302}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: keyboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

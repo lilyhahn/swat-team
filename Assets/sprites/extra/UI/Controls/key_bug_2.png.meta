@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 7cb2ecddd621d40359fa9d9728ed3526
-timeCreated: 1455131480
+timeCreated: 1461590249
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: key_bug_2_0
+    21300002: key_bug_2_1
+    21300004: key_bug_2_2
+    21300006: key_bug_2_3
+    21300008: key_bug_2_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -53,10 +57,50 @@ TextureImporter:
     - name: key_bug_2_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 36
+        y: 48
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: key_bug_2_1
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 36
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: key_bug_2_2
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 36
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: key_bug_2_3
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 36
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: key_bug_2_4
+      rect:
+        serializedVersion: 2
+        x: 10
         y: 21
-        width: 79
-        height: 42
+        width: 60
+        height: 9
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

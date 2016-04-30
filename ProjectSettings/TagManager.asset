@@ -17,6 +17,8 @@ TagManager:
   - swatter
   - berry outline
   - hit
+  - menu advance
+  - cover
   layers:
   - Default
   - TransparentFX
@@ -32,15 +34,15 @@ TagManager:
   - Pickup
   - WormPart
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Swatter
+  - PreMenu
+  - MainMenu
+  - SelectingMode
+  - SelectingCharacter
+  - InGame
+  - GameOver
+  - Cover
+  - GnatCollision
   - 
   - 
   - 
@@ -74,4 +76,22 @@ TagManager:
     locked: 0
   - name: foreground ui
     uniqueID: 125163033
+    locked: 0
+  - name: GameOver
+    uniqueID: 1843555893
+    locked: 0
+  - name: InGame
+    uniqueID: 700358645
+    locked: 0
+  - name: SelectingMode
+    uniqueID: 2040594151
+    locked: 0
+  - name: SelectingCharacter
+    uniqueID: 3959400073
+    locked: 0
+  - name: MainMenu
+    uniqueID: 654032459
+    locked: 0
+  - name: PreMenu
+    uniqueID: 3728177355
     locked: 0

@@ -14,7 +14,7 @@ GameObject:
   - 58: {fileID: 5800002}
   - 58: {fileID: 5800000}
   - 61: {fileID: 6100000}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: petit
   m_TagString: swatter
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ GameObject:
   - 212: {fileID: 21200002}
   - 95: {fileID: 9500002}
   - 114: {fileID: 11400002}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   - 212: {fileID: 21200004}
   - 95: {fileID: 9500004}
   - 114: {fileID: 11400004}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   - 4: {fileID: 443338}
   - 212: {fileID: 21272070}
   - 95: {fileID: 9514908}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: key_bug_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - 61: {fileID: 6182180}
   - 61: {fileID: 6138722}
   - 114: {fileID: 11404570}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - 4: {fileID: 484640}
   - 114: {fileID: 11484448}
   - 114: {fileID: 11413620}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - 4: {fileID: 470396}
   - 212: {fileID: 21247834}
   - 95: {fileID: 9573146}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: bug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - 4: {fileID: 474832}
   - 212: {fileID: 21254060}
   - 95: {fileID: 9547300}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: swatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - 4: {fileID: 424838}
   - 212: {fileID: 21269240}
   - 95: {fileID: 9542162}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: key_swatter_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 432464}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: keyboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 426994}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: combo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   - 4: {fileID: 487128}
   - 212: {fileID: 21299820}
   - 95: {fileID: 9553134}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,6 +668,7 @@ MonoBehaviour:
   swatTime: .800000012
   swatTimeEnd: 1
   hit: {fileID: 9524958, guid: 1f03fee35f66a4ac483a934448fe63ab, type: 2}
+  webStuckColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

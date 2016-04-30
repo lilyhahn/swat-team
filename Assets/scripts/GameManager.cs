@@ -91,8 +91,9 @@ public class GameManager : MonoBehaviour {
     public GameObject stageSelectText;
     public Vector3 inGameCamera;
     public float inGameCameraZoom;
-    public AudioClip inGameMusic;
-    float inGameMusicTime = 0;
+    public AudioClip[] inGameMusic;
+    int inGameMusicIndex = 0;
+    int inGameMusicTime = 0;
     public GameObject gameOverText;
     public GameObject[] characters;
     public AudioClip humanWinJingle;
@@ -149,6 +150,8 @@ public class GameManager : MonoBehaviour {
     int swatterButtonIndex = 0;
     bool bugAxisDown;
     bool swatterAxisDown;
+    
+    int lastSamples = 0;
     void Start() {
         if (PlayerPrefs.HasKey("LastPlayed") && System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds - PlayerPrefs.GetInt("LastPlayed") >= controlPromptTime) {
             showControls = true;
@@ -172,6 +175,17 @@ public class GameManager : MonoBehaviour {
         currentSwatterButton = menu[(int)state].SwatterButtons[swatterButtonIndex];
     }
     void Update() {
+        if(state == StateType.InGame && !paused){
+            if(GetComponent<AudioSource>().timeSamples < lastSamples){
+                inGameMusicIndex++;
+                inGameMusicIndex %= inGameMusic.Length;
+                inGameMusicTime = 0;
+                GetComponent<AudioSource>().clip = inGameMusic[inGameMusicIndex];
+                GetComponent<AudioSource>().Play();
+                Debug.Log("looped");
+            }
+            lastSamples = GetComponent<AudioSource>().timeSamples;
+        }
         bugBorders.DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
         swatterBorders.DrawBorders(currentSwatterButton.ButtonObject.GetComponent<BoxCollider2D>());
         if((Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) > 0) && !bugAxisDown && !bugReady && state != StateType.InGame){
@@ -256,7 +270,7 @@ public class GameManager : MonoBehaviour {
         }
 		if(Input.GetButtonDown ("Cancel")){
 			switch(state){
-                case StateType.InGame:
+                /*case StateType.InGame:
                     if (!paused) {
                         Time.timeScale = 0;
                         paused = true;
@@ -264,7 +278,7 @@ public class GameManager : MonoBehaviour {
                     else {
                         StartCoroutine(Resume());
                     }
-                    break;
+                    break;*/
 			    case StateType.MainMenu:
 				    Application.Quit();
 				    break;
@@ -318,6 +332,7 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator StartGame(){
+        state = StateType.InGame;
         if(mode == SelectionArgument.Gnat){
             LeanTween.scale(menu[(int)StateType.InGame].MenuObject, inGameScale, menuTransitionTime);
             LeanTween.move(menu[(int)StateType.InGame].MenuObject, Random.insideUnitCircle * inGamePositionRadius, menuTransitionTime);
@@ -340,7 +355,6 @@ public class GameManager : MonoBehaviour {
         Instantiate(characters[(int)selectedBug], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity);
         hand = Instantiate(characters[(int)selectedSwatter]) as GameObject;
 		inGame = true;
-		state = StateType.InGame;
 		countdown.gameObject.SetActive(true);
     	countdown.text = "3";
     	GetComponent<AudioSource>().PlayOneShot(beep12);
@@ -352,8 +366,9 @@ public class GameManager : MonoBehaviour {
 		GetComponent<AudioSource>().PlayOneShot(beep3);
     	yield return new WaitForSeconds(1f);
     	countdown.gameObject.SetActive(false);
-		GetComponent<AudioSource>().clip = inGameMusic;
-		GetComponent<AudioSource>().time = inGameMusicTime;
+        GetComponent<AudioSource>().clip = inGameMusic[inGameMusicIndex];
+		GetComponent<AudioSource>().timeSamples = inGameMusicTime;
+        lastSamples = GetComponent<AudioSource>().timeSamples;
 		GetComponent<AudioSource>().Play();
 		if(mode == SelectionArgument.Gnat){
 			gnatSpawner.SetActive(true);
@@ -364,7 +379,7 @@ public class GameManager : MonoBehaviour {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     	inGame = false;
-        inGameMusicTime = GetComponent<AudioSource>().time;
+        inGameMusicTime = GetComponent<AudioSource>().timeSamples;
         endTime = Time.time;
         gameOverText.SetActive(true);
         state = StateType.GameOver;

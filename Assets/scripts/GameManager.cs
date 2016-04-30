@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour {
     
     public Vector3 inGameScale;
     public float inGamePositionRadius;
+    public Vector3 berryModePosition;
     
     public Sprite[] unselectedSprites;
     public Sprite[] selectedSprites;
@@ -315,9 +316,22 @@ public class GameManager : MonoBehaviour {
     void UpdateZoom(float val) {
         Camera.main.orthographicSize = val;
     }
+
     IEnumerator StartGame(){
-        LeanTween.scale(menu[(int)StateType.InGame].MenuObject, inGameScale, menuTransitionTime);
-        LeanTween.move(menu[(int)StateType.InGame].MenuObject, Random.insideUnitCircle * inGamePositionRadius, menuTransitionTime);
+        if(mode == SelectionArgument.Gnat){
+            LeanTween.scale(menu[(int)StateType.InGame].MenuObject, inGameScale, menuTransitionTime);
+            LeanTween.move(menu[(int)StateType.InGame].MenuObject, Random.insideUnitCircle * inGamePositionRadius, menuTransitionTime);
+        }
+        else{
+            LeanTween.scale(menu[(int)StateType.InGame].MenuObject, inGameScale, menuTransitionTime);
+            LeanTween.move(menu[(int)StateType.InGame].MenuObject, berryModePosition, menuTransitionTime);
+        }
+        if(mode == SelectionArgument.Berry){
+			berryMode.SetActive(true);
+            foreach(GameObject outline in berryOutlines){
+                outline.SetActive(true);
+            }
+		}
         yield return new WaitForSeconds(menuTransitionTime);
         Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
@@ -327,12 +341,6 @@ public class GameManager : MonoBehaviour {
         hand = Instantiate(characters[(int)selectedSwatter]) as GameObject;
 		inGame = true;
 		state = StateType.InGame;
-		if(mode == SelectionArgument.Berry){
-			berryMode.SetActive(true);
-            foreach(GameObject outline in berryOutlines){
-                outline.SetActive(true);
-            }
-		}
 		countdown.gameObject.SetActive(true);
     	countdown.text = "3";
     	GetComponent<AudioSource>().PlayOneShot(beep12);
@@ -394,7 +402,6 @@ public class GameManager : MonoBehaviour {
         Destroy(hand);
         Destroy(GameObject.FindGameObjectWithTag("web"));
         gnatSpawner.SetActive(false);
-        berryMode.SetActive(false);
         foreach (GameObject dead in GameObject.FindGameObjectsWithTag("dead")) {
             Destroy(dead);
         }
@@ -417,6 +424,7 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+        berryMode.SetActive(false);
         for(int i = 1; i < menu[(int)StateType.SelectingCharacter].BugButtons.Length; i++){
             menu[(int)StateType.SelectingCharacter].BugButtons[i].ButtonObject.GetComponent<SpriteRenderer>().sprite = unselectedSprites[(int)menu[(int)StateType.SelectingCharacter].BugButtons[i].Action.ModeArg];
             menu[(int)StateType.SelectingCharacter].BugButtons[i].ButtonObject.GetComponent<BoxCollider2D>().size = unselectedSprites[(int)menu[(int)StateType.SelectingCharacter].BugButtons[i].Action.ModeArg].bounds.size;

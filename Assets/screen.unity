@@ -3810,7 +3810,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -.305000007, y: .564899981, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1100371798}
   m_Father: {fileID: 1072217580}
   m_RootOrder: 1
 --- !u!212 &889661222
@@ -4710,7 +4711,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.18200004, y: -.138999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2009044451}
   m_Father: {fileID: 1072217580}
   m_RootOrder: 4
 --- !u!212 &1078415702
@@ -4783,6 +4785,60 @@ Transform:
   - {fileID: 1072217580}
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!1 &1100371797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1100371798}
+  - 212: {fileID: 1100371799}
+  m_Layer: 0
+  m_Name: Board-1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1100371798
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1100371797}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.610000014, y: -.105999999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 889661221}
+  m_RootOrder: 0
+--- !u!212 &1100371799
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1100371797}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -335567223
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 2ef44887a062341bbb4653be32e71b75, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1113465236
 GameObject:
   m_ObjectHideFlags: 0
@@ -9432,6 +9488,60 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .481401354, y: 1.06979072}
+--- !u!1 &2009044450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2009044451}
+  - 212: {fileID: 2009044452}
+  m_Layer: 0
+  m_Name: Board-2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2009044451
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2009044450}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.289999992, y: -.0189999994, z: 0}
+  m_LocalScale: {x: .400000006, y: .200000003, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1078415701}
+  m_RootOrder: 0
+--- !u!212 &2009044452
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2009044450}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -335567223
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 2ef44887a062341bbb4653be32e71b75, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2014525243
 GameObject:
   m_ObjectHideFlags: 0
@@ -9913,13 +10023,6 @@ MonoBehaviour:
         ModeArg: 2
         Type: 2
         MethodName: CharacterSelectTransition
-    - ButtonObject: {fileID: 889661220}
-      AnimationObjects: []
-      Action:
-        Direction: 0
-        ModeArg: 3
-        Type: 2
-        MethodName: CharacterSelectTransition
     - ButtonObject: {fileID: 45234275}
       AnimationObjects: []
       Action:
@@ -9941,13 +10044,6 @@ MonoBehaviour:
         Direction: 1
         ModeArg: 11
         Type: 0
-        MethodName: CharacterSelectTransition
-    - ButtonObject: {fileID: 1078415700}
-      AnimationObjects: []
-      Action:
-        Direction: 0
-        ModeArg: 6
-        Type: 1
         MethodName: CharacterSelectTransition
     - ButtonObject: {fileID: 1728888574}
       AnimationObjects: []
@@ -10001,6 +10097,7 @@ MonoBehaviour:
   swatterSelectControls: {fileID: 1278034890}
   inGameScale: {x: 20, y: 20, z: 1}
   inGamePositionRadius: 15
+  berryModePosition: {x: 37.2999992, y: 0, z: 0}
   unselectedSprites:
   - {fileID: 0}
   - {fileID: 0}

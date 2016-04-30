@@ -1042,7 +1042,7 @@ LineRenderer:
     endWidth: 1
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294967295
+      rgba: 4290953922
     m_EndColor:
       serializedVersion: 2
       rgba: 4294967295
@@ -2656,7 +2656,7 @@ LineRenderer:
     endWidth: 1
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294967295
+      rgba: 4290953922
     m_EndColor:
       serializedVersion: 2
       rgba: 4294967295
@@ -4781,7 +4781,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1090548081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .145999998, y: .652999997, z: 0}
+  m_LocalPosition: {x: .145999998, y: -.648000002, z: 0}
   m_LocalScale: {x: .0199999996, y: .0199999996, z: 1}
   m_Children: []
   m_Father: {fileID: 152746371}
@@ -6356,7 +6356,7 @@ LineRenderer:
     endWidth: 1
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294967295
+      rgba: 4290953922
     m_EndColor:
       serializedVersion: 2
       rgba: 4294967295
@@ -7982,7 +7982,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1673285339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.92900002, y: .671000004, z: 0}
+  m_LocalPosition: {x: -.92900002, y: -.648000002, z: 0}
   m_LocalScale: {x: .0199999996, y: .0199999996, z: 1}
   m_Children: []
   m_Father: {fileID: 152746371}
@@ -10087,7 +10087,9 @@ MonoBehaviour:
     - {x: 5, y: 5, z: 1}
     - {x: 5, y: 5, z: 1}
     MenuObject: {fileID: 152746370}
-    AlphaObjects: []
+    AlphaObjects:
+    - {fileID: 1673285339}
+    - {fileID: 1090548081}
     GrayscaleObjects:
     - {fileID: 152746370}
     - {fileID: 2002282474}
@@ -10111,8 +10113,6 @@ MonoBehaviour:
     - {fileID: 1663165139}
     - {fileID: 147558086}
     - {fileID: 964951724}
-    - {fileID: 1673285339}
-    - {fileID: 1090548081}
     SwatterButtons:
     - ButtonObject: {fileID: 71945854}
       AnimationObjects: []
@@ -11154,7 +11154,7 @@ LineRenderer:
     endWidth: 1
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294967295
+      rgba: 4290953922
     m_EndColor:
       serializedVersion: 2
       rgba: 4294967295

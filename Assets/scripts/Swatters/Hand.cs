@@ -27,6 +27,7 @@ public class Hand : MonoBehaviour {
 	// Update is called once per frame
 	protected virtual void FixedUpdate () {
 		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("swat") && anim.GetCurrentAnimatorStateInfo (0).normalizedTime >= swatTime && anim.GetCurrentAnimatorStateInfo (0).normalizedTime <= swatTimeEnd) {
+			Camera.main.GetComponent<CameraShake>().PlayShake(0.5f, 0.5f, 0.05f);
 			Instantiate(hit, anim.transform.position, Quaternion.identity);
             foreach(GameObject gnat in GameObject.FindGameObjectsWithTag("gnat")){
 				if(Vector3.Distance(transform.position, gnat.transform.position) <= gnatScatterRadius){

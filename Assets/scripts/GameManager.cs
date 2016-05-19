@@ -283,6 +283,8 @@ public class GameManager : MonoBehaviour {
 				    Application.Quit();
 				    break;
                 case StateType.GameOver:
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
                     PerformTransition(menu[(int)StateType.InGame], DirectionType.Backward);
                     LeanTween.moveLocal(menu[(int)StateType.SelectingCharacter].MenuObject, shelfPosition, menuTransitionTime);
                     LeanTween.moveLocal(menu[(int)StateType.SelectingMode].MenuObject, menu[(int)StateType.SelectingMode].InitialPosition, menuTransitionTime);
@@ -376,8 +378,6 @@ public class GameManager : MonoBehaviour {
         paused = false;
 	}
     public void EndGame(WinnerType winner) {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
     	inGame = false;
         inGameMusicTime = GetComponent<AudioSource>().timeSamples;
         endTime = Time.time;

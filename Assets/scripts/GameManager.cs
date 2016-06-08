@@ -351,7 +351,7 @@ public class GameManager : MonoBehaviour {
 		}
         yield return new WaitForSeconds(menuTransitionTime);
         Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         paused = true;
 		GetComponent<AudioSource>().Stop ();
         Instantiate(characters[(int)selectedBug], Random.insideUnitCircle * randomSpawnRadius, Quaternion.identity);

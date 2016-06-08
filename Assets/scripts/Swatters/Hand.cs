@@ -56,10 +56,10 @@ public class Hand : MonoBehaviour {
         }
         lastAnimPosition = anim.transform.position;
         if(!GameObject.Find("GameManager").GetComponent<GameManager>().paused){
-            //transform.position += new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            //transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
+            transform.position += new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            transform.position += new Vector3(Input.GetAxis("Swatter X"), Input.GetAxis("Swatter Y"));
             // temp for wii remote
-            transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+            //transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
 		    if(Input.GetButtonDown("Swat") && !anim.GetCurrentAnimatorStateInfo(0).IsName("swat")){
 			    GetComponent<AudioSource>().clip = miss;
 			    GetComponent<AudioSource>().Play();

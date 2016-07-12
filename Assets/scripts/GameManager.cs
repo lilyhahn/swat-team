@@ -226,6 +226,45 @@ public class GameManager : MonoBehaviour {
         else if (Input.GetButtonDown("Cancel (Bug)") && state == StateType.SelectingCharacter && !bugReady) {
             CharacterSelectTransition(DirectionType.Backward, SelectionArgument.Back, SelectionType.Bug);
         }
+
+        if ((Mathf.Abs(Input.GetAxisRaw("Horizontal (Swatter Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Swatter Menu)")) > 0) && !swatterAxisDown && !swatterReady && state != StateType.InGame) {
+            swatterAxisDown = true;
+            if (Input.GetAxisRaw("Horizontal (Swatter Menu)") > 0 || Input.GetAxisRaw("Vertical (Swatter Menu)") > 0) {
+                swatterButtonIndex += 1;
+            }
+            else if (Input.GetAxisRaw("Horizontal (Swatter Menu)") < 0 || Input.GetAxisRaw("Vertical (Swatter Menu)") < 0) {
+                swatterButtonIndex -= 1;
+            }
+            if (swatterButtonIndex < 0) {
+                swatterButtonIndex = menu[(int)state].SwatterButtons.Length - 1;
+            }
+            if (swatterButtonIndex >= menu[(int)state].SwatterButtons.Length) {
+                swatterButtonIndex = 0;
+            }
+            foreach (Animator lastAnim in currentSwatterButton.AnimationObjects) {
+                lastAnim.SetTrigger("out");
+            }
+            currentSwatterButton = menu[(int)state].SwatterButtons[swatterButtonIndex];
+            foreach (Animator anim in currentSwatterButton.AnimationObjects) {
+                anim.SetTrigger("in");
+            }
+            swatterBorders.DrawBorders(currentSwatterButton.ButtonObject.GetComponent<BoxCollider2D>());
+        }
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal (Swatter Menu)")) == 0 && Mathf.Abs(Input.GetAxisRaw("Vertical (Swatter Menu)")) == 0) {
+            swatterAxisDown = false;
+        }
+        if (Input.GetButtonDown("Submit (Swatter)") && state != StateType.InGame) {
+            currentSwatterButton.Action.Activate(this);
+        }
+        if ((Mathf.Abs(Input.GetAxisRaw("Horizontal (Swatter Menu)")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical (Swatter Menu)")) > 0) && !swatterAxisDown && swatterReady) {
+            CharacterSelectTransition(DirectionType.Backward, currentSwatterButton.Action.ModeArg, SelectionType.Swatter);
+        }
+        if (Input.GetButtonDown("Cancel (Swatter)") && state == StateType.SelectingCharacter && swatterReady) {
+            CharacterSelectTransition(DirectionType.Backward, currentSwatterButton.Action.ModeArg, SelectionType.Swatter);
+        }
+        else if (Input.GetButtonDown("Cancel (Swatter)") && state == StateType.SelectingCharacter && !swatterReady) {
+            CharacterSelectTransition(DirectionType.Backward, SelectionArgument.Back, SelectionType.Swatter);
+        }
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 1 << LayerMask.NameToLayer(state.ToString()));
         MenuButton buttonHit = null;
         if(hit.collider != null && !swatterReady){

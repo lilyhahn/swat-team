@@ -646,6 +646,7 @@ MonoBehaviour:
   stuckShakeMagnitude: .100000001
   swatTime: .699999988
   swatTimeEnd: .800000012
+  sensitivity: 1
   hit: {fileID: 9524958, guid: 1f03fee35f66a4ac483a934448fe63ab, type: 2}
   webStuckColor: {r: 0, g: 0, b: 0, a: 0}
   chargeRate: 3.5

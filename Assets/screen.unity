@@ -4263,7 +4263,7 @@ Animator:
   m_GameObject: {fileID: 964951724}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a56f9f999334442669cda2e09011781e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9ada32a2fc1413b4b893b038fba034aa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -10086,6 +10086,8 @@ MonoBehaviour:
         ModeArg: 0
         Type: 0
         MethodName: 
+      bugCursorOver: 0
+      swatterCursorOver: 0
     BugButtons:
     - ButtonObject: {fileID: 179892699}
       AnimationObjects: []
@@ -10094,6 +10096,8 @@ MonoBehaviour:
         ModeArg: 0
         Type: 0
         MethodName: 
+      bugCursorOver: 0
+      swatterCursorOver: 0
   - InitialPosition: {x: 0, y: 0, z: 0}
     InitialScale: {x: 5, y: 5, z: 1}
     FinalPosition:
@@ -10115,6 +10119,8 @@ MonoBehaviour:
         ModeArg: 0
         Type: 0
         MethodName: MainMenuTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     BugButtons:
     - ButtonObject: {fileID: 18679519}
       AnimationObjects: []
@@ -10123,6 +10129,8 @@ MonoBehaviour:
         ModeArg: 0
         Type: 0
         MethodName: MainMenuTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
   - InitialPosition: {x: 0, y: 0, z: 0}
     InitialScale: {x: 5, y: 5, z: 1}
     FinalPosition:
@@ -10167,6 +10175,8 @@ MonoBehaviour:
         ModeArg: 0
         Type: 0
         MethodName: ModeSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 2002282474}
       AnimationObjects:
       - {fileID: 147558088}
@@ -10175,6 +10185,8 @@ MonoBehaviour:
         ModeArg: 0
         Type: 0
         MethodName: ModeSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 1765192343}
       AnimationObjects:
       - {fileID: 964951726}
@@ -10183,6 +10195,8 @@ MonoBehaviour:
         ModeArg: 1
         Type: 0
         MethodName: ModeSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     BugButtons:
     - ButtonObject: {fileID: 71945854}
       AnimationObjects: []
@@ -10191,6 +10205,8 @@ MonoBehaviour:
         ModeArg: 0
         Type: 0
         MethodName: ModeSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 2002282474}
       AnimationObjects:
       - {fileID: 147558088}
@@ -10199,6 +10215,8 @@ MonoBehaviour:
         ModeArg: 0
         Type: 0
         MethodName: ModeSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 1765192343}
       AnimationObjects:
       - {fileID: 964951726}
@@ -10207,6 +10225,8 @@ MonoBehaviour:
         ModeArg: 1
         Type: 0
         MethodName: ModeSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
   - InitialPosition: {x: 0, y: 8.15999985, z: 0}
     InitialScale: {x: 5, y: 5, z: 1}
     FinalPosition:
@@ -10248,6 +10268,8 @@ MonoBehaviour:
         ModeArg: 11
         Type: 0
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 1314829742}
       AnimationObjects: []
       Action:
@@ -10255,6 +10277,8 @@ MonoBehaviour:
         ModeArg: 2
         Type: 2
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 45234275}
       AnimationObjects: []
       Action:
@@ -10262,6 +10286,8 @@ MonoBehaviour:
         ModeArg: 4
         Type: 2
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 69241981}
       AnimationObjects: []
       Action:
@@ -10269,6 +10295,8 @@ MonoBehaviour:
         ModeArg: 5
         Type: 2
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     BugButtons:
     - ButtonObject: {fileID: 1537233395}
       AnimationObjects: []
@@ -10277,6 +10305,8 @@ MonoBehaviour:
         ModeArg: 11
         Type: 0
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 1728888574}
       AnimationObjects: []
       Action:
@@ -10284,6 +10314,8 @@ MonoBehaviour:
         ModeArg: 7
         Type: 1
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 695325625}
       AnimationObjects: []
       Action:
@@ -10291,6 +10323,8 @@ MonoBehaviour:
         ModeArg: 8
         Type: 1
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 1901287255}
       AnimationObjects: []
       Action:
@@ -10298,6 +10332,8 @@ MonoBehaviour:
         ModeArg: 9
         Type: 1
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
     - ButtonObject: {fileID: 665894767}
       AnimationObjects: []
       Action:
@@ -10305,6 +10341,8 @@ MonoBehaviour:
         ModeArg: 10
         Type: 1
         MethodName: CharacterSelectTransition
+      bugCursorOver: 0
+      swatterCursorOver: 0
   - InitialPosition: {x: 0, y: 0, z: 0}
     InitialScale: {x: 1, y: 1, z: 1}
     FinalPosition:

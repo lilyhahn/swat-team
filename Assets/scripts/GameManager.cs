@@ -53,6 +53,8 @@ public class MenuButton {
     public GameObject ButtonObject;
     public Animator[] AnimationObjects;
     public MenuAction Action;
+    public bool bugCursorOver = false;
+    public bool swatterCursorOver = false;
 }
 
 [System.Serializable]
@@ -202,13 +204,24 @@ public class GameManager : MonoBehaviour {
             if(bugButtonIndex >= menu[(int)state].BugButtons.Length){
                 bugButtonIndex = 0;
             }
-            foreach (Animator lastAnim in currentBugButton.AnimationObjects){
-                lastAnim.SetTrigger("out");
+            if (currentBugButton.AnimationObjects.Length > 0 && !currentBugButton.AnimationObjects[0].GetBool("swatterCursorOver")) {
+                foreach (Animator lastAnim in currentBugButton.AnimationObjects)
+                {
+                    //Debug.Log("Setting out trigger on " + lastAnim.gameObject.name);
+                    lastAnim.SetTrigger("out");
+                }
             }
+            foreach (Animator lastAnim in currentBugButton.AnimationObjects) {
+                lastAnim.SetBool("bugCursorOver", false);
+            }
+            currentBugButton.bugCursorOver = false;
             currentBugButton = menu[(int)state].BugButtons[bugButtonIndex];
-            foreach(Animator anim in currentBugButton.AnimationObjects){
+            foreach (Animator anim in currentBugButton.AnimationObjects) {
+                //Debug.Log("Setting in trigger on " + anim.gameObject.name);
                 anim.SetTrigger("in");
+                anim.SetBool("bugCursorOver", true);
             }
+            currentBugButton.bugCursorOver = true;
             bugBorders.DrawBorders(currentBugButton.ButtonObject.GetComponent<BoxCollider2D>());
         }
         if(Mathf.Abs(Input.GetAxisRaw("Horizontal (Bug Menu)")) == 0 && Mathf.Abs(Input.GetAxisRaw("Vertical (Bug Menu)")) == 0){
@@ -236,16 +249,25 @@ public class GameManager : MonoBehaviour {
                 buttonHit = null;
             }
             if (buttonHit != null) {
-                /*if(buttonHit.ButtonObject != currentSwatterButton.ButtonObject){
-                    foreach (Animator lastAnim in currentSwatterButton.AnimationObjects){
-                        lastAnim.SetTrigger("out");
+                if (buttonHit.ButtonObject.gameObject.name != currentSwatterButton.ButtonObject.gameObject.name) {
+                    currentSwatterButton.swatterCursorOver = false;
+                    if (currentSwatterButton.AnimationObjects.Length > 0 && !currentSwatterButton.AnimationObjects[0].GetBool("bugCursorOver")) {
+                        foreach (Animator lastAnim in currentSwatterButton.AnimationObjects) {
+                            lastAnim.SetTrigger("out");
+                            
+                        }
                     }
-                    foreach(Animator anim in buttonHit.AnimationObjects){
+                    foreach (Animator lastAnim in currentSwatterButton.AnimationObjects) {
+                        lastAnim.SetBool("swatterCursorOver", false);
+                    }
+                    foreach (Animator anim in buttonHit.AnimationObjects){
                         anim.SetTrigger("in");
+                        anim.SetBool("swatterCursorOver", true);
                     }
-                }*/
+                }
                 swatterBorders.DrawBorders(buttonHit.ButtonObject.GetComponent<BoxCollider2D>());
                 currentSwatterButton = buttonHit;
+                currentSwatterButton.swatterCursorOver = true;
                 swatterButtonIndex = System.Array.FindIndex(menu[(int)state].SwatterButtons, delegate(MenuButton b){return b.ButtonObject == hit.transform.gameObject;});
             }
         }
@@ -299,35 +321,6 @@ public class GameManager : MonoBehaviour {
                 break;
 			}
 		}
-        try{
-            if(menu[(int)state].SwatterButtons.Length > 0){
-                foreach (MenuButton swatterButton in menu[(int)state].SwatterButtons){
-                    if(swatterButton.ButtonObject != currentSwatterButton.ButtonObject && swatterButton.ButtonObject != currentBugButton.ButtonObject){
-                        foreach (Animator anim in swatterButton.AnimationObjects){
-                            anim.SetTrigger("out");
-                        }
-                    }
-                }
-            }
-            if(menu[(int)state].BugButtons.Length > 0){
-                foreach (MenuButton bugButton in menu[(int)state].BugButtons){
-                    if(bugButton.ButtonObject != currentBugButton.ButtonObject && bugButton.ButtonObject != currentSwatterButton.ButtonObject){
-                        foreach (Animator anim in bugButton.AnimationObjects){
-                            anim.SetTrigger("out");
-                        }
-                    }
-                }
-            }
-        }
-        catch(System.ArgumentOutOfRangeException){
-            // ignore
-        }
-        foreach(Animator anim in currentSwatterButton.AnimationObjects){
-            anim.SetTrigger("in");
-        }
-        foreach(Animator anim in currentBugButton.AnimationObjects){
-            anim.SetTrigger("in");
-        }
     }
     void UpdateZoom(float val) {
         Camera.main.orthographicSize = val;
